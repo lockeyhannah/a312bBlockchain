@@ -40,7 +40,8 @@ public class NoobChain {
         for (int i = 1; i < blockchain.size(); i++){
             currentBlock = blockchain.get(i);
             previousBlock = blockchain.get(i - 1);
-
+            
+            //Disse if statements kan laves til exceptions.
             if(!currentBlock.hash.equals(currentBlock.calculateHash())){
                 System.out.println("Nuværende Hashes er ikke ens.");
                 return false;
