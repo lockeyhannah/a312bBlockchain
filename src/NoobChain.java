@@ -43,18 +43,18 @@ public class NoobChain {
             
             //Disse if statements kan laves til exceptions.
             if(!currentBlock.hash.equals(currentBlock.calculateHash())){
-                System.out.println("Nuværende Hashes er ikke ens.");
-                return false;
+                String msg = "Nuværende Hashes er ikke ens.";
+                throw new IllegalArgumentException(msg);
             }
 
             if (!previousBlock.hash.equals(currentBlock.previousHash)) {
-                System.out.println("Tidligere Hashes er ikke ens.");
-                return false;
+                String msg = "Tidligere Hashes er ikke ens.";
+                throw new IllegalArgumentException(msg);
             }
 
             if (!currentBlock.hash.substring(0, difficulty).equals(hashTarget)){
-                System.out.println("Denne block er ikke lavet.");
-                return false;
+                String msg = "Denne block er ikke lavet.";
+                throw new IllegalArgumentException(msg);
             }
         }
         return true;
