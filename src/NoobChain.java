@@ -11,12 +11,12 @@ public class NoobChain {
 
         String info = new String("hej");
 
-        blockchain.add(new Block("first block", "0"));
+        blockchain.add(new Block("0"));
         System.out.println("Igang med at lave block 1...");
         blockchain.get(0).mineBlock(difficulty);
 
         for (int i = 1; i < 5; i++){
-            blockchain.add(new Block(info, blockchain.get(blockchain.size()-1).hash));
+            blockchain.add(new Block(blockchain.get(blockchain.size()-1).hash));
             System.out.println("Igang med at lave block " + (i+1) + "..." );
             blockchain.get(i).mineBlock(difficulty);
         }

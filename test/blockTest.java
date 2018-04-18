@@ -4,13 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class blockTest {
 
-    Block block1 = new Block("0","0");
-    Block block2 = new Block("0","0");
+    Block block1 = new Block("0");
+    Block block2 = new Block("0");
 
     @BeforeEach
     public void beforeTests(){
-        block1 = new Block("hej med dig", "0");
-        block2 = new Block("hoohua", block1.hash);
+        block1 = new Block( "0");
+        block2 = new Block(block1.hash);
     }
 
 

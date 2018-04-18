@@ -1,3 +1,4 @@
+import block.Data;
 import java.util.Date;
 
 public class Block {
@@ -5,12 +6,11 @@ public class Block {
     public String hash; //hashen fra nuværende block
     public String previousHash; //hashen fra en tidligere block
 
-    private String data; //dataen fra blocken
+    private Data data; //dataen fra blocken
     private long timeStamp;
     private int nonce;
 
-    public Block(String data, String previousHash) {
-        this.data = data;
+    public Block(String previousHash) {
         this.previousHash = previousHash;
         this.timeStamp = new Date().getTime();
         this.hash = calculateHash();
