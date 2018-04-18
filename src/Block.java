@@ -26,7 +26,7 @@ public class Block {
         //Laver en String med difficulty 0:
         String target = new String(new char[difficulty]).replace('\0', '0');
 
-        //Dette while loop siger: imen at hashens første x tal IKKE er lige så mange 0'er
+        //Dette while loop siger: imens at hashens første x tal IKKE er lige så mange 0'er
         //som difficultyen siger så skal den prøve igen med en ny nonce.
         while (!hash.substring(0, difficulty).equals(target)) {
             nonce++;
