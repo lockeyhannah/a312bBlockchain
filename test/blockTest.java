@@ -26,6 +26,7 @@ public class blockTest {
 
     @Test
     public void blockTest03(){
-
+        StringUtil.applySha256("");
+        //Ved ikke hvordan man tester en exception
     }
 }
