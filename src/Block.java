@@ -4,6 +4,7 @@ public class Block {
 
     public String hash; //hashen fra nuværende block
     public String previousHash; //hashen fra en tidligere block
+
     private String data; //dataen fra blocken
     private long timeStamp;
     private int nonce;
@@ -13,7 +14,6 @@ public class Block {
         this.previousHash = previousHash;
         this.timeStamp = new Date().getTime();
         this.hash = calculateHash();
-
     }
 
     public String calculateHash() {
