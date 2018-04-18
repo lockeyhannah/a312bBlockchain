@@ -3,6 +3,7 @@ import java.util.Date;
 
 public class Block {
 
+    //hej
     private Data data; //dataen fra blocken
 
 
