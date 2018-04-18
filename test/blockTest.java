@@ -26,7 +26,13 @@ public class blockTest {
 
     @Test
     public void blockTest03(){
+        block1.mineBlock(2);
+        assertEquals(block1.hash == "0", false);
+    }
+
+    /*@Test
+    public void blockTest03(){
         StringUtil.applySha256("");
         //Ved ikke hvordan man tester en exception
-    }
+    }*/
 }
