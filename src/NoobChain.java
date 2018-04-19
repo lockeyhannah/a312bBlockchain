@@ -1,3 +1,4 @@
+import java.math.BigInteger;
 import java.util.ArrayList;
 
 public class NoobChain {
@@ -5,7 +6,7 @@ public class NoobChain {
     public static ArrayList<Block> blockchain = new ArrayList<>();
 
     //Hvor mange nuller der skal være
-    public static int difficulty = 3;
+
 
     public static void main(String[] args) {
 
@@ -13,8 +14,8 @@ public class NoobChain {
 
         blockchain.add(new Block("0"));
         System.out.println("Igang med at lave block 1...");
-        blockchain.get(0).mineBlock(difficulty);
-
+        blockchain.get(0).mineBlock(calculateTarget());
+/*
         for (int i = 1; i < 5; i++){
             blockchain.add(new Block(blockchain.get(blockchain.size()-1).hash));
             System.out.println("Igang med at lave block " + (i+1) + "..." );
@@ -25,11 +26,16 @@ public class NoobChain {
 
         for (int i = 0; i < blockchain.size(); i++){
             System.out.println("Hash for block " + i + ": " + blockchain.get(i).hash);
-        }
+        }*/
+    }
+
+    private static BigInteger calculateTarget(){
+        BigInteger num = new BigInteger("2");
+        return num.pow(231);
     }
 
     //Tjekker om blockchainens data matcher hinanden
-    public static Boolean isChainValid() {
+/*    public static Boolean isChainValid() {
         Block currentBlock;
         Block previousBlock;
 
@@ -58,5 +64,5 @@ public class NoobChain {
             }
         }
         return true;
-    }
+    }*/
 }
