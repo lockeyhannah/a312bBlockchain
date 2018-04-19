@@ -11,6 +11,6 @@ public class dataTest {
         data1.addData("Hej");
         data1.addData(" med dig");
 
-        assertEquals(data1.getData(), "Hej med dig");
+        assertEquals(data1.getDataString(), "Hej med dig");
     }
 }

@@ -4,11 +4,11 @@ package block;
  *
  */
 
+import java.util.ArrayList;
+
 public class Data {
 
     StringBuilder data = new StringBuilder();
-    public byte[] hash; //hashen fra nuværende block
-    public String previousHash; //hashen fra en tidligere block
     public long timeStamp;
     public int nonce;
 
@@ -16,7 +16,7 @@ public class Data {
         data.append(text);
     }
 
-    public String getData(){
+    public String getDataString(){
         return data.toString();
     }
 

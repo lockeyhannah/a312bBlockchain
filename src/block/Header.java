@@ -9,6 +9,4 @@ public class Header {
     private byte[] prevHash;
     private long timeStamp;
 
-
-
 }
