@@ -15,6 +15,7 @@ public class Block {
     //Smart contract, valuta,  nøgler
     //
 
+
     private Data data; //dataen fra blocken
     private Header header;
 
