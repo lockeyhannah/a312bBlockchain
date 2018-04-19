@@ -1,4 +1,5 @@
 import block.Data;
+import block.Header;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -8,17 +9,23 @@ import java.util.Date;
 public class Block {
 
     //hej
-    private Data data; //dataen fra blocken
 
+    //Data
+    //Datapoints[] - getStringValue(),
+    //Smart contract, valuta,  nøgler
+    //
+
+
+    private Data data; //dataen fra blocken
+    private Header header;
 
     public Block(String previousHash) {
         data = new Data();
-        this.data.previousHash = previousHash;
+        header = new Header();
         this.data.timeStamp = new Date().getTime();
-        this.data.hash = calculateHash(data.getData().getBytes(), BigInteger.ONE.toByteArray());
     }
 
-    public byte[] calculateHash(byte[] input, byte[] nonce) {
+    public static byte[] calculateHash(byte[] input, byte[] nonce) {
         try{
             MessageDigest msgDigest = MessageDigest.getInstance("SHA-256");
             msgDigest.update(input);
@@ -31,29 +38,25 @@ public class Block {
         return null;
     }
 
+    /* */
     public void mineBlock(BigInteger target){
         BigInteger nonce = new BigInteger("0");
-        byte[] hash = calculateHash(data.getData().getBytes(), nonce.toByteArray());
+
+        //Calculate the hash value with the default nonce and convert to an integer value
+        byte[] hash = calculateHash(data.getDataString().getBytes(), nonce.toByteArray());
         BigInteger hashInteger = new BigInteger(1, hash);
 
+        // Recalculate hash with new nonce values until the hash is below the target value
         while(hashInteger.compareTo(target) > 0){
             nonce = nonce.add(BigInteger.ONE);
-            hash = calculateHash(data.getData().getBytes(), nonce.toByteArray());
+            hash = calculateHash(data.getDataString().getBytes(), nonce.toByteArray());
             hashInteger = new BigInteger(1, hash);
         }
 
-        StringBuilder hexString = new StringBuilder();
-        for (int i = 0; i < hash.length; i++) {
-            String hex = Integer.toHexString(0xFF & hash[i]);
-            if (hex.length() == 1) {
-                hexString.append('0');
-            }
-            hexString.append(hex);
-        }
+        // TODO: 19-04-2018 : save hash and nonce
 
-        System.out.println("Nonce : " + nonce.toString());
-        System.out.println("Hash (Decimal) : " + hashInteger.toString());
-        System.out.println("Hash (Hex) : " + hexString.toString());
+
+
     }
 
 
