@@ -6,7 +6,19 @@ package block;
 
 public class Data {
 
+    StringBuilder data = new StringBuilder();
+    public String hash; //hashen fra nuværende block
+    public String previousHash; //hashen fra en tidligere block
+    public long timeStamp;
+    public int nonce;
 
+    public void addData(String text){
+        data.append(text);
+    }
+
+    public String getData(){
+        return data.toString();
+    }
 
 
 
