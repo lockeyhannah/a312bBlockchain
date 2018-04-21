@@ -1,4 +1,4 @@
-import blockchain.block.Data;
+/*import blockchain.block.Data;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -13,4 +13,4 @@ public class dataTest {
 
         assertEquals(data1.getDataString(), "Hej med dig");
     }
-}
+}*/

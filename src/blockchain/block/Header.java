@@ -1,5 +1,8 @@
 package blockchain.block;
 
+import java.nio.ByteBuffer;
+import java.util.List;
+
 public class Header {
 
     public static final String MAGIC_ID = "FAC";
@@ -10,10 +13,10 @@ public class Header {
     private byte[] nonce;       // Nonce value appended to the hashed data to generate a hash below the target value
     private byte[] target;      // Hash values must be smaller than target to be valid
 
-    private long timeStamp;     // Block creation time
+    private byte[] timeStamp;    // Block creation time
 
 
-    public Header(byte[] prevHash, byte[] dataHash, byte[] nonce, byte[] target, long timeStamp) {
+    public Header(byte[] prevHash, byte[] dataHash, byte[] nonce, byte[] target, byte[] timeStamp) {
         this.prevHash = prevHash;
         this.dataHash = dataHash;
         this.nonce = nonce;
@@ -21,8 +24,18 @@ public class Header {
         this.timeStamp = timeStamp;
     }
 
+    // Combines all header variables to a single byte array
     public byte[] getBytes(){
-        return null; // TODO: 21-04-2018 : add functionality
+        int totalBytes = prevHash.length + dataHash.length + nonce.length + target.length + timeStamp.length;
+        ByteBuffer bb = ByteBuffer.allocate(totalBytes);
+
+        bb.put(prevHash);
+        bb.put(dataHash);
+        bb.put(nonce);
+        bb.put(target);
+        bb.put(timeStamp);
+
+        return bb.array();
     }
 
     public byte[] getDifficultyTarget(){
@@ -37,5 +50,19 @@ public class Header {
         this.nonce = nonce;
     }
 
+    public byte[] getPrevHash() {
+        return prevHash;
+    }
 
+    public byte[] getDataHash() {
+        return dataHash;
+    }
+
+    public byte[] getTarget() {
+        return target;
+    }
+
+    public byte[] getTimeStamp() {
+        return timeStamp;
+    }
 }

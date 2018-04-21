@@ -6,7 +6,7 @@ package blockchain.block.data_points;
  *
  */
 
-class ProofKey implements DataPoint {
+public class ProofKey implements DataPoint {
 
     // TODO : Indsætte metoder til ProofKey
 

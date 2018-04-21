@@ -33,20 +33,26 @@ public class Block {
         BigInteger nonce = new BigInteger("0");
 
         //Calculate the hash value with the default nonce and convert to an integer value
-        byte[] hash = calculateHash(data.getDataString().getBytes(), nonce.toByteArray());
+        byte[] hash = calculateHash(data.getByteArray(), nonce.toByteArray());
         BigInteger hashInteger = new BigInteger(1, hash);
 
         // Recalculate hash with new nonce values until the hash is below the target value
         while(hashInteger.compareTo(target) > 0){
             nonce = nonce.add(BigInteger.ONE);
-            hash = calculateHash(data.getDataString().getBytes(), nonce.toByteArray());
+            hash = calculateHash(data.getByteArray(), nonce.toByteArray());
             hashInteger = new BigInteger(1, hash);
         }
 
         // TODO: 19-04-2018 : save hash and nonce
+    }
 
-
-
+    // Prints out block information
+    public void printBlock(){
+        System.out.println("Block header hash : " + Hasher.hashToHexString(Hasher.applySHA(header.getBytes())));
+        System.out.println("Previous header hash : " + Hasher.hashToHexString(header.getPrevHash()));
+        System.out.println("Hash of block data : " + Hasher.hashToHexString(header.getDataHash()));
+        System.out.println("Nonce : " + Hasher.hashToHexString(header.getNonce()));
+        System.out.println("TimeStamp : " + Hasher.hashToHexString(header.getTimeStamp()));
     }
 
 

@@ -1,9 +1,10 @@
-import org.junit.jupiter.api.BeforeEach;
+
+/*import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class blockTest {
-/*
+
     blockchain.block.Block block1 = new blockchain.block.Block("0");
     blockchain.block.Block block2 = new blockchain.block.Block("0");
 
@@ -34,5 +35,5 @@ public class blockTest {
     public void blockTest03(){
         blockchain.StringUtil.applySha256("");
         //Ved ikke hvordan man tester en exception
-    }*/
-}
+    }
+}*/

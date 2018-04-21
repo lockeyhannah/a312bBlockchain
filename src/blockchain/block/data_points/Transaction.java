@@ -7,7 +7,7 @@ package blockchain.block.data_points;
  */
 
 
-class Transaction implements DataPoint {
+public class Transaction implements DataPoint {
     // TODO : Indsætte metoder til Transaction
 
     @Override
