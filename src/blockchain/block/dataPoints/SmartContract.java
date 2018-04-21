@@ -9,4 +9,6 @@ import blockchain.block.Data;
 
 class SmartContract extends Data {
 
+    // TODO : Indsætte metoder til SmartContracts
+
 }

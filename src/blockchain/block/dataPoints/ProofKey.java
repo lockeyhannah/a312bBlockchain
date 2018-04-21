@@ -8,4 +8,6 @@ import blockchain.block.Data;
  */
 
 class ProofKey extends Data {
+
+    // TODO : Indsætte metoder til ProofKey
 }

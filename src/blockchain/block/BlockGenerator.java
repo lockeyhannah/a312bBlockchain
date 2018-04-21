@@ -1,4 +1,4 @@
-package blockchain.block;
+/*package blockchain.block;
 
 public class BlockGenerator {
 
@@ -12,4 +12,4 @@ public class BlockGenerator {
 
 
 
-}
+}*/
