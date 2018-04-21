@@ -7,13 +7,12 @@ import java.util.Date;
 
 public class Block {
 
-    private Data data; //dataen fra blocken
+    private Data data;
     private Header header;
 
-    public Block(String previousHash) {
-        data = new Data();
-        header = new Header();
-        this.data.timeStamp = new Date().getTime();
+    public Block(Data data, Header header) {
+        this.data = data;
+        this.header = header;
     }
 
     public static byte[] calculateHash(byte[] input, byte[] nonce) {
