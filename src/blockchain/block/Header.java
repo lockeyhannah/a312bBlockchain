@@ -1,4 +1,4 @@
-package block;
+package blockchain.block;
 
 public class Header {
 

@@ -1,10 +1,8 @@
-package block;
+package blockchain.block;
 /*
- * This class contains the data stored in a block
+ * This class contains the data stored in a blockchain.block
  *
  */
-
-import java.util.ArrayList;
 
 public class Data {
 
