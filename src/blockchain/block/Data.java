@@ -16,4 +16,10 @@ public class Data {
         return data.toString();
     }
 
+    public byte[] getByteArray(){
+        return null;
+    }
+
+
+
 }
