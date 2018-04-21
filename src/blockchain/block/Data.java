@@ -4,20 +4,22 @@ package blockchain.block;
  *
  */
 
+import blockchain.block.data_points.DataPoint;
+
+import java.util.ArrayList;
+
 public class Data {
 
-    StringBuilder data = new StringBuilder();
+    ArrayList<DataPoint> dataPoints = new ArrayList<>();
 
-    public void addData(String text){
-        data.append(text);
+    public void addData(DataPoint dataPoint){
+        dataPoints.add(dataPoint);
     }
 
-    public String getDataString(){
-        return data.toString();
-    }
-
+    // Converts all data into a sequence of bytes for hashing
     public byte[] getByteArray(){
-        return null;
+        // TODO: 21-04-2018 : Temporary behaviour for testing - Add actual functionality
+        return dataPoints.get(0).getByteArray();
     }
 
 

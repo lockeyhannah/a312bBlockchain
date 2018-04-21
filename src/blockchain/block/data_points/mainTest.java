@@ -1,4 +1,4 @@
-package blockchain.block.dataPoints;
+package blockchain.block.data_points;
 
 public class mainTest {
     public static void main(String[] args) {
