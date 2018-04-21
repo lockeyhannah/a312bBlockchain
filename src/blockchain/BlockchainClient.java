@@ -12,7 +12,7 @@ public class BlockchainClient {
     public static void main(String[] args) {
         Data data = new Data();
 
-        data.addData(new SmartContract());
+
 
     }
 
