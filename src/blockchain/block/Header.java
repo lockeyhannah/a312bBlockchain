@@ -2,11 +2,16 @@ package blockchain.block;
 
 public class Header {
 
-    private byte[] target; // Target value that hash values must be under
-    private byte[] nonce; // TODO: 18-04-2018 : Disse skal nok ændres til BIG_NUM?? nonces / target kan blive meget store når difficulty er høj
+    private byte[] target;      // Hash values must be smaller than target to be valid
+    private byte[] nonce;       // Nonce value appended to the hashed data to generate a hash below the target value
 
-    private byte[] hash;
-    private byte[] prevHash;
-    private long timeStamp;
+    private byte[] dataHash;    // Hash of block data (without nonce)
+    private byte[] prevHash;    // Hash of previous block header
+    private long timeStamp;     // Block creation time
+
+    public Header(){
+
+    }
+
 
 }
