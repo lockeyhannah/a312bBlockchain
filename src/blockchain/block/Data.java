@@ -1,14 +1,12 @@
 package blockchain.block;
 /*
- * This class contains the data stored in a blockchain.block
+ * This is the interface for all classes that is a part of data in blockchain.block
  *
  */
 
 public class Data {
 
     StringBuilder data = new StringBuilder();
-    public long timeStamp;
-    public int nonce;
 
     public void addData(String text){
         data.append(text);
@@ -17,7 +15,5 @@ public class Data {
     public String getDataString(){
         return data.toString();
     }
-
-
 
 }
