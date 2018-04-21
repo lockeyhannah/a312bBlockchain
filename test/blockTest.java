@@ -4,13 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class blockTest {
 /*
-    Block block1 = new Block("0");
-    Block block2 = new Block("0");
+    blockchain.block.Block block1 = new blockchain.block.Block("0");
+    blockchain.block.Block block2 = new blockchain.block.Block("0");
 
     @BeforeEach
     public void beforeTests(){
-        block1 = new Block( "0");
-        block2 = new Block(block1.hash);
+        block1 = new blockchain.block.Block( "0");
+        block2 = new blockchain.block.Block(block1.hash);
     }
 
 
@@ -32,7 +32,7 @@ public class blockTest {
 
     /*@Test
     public void blockTest03(){
-        StringUtil.applySha256("");
+        blockchain.StringUtil.applySha256("");
         //Ved ikke hvordan man tester en exception
     }*/
 }

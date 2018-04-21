@@ -1,4 +1,4 @@
-package block;
+package blockchain.block;
 
 /*
  * Contracts made to store a file on the network

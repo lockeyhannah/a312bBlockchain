@@ -1,5 +1,4 @@
-import block.Data;
-import block.Header;
+package blockchain.block;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -7,14 +6,6 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 
 public class Block {
-
-    //hej
-
-    //Data
-    //Datapoints[] - getStringValue(),
-    //Smart contract, valuta,  nøgler
-    //
-
 
     private Data data; //dataen fra blocken
     private Header header;
