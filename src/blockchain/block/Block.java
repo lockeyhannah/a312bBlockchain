@@ -46,6 +46,14 @@ public class Block {
         // TODO: 19-04-2018 : save hash and nonce
     }
 
+    public Data getData() {
+        return data;
+    }
+
+    public Header getHeader() {
+        return header;
+    }
+
     // Prints out block information
     public void printBlock(){
         System.out.println("Block header hash : " + Hasher.hashToHexString(Hasher.applySHA(header.getBytes())));
