@@ -34,7 +34,8 @@ public class LedgerWriter {
         /*  ------ Write header -------
          * Magic number         #4 bytes
          * Block length         #4 bytes  (Measured in bytes. This enables the parser to jump directly to the next block)
-         * Block number         #32 bytes
+         * Block number         #8 bytes
+         * Timestamp            #8 bytes
          * Hash, nonce & target #32 bytes each (equivalent to 256 bits as in sha256)
 
          *  ------- Write data --------
@@ -60,7 +61,7 @@ public class LedgerWriter {
 
             // Add preceding zeroes to match target size
             for(int i = 0; i < extraBytes; i++){
-                bos.write(0);
+                bos.write(0); // TODO: 23-04-2018 :  Check if this actually writes a zero byte
             }
 
             bos.write(bytes);
