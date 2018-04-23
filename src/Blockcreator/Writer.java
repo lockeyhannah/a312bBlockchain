@@ -14,7 +14,6 @@ public class Writer {
              PrintWriter output = new PrintWriter(bufferedWriter)) {
             output.println(input);
         } catch (IOException e) {
-
             System.out.println("Error! This file doesn't exist: Block.txt");
             return "An Error has occured. Data was not saved."
         }
