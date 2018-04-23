@@ -52,7 +52,7 @@ public class LedgerWriter {
 
     // Appends a byte array of target size to the ledger file
     // Adds preceding zeroes to compensate if the given byte array is smaller than the targetsize
-    private void writeToFile(byte[] bytes, int targetSize){
+    public void writeToFile(byte[] bytes, int targetSize){
         int extraBytes = targetSize - bytes.length; // TODO: 23-04-2018 : Might be off by one kan ikke tænke nu pls hjælp og test
 
         // NOTE : Files.newOutPutStream is given a second optional input : APPEND
