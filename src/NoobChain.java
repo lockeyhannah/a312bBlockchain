@@ -1,7 +1,6 @@
 import java.math.BigInteger;
 import java.util.ArrayList;
 
-
 public class NoobChain {
 
     public static ArrayList<Block> blockchain = new ArrayList<>();
