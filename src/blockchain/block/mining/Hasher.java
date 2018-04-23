@@ -1,4 +1,4 @@
-package blockchain.block;
+package blockchain.block.mining;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

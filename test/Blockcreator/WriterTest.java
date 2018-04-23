@@ -1,5 +1,0 @@
-package Blockcreator;
-
-class WriterTest {
-
-}

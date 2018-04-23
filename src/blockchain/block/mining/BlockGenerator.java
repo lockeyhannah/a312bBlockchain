@@ -1,4 +1,8 @@
-package blockchain.block;
+package blockchain.block.mining;
+
+import blockchain.block.Block;
+import blockchain.block.Data;
+import blockchain.block.Header;
 
 import java.math.BigInteger;
 
@@ -36,6 +40,8 @@ public class BlockGenerator {
             // Hash header with new nonce value
             hash = Hasher.applySHA(header.getBytes());
             hashInteger = new BigInteger(1, hash);
+
+            // TODO: 23-04-2018 : Check if nonce is over 32 bytes (or whatever we store it as) if so then update time and reset nonce value
         }
 
     }

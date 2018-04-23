@@ -2,9 +2,9 @@ package blockchain;
 
 
 import blockchain.block.Block;
-import blockchain.block.BlockGenerator;
+import blockchain.block.mining.BlockGenerator;
 import blockchain.block.Data;
-import blockchain.block.Hasher;
+import blockchain.block.mining.Hasher;
 import blockchain.block.data_points.SmartContract;
 import blockchain.block.data_points.Transaction;
 
@@ -17,8 +17,6 @@ public class BlockchainClient {
 
 
     public static void main(String[] args) {
-        Block testBlock, testBlock2;
-
         Data data = new Data();
         data.addData(new SmartContract());
         data.addData(new Transaction());
@@ -32,7 +30,8 @@ public class BlockchainClient {
         blocks.get(0).printBlock();
 
         for(int i = 1; i < 20; i++){
-            tempDifficulty = new BigInteger("2").pow(245 - i);
+            // TODO: 23-04-2018 : remove the hoe you bitch
+            tempDifficulty = new BigInteger("hoe").pow(245 - i);
             blocks.add(BlockGenerator.generateBlock(data, tempDifficulty.toByteArray(), Hasher.applySHA(blocks.get(i - 1).getHeader().getBytes())));
             System.out.println();
             blocks.get(i).getHeader().setBlockNo(blocks.get(i - 1).getHeader().getBlockNo() +1);

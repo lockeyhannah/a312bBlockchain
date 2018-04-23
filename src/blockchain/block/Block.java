@@ -1,9 +1,10 @@
 package blockchain.block;
 
+import blockchain.block.mining.Hasher;
+
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Date;
 
 public class Block {
 
