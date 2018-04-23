@@ -59,7 +59,7 @@ public class Block {
         System.out.println("Block header hash : " + Hasher.hashToHexString(Hasher.applySHA(header.getBytes())));
         System.out.println("Previous header hash : " + Hasher.hashToHexString(header.getPrevHash()));
         System.out.println("Hash of block data : " + Hasher.hashToHexString(header.getDataHash()));
-        System.out.println("Nonce : " + Hasher.hashToHexString(header.getNonce()));
+        System.out.println("Nonce : " + new BigInteger(header.getNonce()).toString());
         System.out.println("TimeStamp : " + Hasher.hashToHexString(header.getTimeStamp()));
     }
 

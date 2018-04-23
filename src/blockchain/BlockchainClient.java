@@ -27,7 +27,7 @@ public class BlockchainClient {
         BigInteger tempDifficulty = new BigInteger("2").pow(245);
         ArrayList<Block> blocks = new ArrayList<>();
 
-        blocks.add(BlockGenerator.generateBlock(data, tempDifficulty.toByteArray(), "0".getBytes()));
+        blocks.add(BlockGenerator.generateBlock(data, tempDifficulty.toByteArray(), "".getBytes()));
         System.out.println();
         blocks.get(0).printBlock();
 
