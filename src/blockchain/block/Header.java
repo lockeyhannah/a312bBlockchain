@@ -14,9 +14,11 @@ public class Header {
     private byte[] target;      // Hash values must be smaller than target to be valid
 
     private byte[] timeStamp;    // Block creation time
+    private int blockNo;
 
 
-    public Header(byte[] prevHash, byte[] dataHash, byte[] nonce, byte[] target, byte[] timeStamp) {
+    public Header(int blockNo, byte[] prevHash, byte[] dataHash, byte[] nonce, byte[] target, byte[] timeStamp) {
+        this.blockNo = blockNo;
         this.prevHash = prevHash;
         this.dataHash = dataHash;
         this.nonce = nonce;
@@ -64,5 +66,13 @@ public class Header {
 
     public byte[] getTimeStamp() {
         return timeStamp;
+    }
+
+    public int getBlockNo() {
+        return blockNo;
+    }
+
+    public void setBlockNo(int blockNo) {
+        this.blockNo = blockNo;
     }
 }

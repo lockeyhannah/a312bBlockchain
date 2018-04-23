@@ -56,6 +56,7 @@ public class Block {
 
     // Prints out block information
     public void printBlock(){
+        System.out.println("Block no. : " + header.getBlockNo());
         System.out.println("Block header hash : " + Hasher.hashToHexString(Hasher.applySHA(header.getBytes())));
         System.out.println("Previous header hash : " + Hasher.hashToHexString(header.getPrevHash()));
         System.out.println("Hash of block data : " + Hasher.hashToHexString(header.getDataHash()));

@@ -9,8 +9,9 @@ public class BlockGenerator {
         byte[] dataHash = Hasher.applySHA(data.getByteArray());
         byte[] timeStamp = {1}; // TODO: 21-04-2018 : Add timeStamp functionality
         byte[] nonce = {0};
+        int blockNo = 0;
 
-        Header header = new Header(prevHeaderHash, dataHash, nonce, difficulty, timeStamp);
+        Header header = new Header(blockNo, prevHeaderHash, dataHash, nonce, difficulty, timeStamp);
         mineBlock(header);
 
         return new Block(data, header);

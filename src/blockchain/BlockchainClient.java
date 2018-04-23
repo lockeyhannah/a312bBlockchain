@@ -35,6 +35,7 @@ public class BlockchainClient {
             tempDifficulty = new BigInteger("2").pow(245 - i);
             blocks.add(BlockGenerator.generateBlock(data, tempDifficulty.toByteArray(), Hasher.applySHA(blocks.get(i - 1).getHeader().getBytes())));
             System.out.println();
+            blocks.get(i).getHeader().setBlockNo(blocks.get(i - 1).getHeader().getBlockNo() +1);
             blocks.get(i).printBlock();
         }
 
