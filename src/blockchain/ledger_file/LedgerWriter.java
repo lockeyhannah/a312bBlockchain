@@ -13,10 +13,15 @@ public class LedgerWriter {
 
     private Path ledgerFilePath;
 
-    // TODO: 23-04-2018 : Should probably throw some type of IOException if the file cannot be read
     public LedgerWriter(Path ledgerFilePath){
-        this.ledgerFilePath = ledgerFilePath;
-
+       try {
+           this.ledgerFilePath = ledgerFilePath;
+       } catch (FileNotFoundException e){
+           System.out.println("File not found: " + e);
+       }
+       catch (IOException e) {
+           System.out.println("Something happened: " + e);
+       }
     }
 
     // Appends a block to the blockchain
