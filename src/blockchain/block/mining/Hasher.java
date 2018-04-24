@@ -5,19 +5,6 @@ import java.security.NoSuchAlgorithmException;
 
 public class Hasher {
 
-    public static byte[] applySHA(byte[] input, byte[] nonce){
-        try{
-            MessageDigest msgDigest = MessageDigest.getInstance("SHA-256");
-            msgDigest.update(input);
-            msgDigest.update(nonce);
-            return msgDigest.digest();
-        } catch (NoSuchAlgorithmException e) {
-            System.out.println("Hashing algorithm not found");
-            e.printStackTrace();
-        }
-        return null;
-    }
-
     public static byte[] applySHA(byte[] input){
         try{
             MessageDigest msgDigest = MessageDigest.getInstance("SHA-256");
