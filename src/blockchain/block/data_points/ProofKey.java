@@ -10,7 +10,7 @@ public class ProofKey implements DataPoint {
 
     // TODO : Indsætte metoder til ProofKey
 
-    String key;
+    private String key;
 
     @Override
     public byte[] getByteArray() {

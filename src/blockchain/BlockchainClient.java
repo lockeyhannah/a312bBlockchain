@@ -31,7 +31,7 @@ public class BlockchainClient {
 
         for(int i = 1; i < 20; i++){
             // TODO: 23-04-2018 : remove the hoe you bitch
-            tempDifficulty = new BigInteger("hoe").pow(245 - i);
+            tempDifficulty = new BigInteger("2").pow(245 - i);
             blocks.add(BlockGenerator.generateBlock(data, tempDifficulty.toByteArray(), Hasher.applySHA(blocks.get(i - 1).getHeader().getBytes())));
             System.out.println();
             blocks.get(i).getHeader().setBlockNo(blocks.get(i - 1).getHeader().getBlockNo() +1);

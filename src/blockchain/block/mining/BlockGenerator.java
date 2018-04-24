@@ -5,13 +5,18 @@ import blockchain.block.Data;
 import blockchain.block.Header;
 
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class BlockGenerator {
 
     // Mines and returns a new block based on the given data
     public static Block generateBlock(Data data, byte[] difficulty, byte[] prevHeaderHash){
+        String timeString = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+        byte[] timeStamp = timeString.getBytes(StandardCharsets.UTF_8);
+
         byte[] dataHash = Hasher.applySHA(data.getByteArray());
-        byte[] timeStamp = {1}; // TODO: 21-04-2018 : Add timeStamp functionality
         byte[] nonce = {0};
         int blockNo = 0;
 

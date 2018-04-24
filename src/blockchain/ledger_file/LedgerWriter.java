@@ -24,7 +24,7 @@ public class LedgerWriter {
         /* Jeg foreslår at alle datapunkterne skrives med en fast længde (f.eks. kan nonce værdierne altid være 32 bytes lange,
          * også selvom der ikke er brug for så mange bytes for at skrive hele værdien)
          * På den måde kan vi bare kan vi bare læse et bestemt antal bytes frem når vi skal læse filen igen senere
-         * Ved ikke om det giver mening ^^ bare giv mig en lammer hvis det er volapyk
+         * Ved ikke om det giver mening. bare giv mig en lammer hvis det er volapyk
 
          * Nedenfor har jeg et forslag til strukturen af filens blokke, samt bytelængde for hvert punkt
          * Kraftigt inspireret af bitcoin OwO
