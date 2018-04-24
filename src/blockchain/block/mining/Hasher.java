@@ -5,8 +5,8 @@ import java.security.NoSuchAlgorithmException;
 
 public class Hasher {
 
-    public static byte[] applySHA(byte[] input){
-        try{
+    public static byte[] applySHA(byte[] input) {
+        try {
             MessageDigest msgDigest = MessageDigest.getInstance("SHA-256");
             msgDigest.update(input);
             return msgDigest.digest();
@@ -19,7 +19,7 @@ public class Hasher {
 
 
     // TODO: 21-04-2018 : stjaalet fra det store interweb - forstaa lige hvad der sker
-    public static String hashToHexString(byte[] hashBytes){
+    public static String hashToHexString(byte[] hashBytes) {
         StringBuilder hexString = new StringBuilder();
 
         for (int i = 0; i < hashBytes.length; i++) {

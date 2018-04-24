@@ -15,7 +15,6 @@ import java.util.ArrayList;
 public class BlockchainClient {
 
 
-
     public static void main(String[] args) {
         Data data = new Data();
         data.addData(new SmartContract());
@@ -29,13 +28,12 @@ public class BlockchainClient {
         System.out.println();
         blocks.get(0).printBlock();
 
-        for(int i = 1; i < 20; i++){
+        for (int i = 1; i < 20; i++) {
             // TODO: 23-04-2018 : remove the hoe you bitch
             tempDifficulty = new BigInteger("2").pow(245 - i);
             blocks.add(BlockGenerator.generateBlock(data, tempDifficulty.toByteArray(), Hasher.applySHA(blocks.get(i - 1).getHeader().getBytes())));
             System.out.println();
-            blocks.get(i).getHeader().setBlockNo(blocks.get(i - 1).getHeader().getBlockNo() +1);
-            blocks.get(i).printBlock();
+            blocks.get(i).getHeader().setBlockId(blocks.get(i - 1).getHeader().getBlockId() + 1);
         }
 
     }

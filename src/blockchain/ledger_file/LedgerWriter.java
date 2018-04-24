@@ -28,7 +28,7 @@ public class LedgerWriter {
          * Ved ikke om det giver mening. bare giv mig en lammer hvis det er volapyk
 
          * Nedenfor har jeg et forslag til strukturen af filens blokke, samt bytelængde for hvert punkt
-         * Kraftigt inspireret af bitcoin OwO
+         * Kraftigt inspireret af bitcoin OwO desu bitcoin senpai
          */
 
 
