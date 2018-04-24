@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Header {
 
-    public static final String MAGIC_ID = "FAC";
+    public static final String MAGIC_ID = "FAG";
 
     private byte[] prevHash;    // Hash of previous block header
     private byte[] dataHash;    // Hash of block data (without nonce)
@@ -72,6 +72,7 @@ public class Header {
         return blockNo;
     }
 
+    // TODO: Måske gøre blocknumber til en statisk variable som increase hver gang du laver en ny block?
     public void setBlockNo(int blockNo) {
         this.blockNo = blockNo;
     }

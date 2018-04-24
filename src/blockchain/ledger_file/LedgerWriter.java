@@ -3,6 +3,7 @@ package blockchain.ledger_file;
 import blockchain.block.Block;
 
 import java.io.*;
+import java.nio.ByteBuffer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -13,19 +14,18 @@ public class LedgerWriter {
 
     private Path ledgerFilePath;
 
+
     public LedgerWriter(Path ledgerFilePath){
-       try {
            this.ledgerFilePath = ledgerFilePath;
-       } catch (FileNotFoundException e){
-           System.out.println("File not found: " + e);
-       }
-       catch (IOException e) {
-           System.out.println("Something happened: " + e);
-       }
     }
 
     // Appends a block to the blockchain
     public void writeBlock(Block block){
+        byte[] nonce = block.getHeader().getNonce();
+        byte[] timeStamp = block.getHeader().getTimeStamp();
+        byte[] dataHash = block.getHeader().getDataHash();
+        byte[] prevHash = block.getHeader().getPrevHash();
+        byte[] target = block.getHeader().getTarget();
         // TODO: 23-04-2018 : Write block data (byte array) to the file, in a way that can be parsed later
         /* Jeg foreslår at alle datapunkterne skrives med en fast længde (f.eks. kan nonce værdierne altid være 32 bytes lange,
          * også selvom der ikke er brug for så mange bytes for at skrive hele værdien)
@@ -49,6 +49,10 @@ public class LedgerWriter {
          * Data points
          */
 
+
+        writeToFile(nonce,32);
+
+
     }
 
     // Appends the given data to the ledger file
@@ -71,6 +75,9 @@ public class LedgerWriter {
             }
 
             bos.write(bytes);
+        } catch (FileNotFoundException e){
+            System.out.println("Error. File not found.");
+            e.printStackTrace();
         } catch (IOException e) {
             System.out.println("Error writing bytes to ledger file");
             e.printStackTrace();
