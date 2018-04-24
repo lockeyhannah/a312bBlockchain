@@ -14,8 +14,9 @@ public class LedgerWriter {
     private Path ledgerFilePath;
 
     // TODO: 23-04-2018 : Should probably throw some type of IOException if the file cannot be read
-    public LedgerWriter(Path ledgerFilePath) {
+    public LedgerWriter(Path ledgerFilePath){
         this.ledgerFilePath = ledgerFilePath;
+
     }
 
     // Appends a block to the blockchain
@@ -61,11 +62,10 @@ public class LedgerWriter {
 
             // Add preceding zeroes to match target size
             for(int i = 0; i < extraBytes; i++){
-                bos.write(0); // TODO: 23-04-2018 :  Check if this actually writes a zero byte
+                bos.write(0);
             }
 
             bos.write(bytes);
-            bos.flush(); // TODO: 23-04-2018 : is this necessary when using try with resources???
         } catch (IOException e) {
             System.out.println("Error writing bytes to ledger file");
             e.printStackTrace();

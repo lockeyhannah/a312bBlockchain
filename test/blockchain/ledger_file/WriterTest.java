@@ -18,10 +18,12 @@ class WriterTest {
 
         LedgerReader ledgerReader = new LedgerReader(Paths.get("ledger.dat"));
         byte[] readBytes = ledgerReader.readBytes(8);
-
-        System.out.println(ByteUtils.bytesToLong(readBytes));
-
-
+        System.out.print("Individual bytes : ");
+        for(int i = 0; i < readBytes.length; i++){
+            System.out.print(Byte.toUnsignedInt(readBytes[i]));
+            if(i != 7) System.out.print(", ");
+        }
+        System.out.println("\nDecimal value : " + ByteUtils.bytesToLong(readBytes));
     }
 
 

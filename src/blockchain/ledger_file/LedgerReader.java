@@ -1,5 +1,7 @@
 package blockchain.ledger_file;
 
+import blockchain.block.Block;
+
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -11,6 +13,19 @@ public class LedgerReader {
 
     public LedgerReader(Path ledgerFilePath) {
         this.ledgerFilePath = ledgerFilePath;
+    }
+
+    // Reads and returns the block with the given id
+    public Block readBlock(long blockID){
+
+        return null;
+    }
+
+    // TODO: 24-04-2018 : make this shit
+    //Returns the hash of the previous blocks header
+    public byte[] getPreviousHeaderHash(){
+
+        return null;
     }
 
     public byte[] readBytes(int byteCount){
