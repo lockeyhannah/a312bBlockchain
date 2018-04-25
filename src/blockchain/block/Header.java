@@ -1,11 +1,10 @@
 package blockchain.block;
 
 import java.nio.ByteBuffer;
-import java.util.List;
 
 public class Header {
 
-    public static final String MAGIC_ID = "FAG";
+    public static final String MAGIC_ID = "FAC";
 
     private byte[] prevHash;    // Hash of previous block header
     private byte[] dataHash;    // Hash of block data (without nonce)
@@ -14,11 +13,11 @@ public class Header {
     private byte[] target;      // Hash values must be smaller than target to be valid
 
     private byte[] timeStamp;    // Block creation time
-    private int blockNo;
+    private long blockId;
 
 
-    public Header(int blockNo, byte[] prevHash, byte[] dataHash, byte[] nonce, byte[] target, byte[] timeStamp) {
-        this.blockNo = blockNo;
+    public Header(long blockId, byte[] prevHash, byte[] dataHash, byte[] nonce, byte[] target, byte[] timeStamp) {
+        this.blockId = blockId;
         this.prevHash = prevHash;
         this.dataHash = dataHash;
         this.nonce = nonce;
@@ -68,12 +67,11 @@ public class Header {
         return timeStamp;
     }
 
-    public int getBlockNo() {
-        return blockNo;
+    public long getBlockId() {
+        return blockId;
     }
 
-    // TODO: Måske gøre blocknumber til en statisk variable som increase hver gang du laver en ny block?
-    public void setBlockNo(int blockNo) {
-        this.blockNo = blockNo;
+    public void setBlockId(long blockId) {
+        this.blockId = blockId;
     }
 }

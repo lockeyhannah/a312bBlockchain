@@ -3,8 +3,6 @@ package blockchain.block;
 import blockchain.block.mining.Hasher;
 
 import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 public class Block {
 
@@ -25,8 +23,8 @@ public class Block {
     }
 
     // Prints out block information
-    public void printBlock(){
-        System.out.println("Block no. : " + header.getBlockNo());
+    public void printBlock() {
+        System.out.println("Block ID : " + header.getBlockId());
         System.out.println("Block header hash : " + Hasher.hashToHexString(Hasher.applySHA(header.getBytes())));
         System.out.println("Previous header hash : " + Hasher.hashToHexString(header.getPrevHash()));
         System.out.println("Hash of block data : " + Hasher.hashToHexString(header.getDataHash()));
