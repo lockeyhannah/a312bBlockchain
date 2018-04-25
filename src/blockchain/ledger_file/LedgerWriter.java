@@ -28,12 +28,12 @@ public class LedgerWriter {
         byte[] target = block.getHeader().getTarget(); //suppose to be 32 bytes long.
         long blockNum = block.getHeader().getBlockId();//suppose to be 4 bytes long.
 
-        writeToFile(nonce, 32);
-        writeToFile(dataHash, 32);
-        writeToFile(prevHash, 32);
-        writeToFile(target, 32);
-        writeToFile(timeStamp, 8);
-        writeToFile(longToBytes(blockNum),4);
+        writeHeaderToFile(nonce, 32);
+        writeHeaderToFile(dataHash, 32);
+        writeHeaderToFile(prevHash, 32);
+        writeHeaderToFile(target, 32);
+        writeHeaderToFile(timeStamp, 8);
+        writeHeaderToFile(longToBytes(blockNum),4);
 
         // TODO: 23-04-2018 : Write block data (byte array) to the file, in a way that can be parsed later
         /* Jeg foreslår at alle datapunkterne skrives med en fast længde (f.eks. kan nonce værdierne altid være 32 bytes lange,
@@ -64,12 +64,12 @@ public class LedgerWriter {
 
     // Appends the given data to the ledger file
     private void writeToFile(byte[] bytes){
-        writeToFile(bytes, bytes.length);
+        writeHeaderToFile(bytes, bytes.length);
     }
 
     // Appends a byte array of target size to the ledger file
     // Adds preceding zeroes to compensate if the given byte array is smaller than the targetsize
-    public void writeToFile(byte[] bytes, int targetSize){
+    public void writeHeaderToFile( byte[] bytes, int targetSize){
         int extraBytes = targetSize - bytes.length; // TODO: 23-04-2018 : Might be off by one kan ikke tænke nu pls hjælp og test
 
         // NOTE : Files.newOutPutStream is given a second optional input : APPEND
@@ -95,5 +95,20 @@ public class LedgerWriter {
         ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES);
         buffer.putLong(num);
         return buffer.array();
+    }
+    public static String writeDataToFile(String input) {
+        try (FileWriter fileWriter = new FileWriter("block.txt", true);
+             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+             PrintWriter output = new PrintWriter(bufferedWriter)) {
+            output.println(input);
+        } catch (IOException e) {
+            System.out.println("Error! This file doesn't exist: Block.txt");
+            return "An Error has occured. Data was not saved.";
+        }
+        return "Data added to block.";
+    }
+
+    public static void main(String[] args) {
+        System.out.println(writeToFile("Hey There~"));
     }
 }
