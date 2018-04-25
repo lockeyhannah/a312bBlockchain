@@ -27,7 +27,9 @@ public class LedgerWriter {
         byte[] prevHash = block.getHeader().getPrevHash(); //suppose to be 32 bytes long.
         byte[] target = block.getHeader().getTarget(); //suppose to be 32 bytes long.
         long blockNum = block.getHeader().getBlockId();//suppose to be 4 bytes long.
+        byte[] data = block.getData().getByteArray();
 
+        //writes the header
         writeHeaderToFile(nonce, 32);
         writeHeaderToFile(dataHash, 32);
         writeHeaderToFile(prevHash, 32);
@@ -35,30 +37,9 @@ public class LedgerWriter {
         writeHeaderToFile(timeStamp, 8);
         writeHeaderToFile(longToBytes(blockNum),4);
 
-        // TODO: 23-04-2018 : Write block data (byte array) to the file, in a way that can be parsed later
-        /* Jeg foreslår at alle datapunkterne skrives med en fast længde (f.eks. kan nonce værdierne altid være 32 bytes lange,
-         * også selvom der ikke er brug for så mange bytes for at skrive hele værdien)
-         * På den måde kan vi bare kan vi bare læse et bestemt antal bytes frem når vi skal læse filen igen senere
-         * Ved ikke om det giver mening. bare giv mig en lammer hvis det er volapyk
-
-         * Nedenfor har jeg et forslag til strukturen af filens blokke, samt bytelængde for hvert punkt
-         * Kraftigt inspireret af bitcoin OwO desu bitcoin senpai
-         */
-
-
-        /*  ------ Write header -------
-         * Magic number         #4 bytes
-         * Block length         #4 bytes  (Measured in bytes. This enables the parser to jump directly to the next block)
-         * Block number         #8 bytes
-         * Timestamp            #8 bytes
-         * Hash, nonce & target #32 bytes each (equivalent to 256 bits as in sha256)
-
-         *  ------- Write data --------
-         * Amount of data points #4 bytes (This lets the reader know how much to read before a new block is encountered)
-         * Data points
-         */
-
-
+        //Writes the data
+        writeToFile(data);
+        //writeDataToFile(data.toString());
 
     }
 
@@ -91,11 +72,13 @@ public class LedgerWriter {
         }
     }
 
-    public byte[] longToBytes(long num) {
+    private byte[] longToBytes(long num) {
         ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES);
         buffer.putLong(num);
         return buffer.array();
     }
+
+    //Syntes at data bør være i string format. Dette gør det nemt at finde en slutning og en begyndelse på.
     public static String writeDataToFile(String input) {
         try (FileWriter fileWriter = new FileWriter("block.txt", true);
              BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
@@ -106,9 +89,5 @@ public class LedgerWriter {
             return "An Error has occured. Data was not saved.";
         }
         return "Data added to block.";
-    }
-
-    public static void main(String[] args) {
-        System.out.println(writeToFile("Hey There~"));
     }
 }

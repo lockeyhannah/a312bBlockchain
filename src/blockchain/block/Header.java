@@ -4,7 +4,7 @@ import java.nio.ByteBuffer;
 
 public class Header {
 
-    public static final String MAGIC_ID = "FAC";
+    public static final String MAGIC_ID = "FAC"; //Hvis den her skal bruges skal jeg lige vide til hvad.
 
     private byte[] prevHash;    // Hash of previous block header
     private byte[] dataHash;    // Hash of block data (without nonce)
