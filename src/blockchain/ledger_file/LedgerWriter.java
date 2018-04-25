@@ -25,8 +25,8 @@ public class LedgerWriter {
         byte[] timeStamp = block.getHeader().getTimeStamp(); //suppose to be 8 bytes long.
         byte[] dataHash = block.getHeader().getDataHash(); //suppose to be 32 bytes long.
         byte[] prevHash = block.getHeader().getPrevHash(); //suppose to be 32 bytes long.
-        byte[] target = block.getHeader().getTarget();
-        long blockNum = block.getHeader().getBlockId();//suppose to be 32 bytes long.
+        byte[] target = block.getHeader().getTarget(); //suppose to be 32 bytes long.
+        long blockNum = block.getHeader().getBlockId();//suppose to be 4 bytes long.
 
         writeToFile(nonce, 32);
         writeToFile(dataHash, 32);
