@@ -20,5 +20,13 @@ public class ByteUtils {
         return buffer.getLong();
     }
 
+    public static byte[] combineByteArrays(byte[] array1, byte[] array2){
+        ByteBuffer buffer = ByteBuffer.allocate(array1.length + array2.length);
+        buffer.put(array1);
+        buffer.put(array2);
+        return buffer.array();
+
+    }
+
 
 }

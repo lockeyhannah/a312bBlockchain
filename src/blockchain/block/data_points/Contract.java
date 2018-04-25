@@ -6,9 +6,8 @@ package blockchain.block.data_points;
  *
  */
 
-public class SmartContract implements DataPoint {
+public class Contract implements DataPoint {
 
-    // TODO : Indsætte metoder til SmartContracts
 
     String ownerIp;
     String fileId;
