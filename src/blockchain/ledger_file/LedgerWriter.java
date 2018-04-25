@@ -21,11 +21,20 @@ public class LedgerWriter {
 
     // Appends a block to the blockchain
     public void writeBlock(Block block){
-        byte[] nonce = block.getHeader().getNonce();
-        byte[] timeStamp = block.getHeader().getTimeStamp();
-        byte[] dataHash = block.getHeader().getDataHash();
-        byte[] prevHash = block.getHeader().getPrevHash();
+        byte[] nonce = block.getHeader().getNonce(); //suppose to be 32 bytes long.
+        byte[] timeStamp = block.getHeader().getTimeStamp(); //suppose to be 8 bytes long.
+        byte[] dataHash = block.getHeader().getDataHash(); //suppose to be 32 bytes long.
+        byte[] prevHash = block.getHeader().getPrevHash(); //suppose to be 32 bytes long.
         byte[] target = block.getHeader().getTarget();
+        long blockNum = block.getHeader().getBlockId();//suppose to be 32 bytes long.
+
+        writeToFile(nonce, 32);
+        writeToFile(dataHash, 32);
+        writeToFile(prevHash, 32);
+        writeToFile(target, 32);
+        writeToFile(timeStamp, 8);
+        writeToFile(longToBytes(blockNum),4);
+
         // TODO: 23-04-2018 : Write block data (byte array) to the file, in a way that can be parsed later
         /* Jeg foreslår at alle datapunkterne skrives med en fast længde (f.eks. kan nonce værdierne altid være 32 bytes lange,
          * også selvom der ikke er brug for så mange bytes for at skrive hele værdien)
@@ -49,8 +58,6 @@ public class LedgerWriter {
          * Data points
          */
 
-
-        writeToFile(nonce,32);
 
 
     }
@@ -84,10 +91,9 @@ public class LedgerWriter {
         }
     }
 
-
-
-
-
-
-
+    public byte[] longToBytes(long num) {
+        ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES);
+        buffer.putLong(num);
+        return buffer.array();
+    }
 }
