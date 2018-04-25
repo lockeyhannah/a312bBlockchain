@@ -8,9 +8,14 @@ package blockchain.block.data_points;
 
 public class ProofKey implements DataPoint {
 
-    // TODO : Indsætte metoder til ProofKey
+    // TODO : Proofkey er indtil videre ikke brugbart og skal fjernes
 
     private String key;
+
+    @Override
+    public DataPoint getDataPoint(byte[] b) {
+        return null;
+    }
 
     @Override
     public byte[] getByteArray() {
