@@ -14,6 +14,8 @@ public class ByteUtils {
     public static long bytesToLong(byte[] bytes) {
         ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES);
         buffer.put(bytes);
+        //Det lyder til at flip flipper den fra at være en write til read,
+        //så efter man flipper så kan den printes idk
         buffer.flip();
         return buffer.getLong();
     }
