@@ -30,16 +30,16 @@ public class LedgerWriter {
         byte[] data = block.getData().getByteArray();
 
         //writes the header
+        writeHeaderToFile(longToBytes(blockNum),4);
         writeHeaderToFile(nonce, 32);
         writeHeaderToFile(dataHash, 32);
         writeHeaderToFile(prevHash, 32);
         writeHeaderToFile(target, 32);
         writeHeaderToFile(timeStamp, 8);
-        writeHeaderToFile(longToBytes(blockNum),4);
+
 
         //Writes the data
-        writeToFile(data);
-        //writeDataToFile(data.toString());
+        writeDataToFile(data.toString());
 
     }
 
@@ -79,8 +79,8 @@ public class LedgerWriter {
     }
 
     //Syntes at data bør være i string format. Dette gør det nemt at finde en slutning og en begyndelse på.
-    public static String writeDataToFile(String input) {
-        try (FileWriter fileWriter = new FileWriter("block.txt", true);
+    public  String writeDataToFile(String input) {
+        try (FileWriter fileWriter = new FileWriter(ledgerFilePath.toString(), true);
              BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
              PrintWriter output = new PrintWriter(bufferedWriter)) {
             output.println(input);

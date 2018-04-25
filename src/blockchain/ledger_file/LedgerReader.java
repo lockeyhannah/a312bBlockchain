@@ -2,10 +2,11 @@ package blockchain.ledger_file;
 
 import blockchain.block.Block;
 
-import java.io.BufferedInputStream;
-import java.io.IOException;
+import java.io.*;
+import java.nio.ByteBuffer;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Arrays;
 
 public class LedgerReader {
 
@@ -17,8 +18,28 @@ public class LedgerReader {
 
     // Reads and returns the block with the given id
     public Block readBlock(long blockID){
+        byte[] getBytes;
+        byte[] target = longToBytes(blockID);
+        int x = 0;
+        try {
+            File file = new File(ledgerFilePath.toString());
+            getBytes = new byte[4];
+            InputStream is = new FileInputStream(file);
+            while(is != null) {//Todo: 25-04-2018: Fix this so it makes sense
+                is.read(getBytes, x, 4);
+                if (Arrays.compare(getBytes,target) == 0) {
+                    //Found the right stuff. Start writing the block then return it. Remember to close the file.
+                } else {
+                    //increase offset or skip. Also do something to the loop.
+                }
+            }
+                is.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        return null;
     }
 
     // TODO: 24-04-2018 : make this shit
@@ -37,6 +58,11 @@ public class LedgerReader {
             e.printStackTrace();
         }
         return null;
+    }
+    private byte[] longToBytes(long num) {
+        ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES);
+        buffer.putLong(num);
+        return buffer.array();
     }
 }
 
