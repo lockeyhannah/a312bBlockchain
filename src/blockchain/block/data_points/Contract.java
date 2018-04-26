@@ -13,7 +13,7 @@ public class Contract implements DataPoint {
     String fileId;
     Transaction[] chunks;
 
-    SmartContract(String ownerIp, String fileId, Transaction[] chunks){
+    Contract(String ownerIp, String fileId, Transaction[] chunks){
 
         this.ownerIp = ownerIp;
         this.fileId = fileId;
@@ -21,7 +21,6 @@ public class Contract implements DataPoint {
 
     }
 
-    @Override
     public DataPoint getDataPoint(byte[] b) {
 
         //TODO : 25-04-2018 : lav denne method så den kan returne et nyt object med info i strings fra byte
@@ -30,10 +29,9 @@ public class Contract implements DataPoint {
         String str2 = "fileID";
         Transaction[] trans1 = new Transaction[2];
 
-        return new SmartContract(str1, str2, trans1);
+        return new Contract(str1, str2, trans1);
     }
 
-    @Override
     public byte[] getByteArray() {
         // TODO: 21-04-2018 : temporary functionality - Add functional behavior
         return "bitch".getBytes();
