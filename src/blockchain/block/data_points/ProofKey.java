@@ -6,7 +6,7 @@ package blockchain.block.data_points;
  *
  */
 
-public class ProofKey implements Savable {
+public class ProofKey extends DataPoint {
 
     // TODO : Proofkey er indtil videre ikke brugbart og skal fjernes
 
@@ -21,6 +21,11 @@ public class ProofKey implements Savable {
     public byte[] getByteArray() {
         // TODO: 21-04-2018 : temporary functionality - Add functional behavior
         return key.getBytes();
+    }
+
+    @Override
+    public String getDataString() {
+        return null;
     }
 
     @Override

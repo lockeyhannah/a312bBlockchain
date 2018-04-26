@@ -9,7 +9,7 @@ package blockchain.block.data_points;
 
 import blockchain.ledger_file.ByteUtils;
 
-public class Transaction implements Savable, Datapoint {
+public class Transaction implements Savable, DataPoint {
     // TODO : Indsætte metoder til Transaction
 
     private final int maxByteSize = 16;
@@ -17,8 +17,6 @@ public class Transaction implements Savable, Datapoint {
     String chunkId;
     String storageIp;
     int chunkSize;
-
-
 
 
     Transaction(String chunkId, String storageIp){

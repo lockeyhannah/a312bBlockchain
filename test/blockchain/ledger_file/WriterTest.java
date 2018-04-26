@@ -12,7 +12,7 @@ class WriterTest {
 
     @Test
     public void fileAppendTest(){
-        LedgerWriter ledgerWriter = new LedgerWriter(Paths.get("ledger.dat"));
+        /*edgerWriter ledgerWriter = new LedgerWriter(Paths.get("ledger.dat"));
         byte[] encodedTest = ByteUtils.longToBytes(15978645);
         ledgerWriter.writeToFile(encodedTest, 8);
 
@@ -23,7 +23,7 @@ class WriterTest {
             System.out.print(Byte.toUnsignedInt(readBytes[i]));
             if(i != 7) System.out.print(", ");
         }
-        System.out.println("\nDecimal value : " + ByteUtils.bytesToLong(readBytes));
+        System.out.println("\nDecimal value : " + ByteUtils.bytesToLong(readBytes));*/
     }
 
 
