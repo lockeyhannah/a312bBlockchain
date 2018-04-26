@@ -1,6 +1,8 @@
 package blockchain.ledger_file;
 
 import blockchain.block.Block;
+import blockchain.block.Data;
+import blockchain.block.Header;
 
 import java.io.*;
 import java.nio.ByteBuffer;
@@ -25,15 +27,35 @@ public class LedgerReader {
             File file = new File(ledgerFilePath.toString());
             getBytes = new byte[4];
             InputStream is = new FileInputStream(file);
-            while(is != null) {//Todo: 25-04-2018: Fix this so it makes sense
-                is.read(getBytes, x, 4);
+            while(is.read(getBytes, x, 4) != -1) {
                 if (Arrays.compare(getBytes,target) == 0) {
-                    //Found the right stuff. Start writing the block then return it. Remember to close the file.
+                    byte[] tempPrevHash = new byte[32];
+                    is.read(tempPrevHash, x+4, 32);
+                    byte[] tempDataHash = new byte[32];
+                    is.read(tempDataHash, x+36, 32);
+                    byte[] tempNonce = new byte[32];
+                    is.read(tempNonce, x+68, 32);
+                    byte[] tempTarget = new byte[32];
+                    is.read(tempTarget, x+100, 32);
+                    byte[] tempTimestamp = new byte[8];
+                    is.read(tempTimestamp, x+132, 8);
+
+                    Header newHeader = new Header(bytesToLong(getBytes),tempPrevHash,tempDataHash,tempNonce,tempTarget,tempTimestamp);
+
+                    Data newData = new Data();
+                    is.read(newData, x+140, 4);//todo: Insæt det der data længde
+
+                    Block newBlock = new Block(newData, newHeader);
+                    is.close();
+                    return newBlock;
+                    //Todo: compact this this shit.
                 } else {
-                    //increase offset or skip. Also do something to the loop.
+                    //ToDo: Find ud af hvor mange byte data som standard er.
                 }
             }
                 is.close();
+            System.out.println("Block not found. Returning blank block.");
+            return new Block(null,null);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -63,6 +85,11 @@ public class LedgerReader {
         ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES);
         buffer.putLong(num);
         return buffer.array();
+    }
+    private long bytesToLong(byte[] bit) {
+        ByteBuffer buffer = ByteBuffer.allocate(bit.length);
+        buffer.put(bit);
+        return buffer.getLong();
     }
 }
 

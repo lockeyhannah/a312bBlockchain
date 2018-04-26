@@ -31,9 +31,9 @@ public class LedgerWriter {
 
         //writes the header
         writeHeaderToFile(longToBytes(blockNum),4);
-        writeHeaderToFile(nonce, 32);
-        writeHeaderToFile(dataHash, 32);
         writeHeaderToFile(prevHash, 32);
+        writeHeaderToFile(dataHash, 32);
+        writeHeaderToFile(nonce, 32);
         writeHeaderToFile(target, 32);
         writeHeaderToFile(timeStamp, 8);
 
