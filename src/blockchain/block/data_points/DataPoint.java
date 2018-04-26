@@ -1,9 +1,7 @@
 package blockchain.block.data_points;
 
-public interface DataPoint {
+public interface Datapoint {
 
 
-    DataPoint getDataPoint(byte[] b);
-    byte[] getByteArray();
 
 }

@@ -6,14 +6,14 @@ package blockchain.block.data_points;
  *
  */
 
-public class ProofKey implements DataPoint {
+public class ProofKey implements Savable {
 
     // TODO : Proofkey er indtil videre ikke brugbart og skal fjernes
 
     private String key;
 
     @Override
-    public DataPoint getDataPoint(byte[] b) {
+    public Savable getInstanceFromBytes(byte[] b) {
         return null;
     }
 
@@ -21,6 +21,11 @@ public class ProofKey implements DataPoint {
     public byte[] getByteArray() {
         // TODO: 21-04-2018 : temporary functionality - Add functional behavior
         return key.getBytes();
+    }
+
+    @Override
+    public int getByteSize() {
+        return 0;
     }
 
     public String getProofKey(){

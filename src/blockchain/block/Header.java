@@ -1,8 +1,10 @@
 package blockchain.block;
 
+import blockchain.block.data_points.Savable;
+
 import java.nio.ByteBuffer;
 
-public class Header {
+public class Header implements Savable{
 
     public static final String MAGIC_ID = "FAC"; //Hvis den her skal bruges skal jeg lige vide til hvad.
 
@@ -14,7 +16,6 @@ public class Header {
 
     private byte[] timeStamp;    // Block creation time
     private long blockId;
-
 
     public Header(long blockId, byte[] prevHash, byte[] dataHash, byte[] nonce, byte[] target, byte[] timeStamp) {
         this.blockId = blockId;
@@ -73,5 +74,20 @@ public class Header {
 
     public void setBlockId(long blockId) {
         this.blockId = blockId;
+    }
+
+    @Override
+    public Savable getInstanceFromBytes(byte[] b) {
+        return null;
+    }
+
+    @Override
+    public byte[] getByteArray() {
+        return new byte[0];
+    }
+
+    @Override
+    public int getByteSize() {
+        return 0;
     }
 }

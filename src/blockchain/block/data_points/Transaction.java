@@ -7,11 +7,19 @@ package blockchain.block.data_points;
  */
 
 
-public class Transaction implements DataPoint {
+import blockchain.ledger_file.ByteUtils;
+
+public class Transaction implements Savable, Datapoint {
     // TODO : Indsætte metoder til Transaction
+
+    private final int maxByteSize = 16;
 
     String chunkId;
     String storageIp;
+    int chunkSize;
+
+
+
 
     Transaction(String chunkId, String storageIp){
         this.chunkId = chunkId;
@@ -19,11 +27,10 @@ public class Transaction implements DataPoint {
     }
 
     @Override
-    public DataPoint getDataPoint(byte[] b) {
+    public Transaction getInstanceFromBytes(byte[] b) {
         //TODO : 25-04-2018 : Lave bytes om til string i nyt transaction objekt
 
         //kommer an på hvordan Tobias gemmer
-
         String str1 = "chunkID";
         String str2 = "storageIP";
 
@@ -32,8 +39,12 @@ public class Transaction implements DataPoint {
 
     @Override
     public byte[] getByteArray() {
-        // TODO: 21-04-2018 : temporary functionality - Add functional behavior
-        return "bitch".getBytes();
+        return ByteUtils.combineByteArrays(chunkId.getBytes(), storageIp.getBytes());
+    }
+
+    @Override
+    public int getByteSize() {
+        return maxByteSize;
     }
 
 
