@@ -77,7 +77,7 @@ public class Header implements Savable{
     @Override
     public byte[] getByteArray() {
         byte[] newNonce = new byte[nonceLength];
-        System.arraycopy(this.nonce, 0, newNonce, nonceLength - this.nonce.length, this.nonce.length); //her er en commentar.
+        System.arraycopy(this.nonce, 0, newNonce, nonceLength - this.nonce.length, this.nonce.length);
 
         byte[] newTarget = new byte[targetLength];
         System.arraycopy(this.target, 0, newTarget, targetLength - this.target.length, this.target.length);
