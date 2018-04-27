@@ -6,4 +6,5 @@ public interface Savable {
     byte[] getByteArray();
     int getByteSize();
 
+
 }

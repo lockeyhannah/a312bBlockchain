@@ -10,14 +10,14 @@ public class FileOverview implements DataPoint {
 
     String ownerIp;
     String fileId;
-    StorageContract[] chunks;
+    StorageContract[] storageContracts;
+    int amountOfChunks;
 
-    FileOverview(String ownerIp, String fileId, StorageContract[] chunks){
-
+    FileOverview(String ownerIp, String fileId, StorageContract[] storageContracts){
         this.ownerIp = ownerIp;
         this.fileId = fileId;
-        this.chunks = chunks;
-
+        this.storageContracts = storageContracts;
+        amountOfChunks = storageContracts.length;
     }
 
     public DataPoint getDataPoint(byte[] b) {
