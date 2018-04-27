@@ -56,7 +56,7 @@ public class LedgerWriter {
 
     // Appends a byte array of target size to the ledger file
     // Adds preceding zeroes to compensate if the given byte array is smaller than the targetsize
-    public void writeHeaderToFile( byte[] bytes, int targetSize){
+    private void writeHeaderToFile( byte[] bytes, int targetSize){
         int extraBytes = targetSize - bytes.length; // TODO: 23-04-2018 : Might be off by one kan ikke tænke nu pls hjælp og test
 
         // NOTE : Files.newOutPutStream is given a second optional input : APPEND
@@ -85,15 +85,16 @@ public class LedgerWriter {
     }
 
     //Syntes at data bør være i string format. Dette gør det nemt at finde en slutning og en begyndelse på.
-    public  String writeDataToFile(String input) {
+    private String writeDataToFile(String input) {
         try (FileWriter fileWriter = new FileWriter(ledgerFilePath.toString(), true);
              BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
              PrintWriter output = new PrintWriter(bufferedWriter)) {
             output.println(input);
+            return "Data added to block.";
         } catch (IOException e) {
             System.out.println("Error! This file doesn't exist: Block.txt");
             return "An Error has occured. Data was not saved.";
         }
-        return "Data added to block.";
+
     }
 }
