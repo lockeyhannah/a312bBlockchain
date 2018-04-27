@@ -7,6 +7,9 @@ package blockchain.block;
 import blockchain.block.data_points.DataPoint;
 import blockchain.block.data_points.Savable;
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Data {
@@ -18,9 +21,14 @@ public class Data {
     }
 
     // Converts all data into a sequence of bytes for hashing
-    public byte[] getByteArray(){
-        // TODO: 21-04-2018 : Temporary behaviour for testing - Add actual functionality
-        return new byte[1]; //savables.get(0).getByteArray();
+    public byte[] getByteArray() throws IOException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        DataOutputStream out = new DataOutputStream(baos);
+        for(DataPoint element : dataPoints){
+            out.writeUTF(element.getFormattedDataString());
+        }
+        byte[] bytes = baos.toByteArray();
+        return bytes;
     }
 
 
