@@ -80,27 +80,27 @@ public class Header implements Savable{
 
         byte[] tempBlockId = new byte[blockIdLength];
         tempint = bis.read(tempBlockId, 0, blockIdLength);
-        System.out.println(tempint);
+        System.out.println(tempint);//Temporary
 
         byte[] tempPrevHash = new byte[prevHashLength];
         tempint = bis.read(tempPrevHash, blockIdLength, prevHashLength);
-        System.out.println(tempint);
+        System.out.println(tempint);//Temporary
 
         byte[] tempDataHash = new byte[dataHashLength];
         tempint = bis.read(tempDataHash, blockIdLength+prevHashLength, dataHashLength);
-        System.out.println(tempint);
+        System.out.println(tempint);//Temporary
 
         byte[] tempNonce = new byte[nonceLength];
         tempint = bis.read(tempNonce, blockIdLength+prevHashLength+dataHashLength, nonceLength);
-        System.out.println(tempint);
+        System.out.println(tempint);//Temporary
 
         byte[] tempTarget = new byte[targetLength];
         tempint = bis.read(tempTarget, blockIdLength+prevHashLength+dataHashLength+nonceLength, targetLength);
-        System.out.println(tempint);
+        System.out.println(tempint);//Temporary
 
         byte[] tempTimestamp = new byte[timeStampLength];
         tempint = bis.read(tempTimestamp, blockIdLength+prevHashLength+dataHashLength+nonceLength+targetLength, timeStampLength);
-        System.out.println(tempint);
+        System.out.println(tempint); //Temporary
 
         return new Header(bytesToLong(tempBlockId),tempPrevHash,tempDataHash,tempNonce,tempTarget,tempTimestamp.toString());
 
