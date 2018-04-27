@@ -4,7 +4,7 @@ import blockchain.block.data_points.Savable;
 import blockchain.ledger_file.ByteUtils;
 
 
-import java.nio.ByteBuffer;
+import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 
 import static blockchain.ledger_file.ByteUtils.*;
@@ -75,7 +75,28 @@ public class Header implements Savable{
 
     @Override
     public Savable getInstanceFromBytes(byte[] b) {
-        return null;
+        ByteArrayInputStream bis = new ByteArrayInputStream(b);
+
+        byte[] tempBlockId = new byte[blockIdLength];
+        bis.read(tempBlockId, 0, blockIdLength);
+
+        byte[] tempPrevHash = new byte[prevHashLength];
+        bis.read(tempPrevHash, blockIdLength, prevHashLength);
+
+        byte[] tempDataHash = new byte[dataHashLength];
+        bis.read(tempDataHash, blockIdLength+prevHashLength, dataHashLength);
+
+        byte[] tempNonce = new byte[nonceLength];
+        bis.read(tempNonce, blockIdLength+prevHashLength+dataHashLength, nonceLength);
+
+        byte[] tempTarget = new byte[targetLength];
+        bis.read(tempTarget, blockIdLength+prevHashLength+dataHashLength+nonceLength, targetLength);
+
+        byte[] tempTimestamp = new byte[timeStampLength];
+        bis.read(tempTimestamp, blockIdLength+prevHashLength+dataHashLength+nonceLength+targetLength, timeStampLength);
+
+        return new Header(bytesToLong(tempBlockId),tempPrevHash,tempDataHash,tempNonce,tempTarget,tempTimestamp.toString());
+
     }
 
     @Override

@@ -84,7 +84,7 @@ public class LedgerWriter {
         return buffer.array();
     }
 
-    //Syntes at data bør være i string format. Dette gør det nemt at finde en slutning og en begyndelse på.
+
     private String writeDataToFile(String input) {
         try (FileWriter fileWriter = new FileWriter(ledgerFilePath.toString(), true);
              BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
