@@ -11,7 +11,9 @@ import blockchain.ledger_file.ByteUtils;
 public class StorageContract implements DataPoint {
     // TODO : Indsætte metoder til Transaction
 
-    private final int maxByteSize = 16;
+    private final int maxByteSize = chunkIdByteLen + storageIPByteLen +
+            contractTerminationTimeByteLen + chunkSizeByteLen +
+            rewardByteLen;
 
     private String chunkId;
     private String storageIp;
@@ -63,6 +65,14 @@ public class StorageContract implements DataPoint {
 
     @Override
     public String getFormattedDataString() {
-        return null;
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("Chunk ID : ").append(chunkId).append("\n")
+        .append("Storage Unit IP address : ").append(storageIp).append("\n")
+        .append("Date for termination of contract : ").append(contractTerminationTime).append("\n")
+        .append("Size of chunk : ").append(chunkSize).append("\n")
+        .append("Reward for chunk : ").append(reward). append("\n");
+
+        return sb.toString();
     }
 }
