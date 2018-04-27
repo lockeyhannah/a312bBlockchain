@@ -40,6 +40,7 @@ public class StorageContract implements DataPoint {
 
     @Override
     public byte[] getByteArray() {
+
         byte[] b1 = ByteUtils.extendByteArray(chunkId.getBytes(), chunkIdByteLen);
         byte[] b2 = ByteUtils.extendByteArray(storageIp.getBytes(), storageIPByteLen);
         byte[] b3 = ByteUtils.extendByteArray(contractTerminationTime.getBytes(), contractTerminationTimeByteLen);
