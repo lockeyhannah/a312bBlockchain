@@ -1,13 +1,18 @@
 package blockchain.block;
 
 import blockchain.block.data_points.Savable;
+import blockchain.ledger_file.ByteUtils;
 
 
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
 
 import static blockchain.ledger_file.ByteUtils.*;
 
 public class Header implements Savable{
+
+    private long blockId;
+    private final int blockIdLength = 8;//BlockId length in bytes
 
     private byte[] prevHash;    // Hash of previous block header
     private final int prevHashLength = 32; //Previous hash length in bytes
@@ -22,8 +27,6 @@ public class Header implements Savable{
 
     private String timeStamp;    // Block creation time
     private final int timeStampLength = 8;//timeStamp length in bytes
-    private long blockId;
-    private final int blockIdLength = 8;//BlockId length in bytes
 
     public Header(long blockId, byte[] prevHash, byte[] dataHash, byte[] nonce, byte[] target, String timeStamp) {
         this.blockId = blockId;
@@ -77,19 +80,16 @@ public class Header implements Savable{
 
     @Override
     public byte[] getByteArray() {
-        byte[] newNonce = new byte[nonceLength];
-        System.arraycopy(this.nonce, 0, newNonce, nonceLength - this.nonce.length, this.nonce.length);
+        ArrayList<byte[]> byteList = new ArrayList<>();
 
-        byte[] newTarget = new byte[targetLength];
-        System.arraycopy(this.target, 0, newTarget, targetLength - this.target.length, this.target.length);
+        byteList.add(ByteUtils.extendByteArray(ByteUtils.longToBytes(blockId), blockIdLength));
+        byteList.add(ByteUtils.extendByteArray(prevHash, prevHashLength));
+        byteList.add(ByteUtils.extendByteArray(dataHash, dataHashLength));
+        byteList.add(ByteUtils.extendByteArray(nonce, nonceLength));
+        byteList.add(ByteUtils.extendByteArray(target, targetLength));
+        byteList.add(ByteUtils.extendByteArray(timeStamp.getBytes(), timeStampLength));
 
-        byte[] newTimeStamp = new byte[timeStampLength];
-        System.arraycopy(this.timeStamp.getBytes(), 0, newTimeStamp, timeStampLength - this.timeStamp.length(), this.timeStamp.length());
-
-        byte[] newBlockId = new byte[nonceLength];
-        System.arraycopy(longToBytes(this.blockId), 0, newBlockId, blockIdLength - longToBytes(this.blockId).length, longToBytes(this.blockId).length);
-
-        return combineByteArrays(combineByteArrays(newBlockId,this.prevHash),combineByteArrays(this.dataHash,combineByteArrays(newNonce,combineByteArrays(newTarget,newTimeStamp))));
+        return ByteUtils.combineByteArrays(byteList);
     }
 
     @Override

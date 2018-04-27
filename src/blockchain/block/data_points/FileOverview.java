@@ -8,12 +8,12 @@ package blockchain.block.data_points;
 
 public class FileOverview implements DataPoint {
 
-    int maxByteSize;
+    private int maxByteSize;
 
-    String ownerIp;
-    String fileId;
-    StorageContract[] storageContracts;
-    int amountOfChunks;
+    private String ownerIp;
+    private String fileId;
+    private StorageContract[] storageContracts;
+    private int amountOfChunks;
 
     FileOverview(String ownerIp, String fileId, StorageContract[] storageContracts){
         this.ownerIp = ownerIp;
