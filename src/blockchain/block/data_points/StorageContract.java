@@ -46,6 +46,7 @@ public class StorageContract implements DataPoint {
         b = ByteUtils.combineByteArrays(b, ByteUtils.longToBytes(chunkSize));
         b = ByteUtils.combineByteArrays(b, ByteUtils.longToBytes(reward));
 
+
         return b;
     }
 
