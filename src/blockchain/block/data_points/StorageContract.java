@@ -1,9 +1,8 @@
 package blockchain.block.data_points;
 
 /*
- *
- * This class is a datapoint in blocks.
- *
+ * This contains information about a contract of file storage
+ * made between two units
  */
 
 
@@ -16,22 +15,24 @@ public class StorageContract implements DataPoint {
 
     String chunkId;
     String storageIp;
+    String contractTerminationTime;
     int chunkSize;
+    double reward;
 
-    StorageContract(String chunkId, String storageIp){
+    private static final int chunkIdByteLen = 2, storageIPByteLen = 8;
+
+    StorageContract(String chunkId, String storageIp, String terminationTime, int chunkSize, double reward){
         this.chunkId = chunkId;
         this.storageIp = storageIp;
+        this.contractTerminationTime = terminationTime;
+        this.chunkSize = chunkSize;
+        this.reward = reward;
     }
 
     @Override
     public StorageContract getInstanceFromBytes(byte[] b) {
         //TODO : 25-04-2018 : Lave bytes om til string i nyt transaction objekt
-
-        //kommer an på hvordan Tobias gemmer
-        String str1 = "chunkID";
-        String str2 = "storageIP";
-
-        return new StorageContract(str1, str2);
+        return null;
     }
 
     @Override
