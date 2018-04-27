@@ -72,7 +72,7 @@ public class Header implements Savable{
 
     @Override
     public Savable getInstanceFromBytes(byte[] b) {
-
+        return null;
     }
 
     @Override
