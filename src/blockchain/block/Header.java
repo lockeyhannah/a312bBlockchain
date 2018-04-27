@@ -76,24 +76,31 @@ public class Header implements Savable{
     @Override
     public Savable getInstanceFromBytes(byte[] b) {
         ByteArrayInputStream bis = new ByteArrayInputStream(b);
+        int tempint;
 
         byte[] tempBlockId = new byte[blockIdLength];
-        bis.read(tempBlockId, 0, blockIdLength);
+        tempint = bis.read(tempBlockId, 0, blockIdLength);
+        System.out.println(tempint);
 
         byte[] tempPrevHash = new byte[prevHashLength];
-        bis.read(tempPrevHash, blockIdLength, prevHashLength);
+        tempint = bis.read(tempPrevHash, blockIdLength, prevHashLength);
+        System.out.println(tempint);
 
         byte[] tempDataHash = new byte[dataHashLength];
-        bis.read(tempDataHash, blockIdLength+prevHashLength, dataHashLength);
+        tempint = bis.read(tempDataHash, blockIdLength+prevHashLength, dataHashLength);
+        System.out.println(tempint);
 
         byte[] tempNonce = new byte[nonceLength];
-        bis.read(tempNonce, blockIdLength+prevHashLength+dataHashLength, nonceLength);
+        tempint = bis.read(tempNonce, blockIdLength+prevHashLength+dataHashLength, nonceLength);
+        System.out.println(tempint);
 
         byte[] tempTarget = new byte[targetLength];
-        bis.read(tempTarget, blockIdLength+prevHashLength+dataHashLength+nonceLength, targetLength);
+        tempint = bis.read(tempTarget, blockIdLength+prevHashLength+dataHashLength+nonceLength, targetLength);
+        System.out.println(tempint);
 
         byte[] tempTimestamp = new byte[timeStampLength];
-        bis.read(tempTimestamp, blockIdLength+prevHashLength+dataHashLength+nonceLength+targetLength, timeStampLength);
+        tempint = bis.read(tempTimestamp, blockIdLength+prevHashLength+dataHashLength+nonceLength+targetLength, timeStampLength);
+        System.out.println(tempint);
 
         return new Header(bytesToLong(tempBlockId),tempPrevHash,tempDataHash,tempNonce,tempTarget,tempTimestamp.toString());
 
