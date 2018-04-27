@@ -8,12 +8,12 @@ package blockchain.block.data_points;
 
 import blockchain.ledger_file.ByteUtils;
 
+import java.util.ArrayList;
+
 public class StorageContract implements DataPoint {
     // TODO : Indsætte metoder til Transaction
 
-    private final int maxByteSize = chunkIdByteLen + storageIPByteLen +
-            contractTerminationTimeByteLen + chunkSizeByteLen +
-            rewardByteLen;
+
 
     private String chunkId;
     private String storageIp;
@@ -24,6 +24,11 @@ public class StorageContract implements DataPoint {
     private static final int chunkIdByteLen = 2, storageIPByteLen = 8,
             contractTerminationTimeByteLen = 20, chunkSizeByteLen = 4,
             rewardByteLen = 8;
+
+    private final int maxByteSize = chunkIdByteLen + storageIPByteLen +
+            contractTerminationTimeByteLen + chunkSizeByteLen +
+            rewardByteLen;
+
 
     StorageContract(String chunkId, String storageIp, String terminationTime, long chunkSize, long reward){
         this.chunkId = chunkId;
@@ -42,19 +47,15 @@ public class StorageContract implements DataPoint {
 
     @Override
     public byte[] getByteArray() {
+        ArrayList<byte[]> byteList = new ArrayList<>();
 
-        byte[] b1 = ByteUtils.extendByteArray(chunkId.getBytes(), chunkIdByteLen);
-        byte[] b2 = ByteUtils.extendByteArray(storageIp.getBytes(), storageIPByteLen);
-        byte[] b3 = ByteUtils.extendByteArray(contractTerminationTime.getBytes(), contractTerminationTimeByteLen);
-        byte[] b4 = ByteUtils.extendByteArray(ByteUtils.longToBytes(chunkSize), chunkSizeByteLen);
-        byte[] b5 = ByteUtils.extendByteArray(ByteUtils.longToBytes(reward), rewardByteLen);
+        byteList.add(ByteUtils.extendByteArray(chunkId.getBytes(), chunkIdByteLen));
+        byteList.add(ByteUtils.extendByteArray(storageIp.getBytes(), storageIPByteLen));
+        byteList.add(ByteUtils.extendByteArray(contractTerminationTime.getBytes(), contractTerminationTimeByteLen));
+        byteList.add(ByteUtils.extendByteArray(ByteUtils.longToBytes(chunkSize), chunkSizeByteLen));
+        byteList.add(ByteUtils.extendByteArray(ByteUtils.longToBytes(reward), rewardByteLen));
 
-        byte[] b = ByteUtils.combineByteArrays(b1, b2);
-        b = ByteUtils.combineByteArrays(b, b3);
-        b = ByteUtils.combineByteArrays(b, b4);
-        b = ByteUtils.combineByteArrays(b, b5);
-
-        return b;
+        return ByteUtils.combineByteArrays(byteList);
     }
 
     @Override
