@@ -24,11 +24,6 @@ public class ProofKey implements DataPoint {
     }
 
     @Override
-    public String getDataString() {
-        return null;
-    }
-
-    @Override
     public int getByteSize() {
         return 0;
     }
@@ -41,4 +36,8 @@ public class ProofKey implements DataPoint {
         this.key = key;
     }
 
+    @Override
+    public String getFormattedDataString() {
+        return null;
+    }
 }
