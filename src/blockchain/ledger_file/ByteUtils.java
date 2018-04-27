@@ -1,6 +1,7 @@
 package blockchain.ledger_file;
 
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
 
 public class ByteUtils {
     // TODO: 24-04-2018 : Også stjålet fra det store interweb - forstå hvad der sker
@@ -26,6 +27,25 @@ public class ByteUtils {
         buffer.put(array2);
         return buffer.array();
     }
+
+    public static byte[] combineByteArrays(ArrayList<byte[]> byteList){
+        if(byteList == null) return null;
+        int totalBytes = 0;
+
+        // Find total byte size
+        for(int i = 0; i < byteList.size(); i++){
+            totalBytes += byteList.get(i).length;
+        }
+
+        // Combine all arrays
+        ByteBuffer buffer = ByteBuffer.allocate(totalBytes);
+        for(int i = 0; i < byteList.size(); i++){
+            buffer.put(byteList.get(i));
+        }
+
+        return buffer.array();
+    }
+
 
     public static byte[] extendByteArray(byte[] array, int targetLength){
         int extraBytes = targetLength - array.length;
