@@ -77,29 +77,35 @@ public class Header implements Savable{
     public Savable getInstanceFromBytes(byte[] b) {
         ByteArrayInputStream bis = new ByteArrayInputStream(b);
         int tempint;
+        int offset = 0;
 
         byte[] tempBlockId = new byte[blockIdLength];
-        tempint = bis.read(tempBlockId, 0, blockIdLength);
+        tempint = bis.read(tempBlockId, offset, blockIdLength);
         System.out.println(tempint);//Temporary
+        offset += blockIdLength;
 
         byte[] tempPrevHash = new byte[prevHashLength];
-        tempint = bis.read(tempPrevHash, blockIdLength, prevHashLength);
+        tempint = bis.read(tempPrevHash, offset, prevHashLength);
         System.out.println(tempint);//Temporary
+        offset += prevHashLength;
 
         byte[] tempDataHash = new byte[dataHashLength];
-        tempint = bis.read(tempDataHash, blockIdLength+prevHashLength, dataHashLength);
+        tempint = bis.read(tempDataHash, offset, dataHashLength);
         System.out.println(tempint);//Temporary
+        offset += dataHashLength;
 
         byte[] tempNonce = new byte[nonceLength];
-        tempint = bis.read(tempNonce, blockIdLength+prevHashLength+dataHashLength, nonceLength);
+        tempint = bis.read(tempNonce, offset, nonceLength);
         System.out.println(tempint);//Temporary
+        offset += nonceLength;
 
         byte[] tempTarget = new byte[targetLength];
-        tempint = bis.read(tempTarget, blockIdLength+prevHashLength+dataHashLength+nonceLength, targetLength);
+        tempint = bis.read(tempTarget, offset, targetLength);
         System.out.println(tempint);//Temporary
+        offset += targetLength;
 
         byte[] tempTimestamp = new byte[timeStampLength];
-        tempint = bis.read(tempTimestamp, blockIdLength+prevHashLength+dataHashLength+nonceLength+targetLength, timeStampLength);
+        tempint = bis.read(tempTimestamp, offset, timeStampLength);
         System.out.println(tempint); //Temporary
 
         return new Header(bytesToLong(tempBlockId),tempPrevHash,tempDataHash,tempNonce,tempTarget,tempTimestamp.toString());
