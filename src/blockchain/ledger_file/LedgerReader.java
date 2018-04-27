@@ -11,7 +11,7 @@ import java.nio.file.Path;
 import java.util.Arrays;
 
 public class LedgerReader {
-
+/*
     private Path ledgerFilePath;
 
     public LedgerReader(Path ledgerFilePath) {
@@ -91,6 +91,6 @@ public class LedgerReader {
         buffer.put(bit);
         return buffer.getLong();
     }
-}
+*/}
 
 

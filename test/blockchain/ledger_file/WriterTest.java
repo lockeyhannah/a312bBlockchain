@@ -9,7 +9,7 @@ import java.nio.file.Paths;
 
 class WriterTest {
 
-
+/*
     @Test
     public void fileAppendTest(){
         /*edgerWriter ledgerWriter = new LedgerWriter(Paths.get("ledger.dat"));
@@ -26,5 +26,5 @@ class WriterTest {
         System.out.println("\nDecimal value : " + ByteUtils.bytesToLong(readBytes));*/
     }
 
-
+*/
 }

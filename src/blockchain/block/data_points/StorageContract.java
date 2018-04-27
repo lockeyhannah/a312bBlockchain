@@ -9,7 +9,7 @@ package blockchain.block.data_points;
 
 import blockchain.ledger_file.ByteUtils;
 
-public class Transaction implements Savable, DataPoint {
+public class StorageContract implements DataPoint {
     // TODO : Indsætte metoder til Transaction
 
     private final int maxByteSize = 16;
@@ -18,21 +18,20 @@ public class Transaction implements Savable, DataPoint {
     String storageIp;
     int chunkSize;
 
-
-    Transaction(String chunkId, String storageIp){
+    StorageContract(String chunkId, String storageIp){
         this.chunkId = chunkId;
         this.storageIp = storageIp;
     }
 
     @Override
-    public Transaction getInstanceFromBytes(byte[] b) {
+    public StorageContract getInstanceFromBytes(byte[] b) {
         //TODO : 25-04-2018 : Lave bytes om til string i nyt transaction objekt
 
         //kommer an på hvordan Tobias gemmer
         String str1 = "chunkID";
         String str2 = "storageIP";
 
-        return new Transaction(str1, str2);
+        return new StorageContract(str1, str2);
     }
 
     @Override
@@ -46,4 +45,8 @@ public class Transaction implements Savable, DataPoint {
     }
 
 
+    @Override
+    public String getFormattedDataString() {
+        return null;
+    }
 }

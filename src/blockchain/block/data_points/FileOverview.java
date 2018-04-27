@@ -6,14 +6,13 @@ package blockchain.block.data_points;
  *
  */
 
-public class Contract implements DataPoint {
-
+public class FileOverview implements DataPoint {
 
     String ownerIp;
     String fileId;
-    Transaction[] chunks;
+    StorageContract[] chunks;
 
-    Contract(String ownerIp, String fileId, Transaction[] chunks){
+    FileOverview(String ownerIp, String fileId, StorageContract[] chunks){
 
         this.ownerIp = ownerIp;
         this.fileId = fileId;
@@ -27,9 +26,14 @@ public class Contract implements DataPoint {
 
         String str1 = "owner";
         String str2 = "fileID";
-        Transaction[] trans1 = new Transaction[2];
+        StorageContract[] trans1 = new StorageContract[2];
 
-        return new Contract(str1, str2, trans1);
+        return new FileOverview(str1, str2, trans1);
+    }
+
+    @Override
+    public Savable getInstanceFromBytes(byte[] b) {
+        return null;
     }
 
     public byte[] getByteArray() {
@@ -37,4 +41,13 @@ public class Contract implements DataPoint {
         return "bitch".getBytes();
     }
 
+    @Override
+    public int getByteSize() {
+        return 0;
+    }
+
+    @Override
+    public String getFormattedDataString() {
+        return null;
+    }
 }

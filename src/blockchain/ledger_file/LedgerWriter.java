@@ -14,6 +14,7 @@ public class LedgerWriter {
 
     private Path ledgerFilePath;
 
+/*
 
     public LedgerWriter(Path ledgerFilePath){
            this.ledgerFilePath = ledgerFilePath;
@@ -21,6 +22,10 @@ public class LedgerWriter {
 
     // Appends a block to the blockchain
     public void writeBlock(Block block){
+
+
+
+
         byte[] nonce = block.getHeader().getNonce(); //suppose to be 32 bytes long.
         byte[] timeStamp = block.getHeader().getTimeStamp(); //suppose to be 8 bytes long.
         byte[] dataHash = block.getHeader().getDataHash(); //suppose to be 32 bytes long.
@@ -28,6 +33,8 @@ public class LedgerWriter {
         byte[] target = block.getHeader().getTarget(); //suppose to be 32 bytes long.
         long blockNum = block.getHeader().getBlockId();//suppose to be 4 bytes long.
         byte[] data = block.getData().getByteArray();
+
+        byte[] blockBytes = block.getByteArray();
 
         //writes the header
         writeHeaderToFile(longToBytes(blockNum),4);
@@ -90,4 +97,4 @@ public class LedgerWriter {
         }
         return "Data added to block.";
     }
-}
+*/}

@@ -25,8 +25,14 @@ public class ByteUtils {
         buffer.put(array1);
         buffer.put(array2);
         return buffer.array();
-
     }
+
+    public static byte[] extendByteArray(byte[] array, int targetLength){
+        int extraBytes = targetLength - array.length;
+        byte[] precedingBytes = new byte[extraBytes];
+        return combineByteArrays(precedingBytes, array);
+    }
+
 
 
 }

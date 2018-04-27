@@ -14,30 +14,16 @@ public class Header implements Savable{
     private byte[] nonce;       // Nonce value appended to the hashed data to generate a hash below the target value
     private byte[] target;      // Hash values must be smaller than target to be valid
 
-    private byte[] timeStamp;    // Block creation time
+    private String timeStamp;    // Block creation time
     private long blockId;
 
-    public Header(long blockId, byte[] prevHash, byte[] dataHash, byte[] nonce, byte[] target, byte[] timeStamp) {
+    public Header(long blockId, byte[] prevHash, byte[] dataHash, byte[] nonce, byte[] target, String timeStamp) {
         this.blockId = blockId;
         this.prevHash = prevHash;
         this.dataHash = dataHash;
         this.nonce = nonce;
         this.target = target;
         this.timeStamp = timeStamp;
-    }
-
-    // Combines all header variables to a single byte array
-    public byte[] getBytes(){
-        int totalBytes = prevHash.length + dataHash.length + nonce.length + target.length + timeStamp.length;
-        ByteBuffer bb = ByteBuffer.allocate(totalBytes);
-
-        bb.put(prevHash);
-        bb.put(dataHash);
-        bb.put(nonce);
-        bb.put(target);
-        bb.put(timeStamp);
-
-        return bb.array();
     }
 
     public byte[] getDifficultyTarget(){
@@ -64,7 +50,7 @@ public class Header implements Savable{
         return target;
     }
 
-    public byte[] getTimeStamp() {
+    public String getTimeStamp() {
         return timeStamp;
     }
 
@@ -78,12 +64,13 @@ public class Header implements Savable{
 
     @Override
     public Savable getInstanceFromBytes(byte[] b) {
+
         return null;
     }
 
     @Override
     public byte[] getByteArray() {
-        return new byte[0];
+        return nonce; // TODO: 26-04-2018 convert
     }
 
     @Override
