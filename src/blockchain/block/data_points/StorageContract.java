@@ -19,7 +19,9 @@ public class StorageContract implements DataPoint {
     private int chunkSize;
     private double reward;
 
-    private static final int chunkIdByteLen = 2, storageIPByteLen = 8;
+    private static final int chunkIdByteLen = 2, storageIPByteLen = 8,
+            contractTerminationTimeByteLen = 20, chunkSizeByteLen = 4,
+            rewardByteLen = 8;
 
     StorageContract(String chunkId, String storageIp, String terminationTime, int chunkSize, double reward){
         this.chunkId = chunkId;

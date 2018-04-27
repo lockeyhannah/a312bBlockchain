@@ -14,7 +14,7 @@ public class BlockGenerator {
 
     // Mines and returns a new block based on the given data
     public static Block generateBlock(Data data, byte[] difficulty, byte[] prevHeaderHash){
-        String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+        String timeStamp = generateTimeStamp();
 
         byte[] dataHash = Hasher.applySHA(data.getByteArray());
         byte[] nonce = {0};
@@ -26,7 +26,7 @@ public class BlockGenerator {
         return new Block(data, header);
     }
 
-    public String generateTimeStamp(){
+    public static String generateTimeStamp(){
         return new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
     }
 

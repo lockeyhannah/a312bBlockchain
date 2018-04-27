@@ -23,7 +23,7 @@ class WriterTest {
             System.out.print(Byte.toUnsignedInt(readBytes[i]));
             if(i != 7) System.out.print(", ");
         }
-        System.out.println("\nDecimal value : " + ByteUtils.bytesToLong(readBytes));*/
+        System.out.println("\nDecimal value : " + ByteUtils.bytesToLong(readBytes));
     }
 
 */

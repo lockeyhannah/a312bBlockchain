@@ -2,6 +2,7 @@ package blockchain;
 
 
 import blockchain.block.Data;
+import blockchain.block.mining.BlockGenerator;
 import blockchain.ledger_file.ByteUtils;
 
 import java.math.BigInteger;
@@ -18,7 +19,8 @@ public class BlockchainClient {
         for(int i = 0; i < extended.length; i++){
             System.out.print("," + extended[i]);
         }
-/*
+
+        /*
         // TODO: 21-04-2018 : Add difficulty calculation
         BigInteger tempDifficulty = new BigInteger("2").pow(245);
         ArrayList<Block> blocks = new ArrayList<>();
