@@ -27,8 +27,7 @@ public class Data {
         for(DataPoint element : dataPoints){
             out.writeUTF(element.getFormattedDataString());
         }
-        byte[] bytes = baos.toByteArray();
-        return bytes;
+        return baos.toByteArray();
     }
 
 
