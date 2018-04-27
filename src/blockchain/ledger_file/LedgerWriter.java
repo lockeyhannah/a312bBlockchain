@@ -14,7 +14,6 @@ public class LedgerWriter {
 
     private Path ledgerFilePath;
 
-/*
 
     public LedgerWriter(Path ledgerFilePath){
            this.ledgerFilePath = ledgerFilePath;
@@ -98,4 +97,4 @@ public class LedgerWriter {
         }
 
     }
-*/}
+}
