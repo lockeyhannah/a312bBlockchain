@@ -13,11 +13,11 @@ public class StorageContract implements DataPoint {
 
     private final int maxByteSize = 16;
 
-    String chunkId;
-    String storageIp;
-    String contractTerminationTime;
-    int chunkSize;
-    double reward;
+    private String chunkId;
+    private String storageIp;
+    private String contractTerminationTime;
+    private int chunkSize;
+    private double reward;
 
     private static final int chunkIdByteLen = 2, storageIPByteLen = 8;
 
@@ -27,6 +27,7 @@ public class StorageContract implements DataPoint {
         this.contractTerminationTime = terminationTime;
         this.chunkSize = chunkSize;
         this.reward = reward;
+
     }
 
     @Override

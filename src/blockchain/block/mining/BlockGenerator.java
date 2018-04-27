@@ -26,6 +26,9 @@ public class BlockGenerator {
         return new Block(data, header);
     }
 
+    public String generateTimeStamp(){
+        return new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+    }
 
     // Mines a block and returns the resulting nonce value
     private static void mineBlock(Header header){
