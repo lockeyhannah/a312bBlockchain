@@ -2,11 +2,12 @@ package blockchain.block;
 
 import blockchain.block.data_points.Savable;
 
+
 import java.nio.ByteBuffer;
 
-public class Header implements Savable{
+import static blockchain.ledger_file.ByteUtils.*;
 
-    public static final String MAGIC_ID = "FAC"; //Hvis den her skal bruges skal jeg lige vide til hvad.
+public class Header implements Savable{
 
     private byte[] prevHash;    // Hash of previous block header
     private byte[] dataHash;    // Hash of block data (without nonce)
@@ -70,7 +71,12 @@ public class Header implements Savable{
 
     @Override
     public byte[] getByteArray() {
-        return nonce; // TODO: 26-04-2018 convert
+        return combineByteArrays(combineByteArrays(longToBytes(this.blockId),this.prevHash),
+                combineByteArrays(this.dataHash,combineByteArrays(this.nonce,
+                        combineByteArrays(this.target,this.timeStamp.getBytes()))));
+
+
+
     }
 
     @Override

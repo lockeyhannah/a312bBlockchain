@@ -42,8 +42,10 @@ public class LedgerReader {
 
                     Header newHeader = new Header(bytesToLong(getBytes),tempPrevHash,tempDataHash,tempNonce,tempTarget,tempTimestamp);
 
-                    Data newData = new Data();
-                    is.read(newData, x+140, 4);//todo: Insæt det der data længde
+                    byte[] newbyte = new byte[64];
+                    is.read(newbyte, x+140, 4);//todo: Insæt det der data længde
+
+                    Data newData = newbyte.byteToData; //Todo: Temporary.
 
                     Block newBlock = new Block(newData, newHeader);
                     is.close();
@@ -61,7 +63,7 @@ public class LedgerReader {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        return null;
     }
 
     // TODO: 24-04-2018 : make this shit
@@ -81,11 +83,13 @@ public class LedgerReader {
         }
         return null;
     }
+
     private byte[] longToBytes(long num) {
         ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES);
         buffer.putLong(num);
         return buffer.array();
     }
+
     private long bytesToLong(byte[] bit) {
         ByteBuffer buffer = ByteBuffer.allocate(bit.length);
         buffer.put(bit);

@@ -42,11 +42,12 @@ public class Block implements Savable{
 
     @Override
     public byte[] getByteArray() {
+
         return new byte[0];
     }
 
     @Override
     public int getByteSize() {
-        return 0;
+        return null;
     }
 }
