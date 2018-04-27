@@ -41,11 +41,12 @@ public class StorageContract implements DataPoint {
     @Override
     public byte[] getByteArray() {
 
+
+
         byte[] b = ByteUtils.combineByteArrays(chunkId.getBytes(), storageIp.getBytes());
         b = ByteUtils.combineByteArrays(b, contractTerminationTime.getBytes());
         b = ByteUtils.combineByteArrays(b, ByteUtils.longToBytes(chunkSize));
         b = ByteUtils.combineByteArrays(b, ByteUtils.longToBytes(reward));
-
 
         return b;
     }
