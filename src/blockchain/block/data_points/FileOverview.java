@@ -8,6 +8,8 @@ package blockchain.block.data_points;
 
 public class FileOverview implements DataPoint {
 
+    int maxByteSize;
+
     String ownerIp;
     String fileId;
     StorageContract[] storageContracts;
@@ -18,17 +20,6 @@ public class FileOverview implements DataPoint {
         this.fileId = fileId;
         this.storageContracts = storageContracts;
         amountOfChunks = storageContracts.length;
-    }
-
-    public DataPoint getDataPoint(byte[] b) {
-
-        //TODO : 25-04-2018 : lav denne method så den kan returne et nyt object med info i strings fra byte
-
-        String str1 = "owner";
-        String str2 = "fileID";
-        StorageContract[] trans1 = new StorageContract[2];
-
-        return new FileOverview(str1, str2, trans1);
     }
 
     @Override
@@ -43,11 +34,25 @@ public class FileOverview implements DataPoint {
 
     @Override
     public int getByteSize() {
-        return 0;
+        return maxByteSize;
     }
 
     @Override
     public String getFormattedDataString() {
-        return null;
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("Owners IP address : ").append(ownerIp).append("\n")
+        .append("File ID : ").append(fileId).append("\n")
+        .append("Amount of chunks : ").append(amountOfChunks).append("\n")
+        .append("All file contracts : ").append("\n");
+
+        for(int i = 0; i < amountOfChunks; i++) {
+            sb.append("Contract for chunk : ").append(i).append("\n");
+            sb.append(storageContracts[i]).append("\n");
+        }
+
+        sb.append("\n");
+
+        return sb.toString();
     }
 }
