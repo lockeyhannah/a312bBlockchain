@@ -13,8 +13,6 @@ import java.util.ArrayList;
 public class StorageContract implements DataPoint {
     // TODO : Indsætte metoder til Transaction
 
-
-
     private String chunkId;
     private String storageIp;
     private String contractTerminationTime;

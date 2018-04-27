@@ -38,6 +38,10 @@ public class ProofKey implements DataPoint {
 
     @Override
     public String getFormattedDataString() {
-        return null;
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("Proof key : ").append(key).append("\n");
+
+        return sb.toString();
     }
 }
