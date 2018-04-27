@@ -71,7 +71,7 @@ public class StorageContract implements DataPoint {
         .append("Storage Unit IP address : ").append(storageIp).append("\n")
         .append("Date for termination of contract : ").append(contractTerminationTime).append("\n")
         .append("Size of chunk : ").append(chunkSize).append("\n")
-        .append("Reward for chunk : ").append(reward). append("\n");
+        .append("Reward for chunk : ").append(reward). append("\n\n");
 
         return sb.toString();
     }
