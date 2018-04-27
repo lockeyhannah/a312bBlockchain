@@ -7,12 +7,10 @@ package blockchain.block;
 import blockchain.block.data_points.DataPoint;
 import blockchain.block.data_points.Savable;
 
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
-public class Data {
+public class Data implements Savable{
 
     private ArrayList<DataPoint> dataPoints = new ArrayList<>();
 
@@ -21,15 +19,31 @@ public class Data {
     }
 
     // Converts all data into a sequence of bytes for hashing
-    public byte[] getByteArray() throws IOException {
+    @Override
+    public byte[] getByteArray() {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         DataOutputStream out = new DataOutputStream(baos);
         for(DataPoint element : dataPoints){
-            out.writeUTF(element.getFormattedDataString());
+            try {
+                out.writeUTF(element.getFormattedDataString());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return baos.toByteArray();
     }
-
-
-
+    @Override
+    public Savable getInstanceFromBytes(byte[] b) throws IOException {
+        ByteArrayInputStream bais = new ByteArrayInputStream(b);
+        DataInputStream in = new DataInputStream(bais);
+        while (in.available() > 0) {
+            String element = in.readUTF();
+            System.out.println(element);
+        } //Todo: Lige nu kommer den bare som en String. Dette skal laves om til Datapoints. How do?
+        return null;
+    }
+    @Override
+    public int getByteSize(){
+            return getByteArray().length;
+    }
 }

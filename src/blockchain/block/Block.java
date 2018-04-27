@@ -48,6 +48,6 @@ public class Block implements Savable{
 
     @Override
     public int getByteSize() {
-        return null;
+        return 0;
     }
 }
