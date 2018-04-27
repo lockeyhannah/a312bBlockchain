@@ -16,14 +16,14 @@ public class StorageContract implements DataPoint {
     private String chunkId;
     private String storageIp;
     private String contractTerminationTime;
-    private int chunkSize;
-    private double reward;
+    private long chunkSize;
+    private long reward;
 
     private static final int chunkIdByteLen = 2, storageIPByteLen = 8,
             contractTerminationTimeByteLen = 20, chunkSizeByteLen = 4,
             rewardByteLen = 8;
 
-    StorageContract(String chunkId, String storageIp, String terminationTime, int chunkSize, double reward){
+    StorageContract(String chunkId, String storageIp, String terminationTime, long chunkSize, long reward){
         this.chunkId = chunkId;
         this.storageIp = storageIp;
         this.contractTerminationTime = terminationTime;
@@ -40,7 +40,13 @@ public class StorageContract implements DataPoint {
 
     @Override
     public byte[] getByteArray() {
-        return ByteUtils.combineByteArrays(chunkId.getBytes(), storageIp.getBytes());
+
+        byte[] b = ByteUtils.combineByteArrays(chunkId.getBytes(), storageIp.getBytes());
+        b = ByteUtils.combineByteArrays(b, contractTerminationTime.getBytes());
+        b = ByteUtils.combineByteArrays(b, ByteUtils.longToBytes(chunkSize));
+        b = ByteUtils.combineByteArrays(b, ByteUtils.longToBytes(reward));
+
+        return b;
     }
 
     @Override
