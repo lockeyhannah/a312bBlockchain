@@ -6,7 +6,7 @@ package blockchain.block.data_points;
  *
  */
 
-public class ProofKey extends DataPoint {
+public class ProofKey implements DataPoint {
 
     // TODO : Proofkey er indtil videre ikke brugbart og skal fjernes
 
