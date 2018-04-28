@@ -76,37 +76,37 @@ public class Header implements Savable{
     @Override
     public Savable getInstanceFromBytes(byte[] b) {
         ByteArrayInputStream bis = new ByteArrayInputStream(b);
-        int tempint;
+        int tempInt;
         int offset = 0;
 
         byte[] tempBlockId = new byte[blockIdLength];
-        tempint = bis.read(tempBlockId, offset, blockIdLength);
-        System.out.println(tempint);//Temporary
+        tempInt = bis.read(tempBlockId, offset, blockIdLength);
+        System.out.println(tempInt);//Temporary
         offset += blockIdLength;
 
         byte[] tempPrevHash = new byte[prevHashLength];
-        tempint = bis.read(tempPrevHash, offset, prevHashLength);
-        System.out.println(tempint);//Temporary
+        tempInt = bis.read(tempPrevHash, offset, prevHashLength);
+        System.out.println(tempInt);//Temporary
         offset += prevHashLength;
 
         byte[] tempDataHash = new byte[dataHashLength];
-        tempint = bis.read(tempDataHash, offset, dataHashLength);
-        System.out.println(tempint);//Temporary
+        tempInt = bis.read(tempDataHash, offset, dataHashLength);
+        System.out.println(tempInt);//Temporary
         offset += dataHashLength;
 
         byte[] tempNonce = new byte[nonceLength];
-        tempint = bis.read(tempNonce, offset, nonceLength);
-        System.out.println(tempint);//Temporary
+        tempInt = bis.read(tempNonce, offset, nonceLength);
+        System.out.println(tempInt);//Temporary
         offset += nonceLength;
 
         byte[] tempTarget = new byte[targetLength];
-        tempint = bis.read(tempTarget, offset, targetLength);
-        System.out.println(tempint);//Temporary
+        tempInt = bis.read(tempTarget, offset, targetLength);
+        System.out.println(tempInt);//Temporary
         offset += targetLength;
 
         byte[] tempTimestamp = new byte[timeStampLength];
-        tempint = bis.read(tempTimestamp, offset, timeStampLength);
-        System.out.println(tempint); //Temporary
+        tempInt = bis.read(tempTimestamp, offset, timeStampLength);
+        System.out.println(tempInt); //Temporary
 
         return new Header(bytesToLong(tempBlockId),tempPrevHash,tempDataHash,tempNonce,tempTarget,tempTimestamp.toString());
 

@@ -3,7 +3,11 @@ package blockchain.block;
 import blockchain.block.data_points.Savable;
 import blockchain.block.mining.Hasher;
 
+import java.io.IOException;
 import java.math.BigInteger;
+import java.nio.ByteBuffer;
+
+import static blockchain.ledger_file.ByteUtils.combineByteArrays;
 
 public class Block implements Savable{
 
@@ -36,18 +40,27 @@ public class Block implements Savable{
 
     @Override
     public Block getInstanceFromBytes(byte[] b) {
-
-        return null;
+        //TODO: Har brug for lidt hjælp med at finde ud af hvorfor Savable confilicter med Data og Header
+        ByteBuffer headerByteBuffer = ByteBuffer.allocate(header.getByteSize());
+        ByteBuffer dataByteBuffer = ByteBuffer.allocate(b.length-header.getByteSize());
+        Savable tempHeader = header.getInstanceFromBytes(headerByteBuffer.array());
+        Savable tempData = null;
+        try {
+            tempData = data.getInstanceFromBytes(dataByteBuffer.array());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Block tempBlock = new Block(tempHeader,tempData);
+        return tempBlock;
     }
 
     @Override
     public byte[] getByteArray() {
-
-        return new byte[0];
+        return combineByteArrays(header.getByteArray(),data.getByteArray());
     }
 
     @Override
     public int getByteSize() {
-        return 0;
+        return header.getByteSize()+data.getByteSize();
     }
 }
