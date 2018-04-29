@@ -1,24 +1,32 @@
 package blockchain.block;
 
-import blockchain.block.mining.Hasher;
+import blockchain.block.data_points.Savable;
+import blockchain.ledger_file.ByteUtils;
 
 
-import java.io.Serializable;
-import java.math.BigInteger;
+import java.io.ByteArrayInputStream;
+import java.util.ArrayList;
 
-import static blockchain.utility.ByteUtils.*;
+import static blockchain.ledger_file.ByteUtils.*;
 
-public class Header implements Serializable{
+public class Header implements Savable{
 
     private long blockId;
+    private final int blockIdLength = 8;//BlockId length in bytes
 
     private byte[] prevHash;    // Hash of previous block header
+    private final int prevHashLength = 32; //Previous hash length in bytes
     private byte[] dataHash;    // Hash of block data (without nonce)
+    private final int dataHashLength = 32;//Data hash length in bytes
 
-    private byte[] nonce;       // Nonce value appended to the hashed data to generate a hash below the target value
+    private byte[] nonce;// Nonce value appended to the hashed data to generate a hash below the target value
+    private final int nonceLength = 32; //Nonce length in bytes
     private byte[] target;      // Hash values must be smaller than target to be valid
+    private final int targetLength = 32; //Target length in bytes
+
 
     private String timeStamp;    // Block creation time
+    private final int timeStampLength = 8;//timeStamp length in bytes
 
     public Header(long blockId, byte[] prevHash, byte[] dataHash, byte[] nonce, byte[] target, String timeStamp) {
         this.blockId = blockId;
@@ -29,7 +37,7 @@ public class Header implements Serializable{
         this.timeStamp = timeStamp;
     }
 
-    public byte[] getDifficultyTarget() {
+    public byte[] getDifficultyTarget(){
         return target;
     }
 
@@ -65,24 +73,62 @@ public class Header implements Serializable{
         this.blockId = blockId;
     }
 
-    public byte[] getBytes() {
-        byte[] bytes = combineByteArrays(prevHash, dataHash);
-        bytes = combineByteArrays(bytes, nonce);
-        bytes = combineByteArrays(bytes, target);
-        bytes = combineByteArrays(bytes, timeStamp.getBytes());
-        return bytes;
+    @Override
+    public Savable getInstanceFromBytes(byte[] b) {
+        ByteArrayInputStream bis = new ByteArrayInputStream(b);
+        int tempInt;
+        int offset = 0;
+
+        byte[] tempBlockId = new byte[blockIdLength];
+        tempInt = bis.read(tempBlockId, offset, blockIdLength);
+        System.out.println(tempInt);//Temporary
+        offset += blockIdLength;
+
+        byte[] tempPrevHash = new byte[prevHashLength];
+        tempInt = bis.read(tempPrevHash, offset, prevHashLength);
+        System.out.println(tempInt);//Temporary
+        offset += prevHashLength;
+
+        byte[] tempDataHash = new byte[dataHashLength];
+        tempInt = bis.read(tempDataHash, offset, dataHashLength);
+        System.out.println(tempInt);//Temporary
+        offset += dataHashLength;
+
+        byte[] tempNonce = new byte[nonceLength];
+        tempInt = bis.read(tempNonce, offset, nonceLength);
+        System.out.println(tempInt);//Temporary
+        offset += nonceLength;
+
+        byte[] tempTarget = new byte[targetLength];
+        tempInt = bis.read(tempTarget, offset, targetLength);
+        System.out.println(tempInt);//Temporary
+        offset += targetLength;
+
+        byte[] tempTimestamp = new byte[timeStampLength];
+        tempInt = bis.read(tempTimestamp, offset, timeStampLength);
+        System.out.println(tempInt); //Temporary
+
+        return new Header(bytesToLong(tempBlockId),tempPrevHash,tempDataHash,tempNonce,tempTarget,tempTimestamp.toString());
+
     }
 
-    public String getString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Block ID : " + getBlockId()).append("\n").
-                append("Block header hash : " + Hasher.hashToHexString(Hasher.applySHA(getBytes()))).append("\n").
-                append("Previous header hash : " + Hasher.hashToHexString(getPrevHash())).append("\n").
-                append("Hash of block data : " + Hasher.hashToHexString(getDataHash())).append("\n").
-                append("Nonce : " + new BigInteger(getNonce()).toString()).append("\n").
-                append("Target : " + new BigInteger(getTarget()).toString()).append("\n").
-                append("TimeStamp : " + getTimeStamp()).append("\n");
-        return sb.toString();
+    @Override
+    public byte[] getByteArray() {
+        ArrayList<byte[]> byteList = new ArrayList<>();
+
+        byteList.add(ByteUtils.extendByteArray(ByteUtils.longToBytes(blockId), blockIdLength));
+        byteList.add(ByteUtils.extendByteArray(prevHash, prevHashLength));
+        byteList.add(ByteUtils.extendByteArray(dataHash, dataHashLength));
+        byteList.add(ByteUtils.extendByteArray(nonce, nonceLength));
+        byteList.add(ByteUtils.extendByteArray(target, targetLength));
+        byteList.add(ByteUtils.extendByteArray(timeStamp.getBytes(), timeStampLength));
+
+        return ByteUtils.combineByteArrays(byteList);
     }
 
+    @Override
+    public int getByteSize() {
+        return nonceLength + targetLength + blockIdLength +
+               prevHashLength + dataHashLength + timeStampLength;
+    }
 }
