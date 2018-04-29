@@ -13,7 +13,7 @@ class WriterTest {
     @Test
     public void fileAppendTest(){
         /*edgerWriter ledgerWriter = new LedgerWriter(Paths.get("ledger.dat"));
-        byte[] encodedTest = ByteUtils.longToBytes(15978645);
+        byte[] encodedTest = ByteUtils.toByteArray(15978645);
         ledgerWriter.writeToFile(encodedTest, 8);
 
         LedgerReader ledgerReader = new LedgerReader(Paths.get("ledger.dat"));

@@ -3,10 +3,7 @@ package blockchain.block.mining;
 import blockchain.block.Block;
 import blockchain.block.Data;
 import blockchain.block.Header;
-import blockchain.ledger_file.ByteUtils;
 
-import java.math.BigInteger;
-import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -16,14 +13,14 @@ public class BlockGenerator {
     public static Block generateBlock(Data data, byte[] difficulty, byte[] prevHeaderHash){
         String timeStamp = generateTimeStamp();
 
-        byte[] dataHash = Hasher.applySHA(data.getByteArray());
+        byte[] dataHash = Hasher.applySHA(data.getDataBytes());
         byte[] nonce = {0};
         int blockNo = 0;
 
         Header header = new Header(blockNo, prevHeaderHash, dataHash, nonce, difficulty, timeStamp);
         mineBlock(header);
 
-        return new Block(data, header);
+        return new Block(header, data);
     }
 
     public static String generateTimeStamp(){
@@ -31,8 +28,8 @@ public class BlockGenerator {
     }
 
     // Mines a block and returns the resulting nonce value
-    private static void mineBlock(Header header){
-        BigInteger nonce = new BigInteger(header.getNonce());
+    private static void mineBlock(Header header){ // TODO: 29-04-2018 Reimplement
+        /*BigInteger nonce = new BigInteger(header.getNonce());
         BigInteger target = new BigInteger(header.getDifficultyTarget());
 
         //Calculate the hash value with the default nonce and convert to an integer value
@@ -50,7 +47,7 @@ public class BlockGenerator {
             hashInteger = new BigInteger(1, hash);
             System.out.println(Hasher.hashToHexString(hash) + "\n Nonce : " + nonce);
             // TODO: 23-04-2018 : Check if nonce is over 32 bytes (or whatever we store it as) if so then update time and reset nonce value
-        }
+        }*/
 
     }
 

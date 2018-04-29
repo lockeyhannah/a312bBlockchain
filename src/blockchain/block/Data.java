@@ -5,45 +5,49 @@ package blockchain.block;
  */
 
 import blockchain.block.data_points.DataPoint;
-import blockchain.block.data_points.Savable;
 
 import java.io.*;
 import java.util.ArrayList;
 
-public class Data implements Savable{
+public class Data implements Serializable{
 
-    private ArrayList<DataPoint> dataPoints = new ArrayList<>();
+    private ArrayList<DataPoint> dataPoints;
+    private int datapointCount;
+
+    public Data(ArrayList<DataPoint> dataPoints) {
+        this.dataPoints = dataPoints;
+        datapointCount = dataPoints.size();
+    }
 
     public void addData(DataPoint dataPoint){
         dataPoints.add(dataPoint);
+        datapointCount++;
+    }
+
+    public ArrayList<DataPoint> getDataPoints() {
+        return dataPoints;
+    }
+
+    public int getDatapointCount() {
+        return datapointCount;
     }
 
     // Converts all data into a sequence of bytes for hashing
-    @Override
-    public byte[] getByteArray() {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        DataOutputStream out = new DataOutputStream(baos);
-        for(DataPoint element : dataPoints){
-            try {
-                out.writeUTF(element.getFormattedDataString());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+    public byte[] getDataBytes(){
+        ArrayList<byte[]> allBytes;
+        for (DataPoint dp: dataPoints) {
+            //dp.getBytes();
+        }// TODO: 29-04-2018 Implement hash byte functionality
+        return new byte[0];
+    }
+
+    public String getString(){
+        StringBuilder sb = new StringBuilder();
+
+        for (DataPoint dp : dataPoints){
+            sb.append(dp.getFormattedDataString());
         }
-        return baos.toByteArray();
+        return sb.toString();
     }
-    @Override
-    public Savable getInstanceFromBytes(byte[] b) throws IOException {
-        ByteArrayInputStream bais = new ByteArrayInputStream(b);
-        DataInputStream in = new DataInputStream(bais);
-        while (in.available() > 0) {
-            String element = in.readUTF();
-            System.out.println(element);
-        } //Todo: Lige nu kommer den bare som en String. Dette skal laves om til Datapoints. How do?
-        return null;
-    }
-    @Override
-    public int getByteSize(){
-            return getByteArray().length;
-    }
+
 }

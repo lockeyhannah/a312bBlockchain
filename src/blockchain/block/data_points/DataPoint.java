@@ -1,7 +1,10 @@
 package blockchain.block.data_points;
 
-public interface DataPoint extends Savable{
+import java.io.Serializable;
 
-    public String getFormattedDataString();
+public interface DataPoint extends Serializable{
+
+    String getFormattedDataString();
+
 
 }

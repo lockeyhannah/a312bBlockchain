@@ -20,7 +20,7 @@ public class mainTest {
         smart1.addData("hej smart1");
         trans1.addData("hoowee");
 
-        System.out.println(trans1.getDataString());
-        System.out.println(smart1.getDataString());*/
+        System.out.println(trans1.getString());
+        System.out.println(smart1.getString());*/
     }
 }

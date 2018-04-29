@@ -1,24 +1,16 @@
 package blockchain;
 
 
-import blockchain.block.Data;
-import blockchain.block.mining.BlockGenerator;
-import blockchain.ledger_file.ByteUtils;
-
-import java.math.BigInteger;
-import java.util.ArrayList;
-
-
 public class BlockchainClient {
 
 
     public static void main(String[] args) {
-        Data data = new Data();
+       /* Data data = new Data();
         byte[] test = {12, 13, 15};
         byte[] extended = ByteUtils.extendByteArray(test, 8);
         for(int i = 0; i < extended.length; i++){
             System.out.print("," + extended[i]);
-        }
+        }*/
 
         /*
         // TODO: 21-04-2018 : Add difficulty calculation

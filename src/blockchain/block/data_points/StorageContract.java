@@ -6,10 +6,6 @@ package blockchain.block.data_points;
  */
 
 
-import blockchain.ledger_file.ByteUtils;
-
-import java.util.ArrayList;
-
 public class StorageContract implements DataPoint {
     // TODO : Indsætte metoder til Transaction
 
@@ -17,50 +13,15 @@ public class StorageContract implements DataPoint {
     private String storageIp;
     private String contractTerminationTime;
     private long chunkSize;
-    private long reward;
+    private double reward;
 
-    private static final int chunkIdByteLen = 2, storageIPByteLen = 8,
-            contractTerminationTimeByteLen = 20, chunkSizeByteLen = 4,
-            rewardByteLen = 8;
-
-    private final int maxByteSize = chunkIdByteLen + storageIPByteLen +
-            contractTerminationTimeByteLen + chunkSizeByteLen +
-            rewardByteLen;
-
-
-    StorageContract(String chunkId, String storageIp, String terminationTime, long chunkSize, long reward){
+    public StorageContract(String chunkId, String storageIp, String terminationTime, long chunkSize, double reward){
         this.chunkId = chunkId;
         this.storageIp = storageIp;
         this.contractTerminationTime = terminationTime;
         this.chunkSize = chunkSize;
         this.reward = reward;
-
     }
-
-    @Override
-    public StorageContract getInstanceFromBytes(byte[] b) {
-        //TODO : 25-04-2018 : Lave bytes om til string i nyt transaction objekt
-        return null;
-    }
-
-    @Override
-    public byte[] getByteArray() {
-        ArrayList<byte[]> byteList = new ArrayList<>();
-
-        byteList.add(ByteUtils.extendByteArray(chunkId.getBytes(), chunkIdByteLen));
-        byteList.add(ByteUtils.extendByteArray(storageIp.getBytes(), storageIPByteLen));
-        byteList.add(ByteUtils.extendByteArray(contractTerminationTime.getBytes(), contractTerminationTimeByteLen));
-        byteList.add(ByteUtils.extendByteArray(ByteUtils.longToBytes(chunkSize), chunkSizeByteLen));
-        byteList.add(ByteUtils.extendByteArray(ByteUtils.longToBytes(reward), rewardByteLen));
-
-        return ByteUtils.combineByteArrays(byteList);
-    }
-
-    @Override
-    public int getByteSize() {
-        return maxByteSize;
-    }
-
 
     @Override
     public String getFormattedDataString() {
@@ -74,4 +35,25 @@ public class StorageContract implements DataPoint {
 
         return sb.toString();
     }
+
+    public String getChunkId() {
+        return chunkId;
+    }
+
+    public String getStorageIp() {
+        return storageIp;
+    }
+
+    public String getContractTerminationTime() {
+        return contractTerminationTime;
+    }
+
+    public long getChunkSize() {
+        return chunkSize;
+    }
+
+    public double getReward() {
+        return reward;
+    }
+
 }

@@ -12,22 +12,6 @@ public class ProofKey implements DataPoint {
 
     private String key;
 
-    @Override
-    public Savable getInstanceFromBytes(byte[] b) {
-        return null;
-    }
-
-    @Override
-    public byte[] getByteArray() {
-        // TODO: 21-04-2018 : temporary functionality - Add functional behavior
-        return key.getBytes();
-    }
-
-    @Override
-    public int getByteSize() {
-        return 0;
-    }
-
     public String getProofKey(){
         return key;
     }
