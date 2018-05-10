@@ -6,6 +6,7 @@ import blockchain.block.Header;
 import blockchain.block.data_points.DataPoint;
 import blockchain.block.data_points.FileOverview;
 import blockchain.block.data_points.StorageContract;
+import blockchain.block.mining.BlockGenerator;
 import blockchain.block.mining.Hasher;
 import blockchain.ledger_file.convertion.*;
 import org.junit.Assert;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 public class ConverterTest {
 
 
-    public Block generateBlock(){
+    public static Block generateBlock(byte[] previousHeaderHash){
         Header header = new Header(3516, Hasher.applySHA("test".getBytes()), Hasher.applySHA("woops".getBytes()), BigInteger.valueOf(12).toByteArray(), BigInteger.valueOf(98765).toByteArray(), "today");
 
         int amountOfFiles = 15;
@@ -37,7 +38,8 @@ public class ConverterTest {
         }
 
         Data data = new Data(dataPoints);
-        return new Block(header, data);
+        BigInteger difficulty = BigInteger.TWO.pow(235);
+        return BlockGenerator.generateBlock(data, difficulty.toByteArray(), previousHeaderHash);
     }
 
     @Test
@@ -80,7 +82,7 @@ public class ConverterTest {
 
     @Test
     public void DataConverterTest(){
-        Block testBlock = generateBlock();
+        Block testBlock = generateBlock(new byte[]{1});
         testBlock.printBlock();
 
         Data data = testBlock.getData();
@@ -97,7 +99,7 @@ public class ConverterTest {
 
     @Test
     public void HeaderConverterTest(){
-        Header header = generateBlock().getHeader();
+        Header header = generateBlock(new byte[]{1}).getHeader();
         System.out.println(header.getString());
 
         HeaderConverter headerConverter = new HeaderConverter((short) 1);
