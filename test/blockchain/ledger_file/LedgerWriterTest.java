@@ -21,8 +21,7 @@ class LedgerWriterTest {
     public void ledgerWriterTest00(){
         header = new Header(3, new byte[]{0}, new byte[]{1}, new byte[]{2}, new byte[]{3}, "mandag");
         data = new Data(new ArrayList<>());
-
-
+        block = ConverterTest.generateBlock(new byte[]{0});
     }
 
     @Test
