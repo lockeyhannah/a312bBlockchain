@@ -106,6 +106,7 @@ public class ConverterTest {
         header = headerConverter.instanceFromBytes(headerBytes);
     }
 
+
    /* @Test
     public void blockConverterTest(){
         Block block = generateBlock();
