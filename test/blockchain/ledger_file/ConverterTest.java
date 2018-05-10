@@ -8,11 +8,11 @@ import blockchain.block.data_points.FileOverview;
 import blockchain.block.data_points.StorageContract;
 import blockchain.block.mining.Hasher;
 import blockchain.ledger_file.convertion.*;
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
-import org.junit.Assert.*;
 
+import java.io.FileNotFoundException;
 import java.math.BigInteger;
-import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
@@ -42,14 +42,18 @@ public class ConverterTest {
 
     @Test
     public void StorageContractConverterTest(){
-        StorageContract storageContract = new StorageContract("56", "192.168.1.50", "now!", 10000000, 0.35);
-        System.out.println(storageContract.getFormattedDataString());
+        StorageContract originalContract = new StorageContract("56", "192.168.1.50", "now!", 10000000, 0.35);
+        System.out.println(originalContract.getFormattedDataString());
 
         StorageContractConverter converter = new StorageContractConverter((short) 1);
-        byte[] contractBytes = converter.bytesFromInstance(storageContract);
-        storageContract = converter.instanceFromBytes(contractBytes);
+        byte[] contractBytes = converter.bytesFromInstance(originalContract);
+        StorageContract newContract = converter.instanceFromBytes(contractBytes);
 
-        System.out.println(storageContract.getFormattedDataString());
+        Assert.assertEquals(originalContract.getChunkId(), newContract.getChunkId());
+        Assert.assertEquals(originalContract.getChunkSize(), newContract.getChunkSize());
+        Assert.assertEquals(originalContract.getStorageIp(), newContract.getStorageIp());
+        Assert.assertEquals(originalContract.getContractTerminationTime(), newContract.getContractTerminationTime());
+        Assert.assertEquals(originalContract.getReward(), newContract.getReward(), 0);
     }
 
     @Test
@@ -70,7 +74,7 @@ public class ConverterTest {
         fileOw = fileOwConverter.instanceFromBytes(fileOwBytes);
         System.out.println(resultingString = fileOw.getFormattedDataString());
 
-        // Assert.assertEquals(resultingString, expetedString); // TODO: 29-04-2018 Kan ikke se nogen forskel wtf
+        Assert.assertEquals(resultingString, expetedString); // TODO: 29-04-2018 Kan ikke se nogen forskel wtf
     }
 
 
@@ -100,10 +104,6 @@ public class ConverterTest {
         byte[] headerBytes = headerConverter.bytesFromInstance(header);
 
         header = headerConverter.instanceFromBytes(headerBytes);
-        System.out.println(header.getString());
-
-
-        // Assert.assertEquals(resultingString, expetedString);
     }
 
    /* @Test
@@ -113,7 +113,12 @@ public class ConverterTest {
         LedgerWriter ledgerWriter = new LedgerWriter(Paths.get("ledger.dat"));
         ledgerWriter.writeBlock(block);
 
-        LedgerReader ledgerReader = new LedgerReader(Paths.get("ledger.dat"));
+        LedgerReader ledgerReader = null;
+        try {
+            ledgerReader = new LedgerReader(Paths.get("ledger.dat"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         Block newBlock = ledgerReader.getFirstBlock();
 
         block.printBlock();

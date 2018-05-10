@@ -28,19 +28,19 @@ public class DataConverter extends Converter<Data> {
         ByteArrayReader byteReader = new ByteArrayReader(bytes);
 
         // Get amount of datapoints to read
-        int dataPointCount = ByteUtils.toInt(byteReader.readNext(DATA_POINT_COUNT_BYTE_LEN));
+        int dataPointCount = ByteUtils.toInt(byteReader.readNext(DATA_POINT_COUNT_BYTE_LEN, true));
 
         ArrayList<DataPoint> dataPoints = new ArrayList<>();
         for(int i = 0; i < dataPointCount; i++){
-            short dataPointTypeID = ByteUtils.toShort(byteReader.readNext(OBJECT_TYPE_UID_BYTE_LEN));
-            short dataPointByteLen = ByteUtils.toShort(byteReader.readNext(DATA_POINT_SIZE_BYTE_LEN));
+            short dataPointTypeID = ByteUtils.toShort(byteReader.readNext(OBJECT_TYPE_UID_BYTE_LEN, true));
+            short dataPointByteLen = ByteUtils.toShort(byteReader.readNext(DATA_POINT_SIZE_BYTE_LEN, true));
             Converter c = getConverter(dataPointTypeID);
 
             if(c != null){
-                dataPoints.add((DataPoint) c.instanceFromBytes(byteReader.readNext(dataPointByteLen)));
+                dataPoints.add((DataPoint) c.instanceFromBytes(byteReader.readNext(dataPointByteLen, false)));
             }else{
                 System.out.println("Could not read data point with ID : " + dataPointTypeID);
-                byteReader.readNext(dataPointByteLen); // Skip this datapoint
+                byteReader.readNext(dataPointByteLen, true); // Skip this datapoint
             }
         }
 

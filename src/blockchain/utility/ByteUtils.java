@@ -2,9 +2,9 @@ package blockchain.utility;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.Arrays;
 
-public class ByteUtils {
-    // TODO: 24-04-2018 : Også stjålet fra det store interweb - forstå hvad der sker
+public abstract class ByteUtils {
 
     public static byte[] toByteArray(long x) {
         ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES);
@@ -30,25 +30,27 @@ public class ByteUtils {
         return bytes;
     }
 
-    public static long bytesToLong(byte[] bytes) { // TODO: 29-04-2018 Fix consistency
-        ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES);
-        buffer.put(bytes);
-        buffer.flip();
-        return buffer.getLong();
+    public static long toLong(byte[] bytes) {
+        if(bytes.length < Long.BYTES) bytes = extendByteArray(bytes, Long.BYTES);
+        return ByteBuffer.wrap(bytes).getLong();
     }
 
     public static double toDouble(byte[] bytes) {
+        if(bytes.length < Double.BYTES) bytes = extendByteArray(bytes, Double.BYTES);
         return ByteBuffer.wrap(bytes).getDouble();
     }
 
     public static int toInt(byte[] bytes) {
+        if(bytes.length < Integer.BYTES) bytes = extendByteArray(bytes, Integer.BYTES);
         return ByteBuffer.wrap(bytes).getInt();
     }
 
     public static short toShort(byte[] bytes) {
+        if(bytes.length < Short.BYTES) bytes = extendByteArray(bytes, Short.BYTES);
         return ByteBuffer.wrap(bytes).getShort();
     }
 
+    // Combines two byte arrays
     public static byte[] combineByteArrays(byte[] array1, byte[] array2){
         ByteBuffer buffer = ByteBuffer.allocate(array1.length + array2.length);
         buffer.put(array1);
@@ -56,29 +58,43 @@ public class ByteUtils {
         return buffer.array();
     }
 
+    // Combines a list of byte arrays
     public static byte[] combineByteArrays(ArrayList<byte[]> byteList){
         if(byteList == null) return null;
         int totalBytes = 0;
 
         // Find total byte size
-        for(int i = 0; i < byteList.size(); i++){
+        for(int i = 0; i < byteList.size(); i++)
             totalBytes += byteList.get(i).length;
-        }
 
         // Combine all arrays
         ByteBuffer buffer = ByteBuffer.allocate(totalBytes);
-        for(int i = 0; i < byteList.size(); i++){
+        for(int i = 0; i < byteList.size(); i++)
             buffer.put(byteList.get(i));
-        }
 
         return buffer.array();
     }
 
-
+    // Adds leading zeroes to a byte array until it has the target length
     public static byte[] extendByteArray(byte[] array, int targetLength){
         int extraBytes = targetLength - (array.length);
+        if(extraBytes <= 0) return array;
         byte[] precedingBytes = new byte[extraBytes];
         return combineByteArrays(precedingBytes, array);
+    }
+
+    // Removes the leading zeroes from the given byte array
+    public static byte[] trimLeadingZeroes(byte[] inputBytes){
+        int len = inputBytes.length;
+        int leadingZeroes = 0;
+
+        // Count amount of leading zeroes
+        for(int i = 0; i < len; i++){
+            if(inputBytes[i] == 0) leadingZeroes++;
+            else break;
+        }
+
+        return Arrays.copyOfRange(inputBytes, leadingZeroes, len);
     }
 
 

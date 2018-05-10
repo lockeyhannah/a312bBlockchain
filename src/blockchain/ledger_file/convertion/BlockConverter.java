@@ -36,10 +36,10 @@ public class BlockConverter extends Converter<Block> {
     @Override // Converts a byte array to a corresponding Block object
     public Block instanceFromBytes(byte[] bytes) {
         ByteArrayReader byteReader = new ByteArrayReader(bytes);
-        Header header = headerConverter.instanceFromBytes(byteReader.readNext(headerConverter.getByteSize()));
+        Header header = headerConverter.instanceFromBytes(byteReader.readNext(headerConverter.getByteSize(),false));
 
         int dataByteSize = bytes.length - headerConverter.getByteSize();
-        Data data = dataConverter.instanceFromBytes(byteReader.readNext(dataByteSize));
+        Data data = dataConverter.instanceFromBytes(byteReader.readNext(dataByteSize, false));
 
         return new Block(header, data);
     }

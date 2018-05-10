@@ -6,6 +6,10 @@ package blockchain.block.data_points;
  *
  */
 
+import blockchain.utility.ByteUtils;
+
+import java.util.ArrayList;
+
 public class FileOverview implements DataPoint {
 
     private String ownerIp;
@@ -39,6 +43,21 @@ public class FileOverview implements DataPoint {
         sb.append("\n");
 
         return sb.toString();
+    }
+
+    @Override // Returns the bytes used for hashing
+    public byte[] getBytes() {
+        ArrayList<byte[]> byteArrays = new ArrayList<>();
+
+        // Add overview details bytes
+        byteArrays.add(ownerIp.getBytes());
+        byteArrays.add(fileId.getBytes());
+
+        // Add bytes from all contracts
+        for(StorageContract contract : storageContracts)
+            byteArrays.add(contract.getBytes());
+
+        return ByteUtils.combineByteArrays(byteArrays);
     }
 
     public String getOwnerIp() {

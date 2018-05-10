@@ -26,14 +26,14 @@ public class FileOverViewConverter extends Converter<FileOverview> {
     public FileOverview instanceFromBytes(byte[] bytes) {
         ByteArrayReader byteReader = new ByteArrayReader(bytes);
 
-        String ownerIP = new String(byteReader.readNext(OWNER_IP_BYTE_LEN));
-        String fileId = new String(byteReader.readNext(FILE_ID_BYTE_LEN));
-        int chunkCount = ByteUtils.toInt(byteReader.readNext(CHUNK_COUNT_BYTE_LEN));
+        String ownerIP = new String(byteReader.readNext(OWNER_IP_BYTE_LEN, true));
+        String fileId = new String(byteReader.readNext(FILE_ID_BYTE_LEN, true));
+        int chunkCount = ByteUtils.toInt(byteReader.readNext(CHUNK_COUNT_BYTE_LEN, true));
 
 
         StorageContract[] contracts = new StorageContract[chunkCount];
         for (int i = 0; i < chunkCount; i++) {
-            byte[] contractBytes = byteReader.readNext(contractConverter.getByteSize());
+            byte[] contractBytes = byteReader.readNext(contractConverter.getByteSize(), false);
             contracts[i] = contractConverter.instanceFromBytes(contractBytes);
         }
 

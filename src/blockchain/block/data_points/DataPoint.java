@@ -1,10 +1,8 @@
 package blockchain.block.data_points;
 
-import java.io.Serializable;
-
-public interface DataPoint extends Serializable{
+public interface DataPoint{
 
     String getFormattedDataString();
-
+    byte[] getBytes();
 
 }

@@ -18,7 +18,7 @@ public class Header{
     private byte[] nonce;       // Nonce value appended to the hashed data to generate a hash below the target value
     private byte[] target;      // Hash values must be smaller than target to be valid
 
-    private String timeStamp;    // Block creation time
+    private String timeStamp;   // Block creation time
 
     public Header(long blockId, byte[] prevHash, byte[] dataHash, byte[] nonce, byte[] target, String timeStamp) {
         this.blockId = blockId;
@@ -59,10 +59,6 @@ public class Header{
 
     public long getBlockId() {
         return blockId;
-    }
-
-    public void setBlockId(long blockId) {
-        this.blockId = blockId;
     }
 
 

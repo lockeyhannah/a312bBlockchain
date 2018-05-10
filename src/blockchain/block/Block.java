@@ -1,5 +1,7 @@
 package blockchain.block;
 
+import blockchain.block.mining.Hasher;
+
 public class Block {
 
     private Data data;
@@ -16,6 +18,10 @@ public class Block {
 
     public Header getHeader() {
         return header;
+    }
+
+    public byte[] getHash(){
+        return Hasher.applySHA(getHeader().getBytes());
     }
 
     // Prints out block information

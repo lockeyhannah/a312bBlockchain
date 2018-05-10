@@ -5,6 +5,7 @@ import blockchain.block.Data;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,12 +22,17 @@ class BlockGeneratorTest {
     @BeforeEach
     public void blockGeneratorTest00() {
         data = new Data(new ArrayList<>());
-        block = BlockGenerator.generateBlock(data, new byte[]{3}, new byte[]{10});
+        BigInteger difficulty = BigInteger.TWO.pow(235);
+        block = BlockGenerator.generateBlock(data, difficulty.toByteArray(), new byte[]{10});
     }
 
     @Test
     public void blockGeneratorTest01() {
-        assertTrue(Arrays.compare(block.getHeader().getNonce(), new byte[]{0}) == 0);
+        String hashString = Hasher.hashToHexString(block.getHash());
+        System.out.println(hashString);
+        //Check that the first 5 chars are zeroes
+        for (int i = 0; i < 5; i++)
+            assertEquals('0', hashString.charAt(i));
     }
 
     @Test

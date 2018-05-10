@@ -25,14 +25,14 @@ public class HeaderConverter extends Converter<Header> {
     public Header instanceFromBytes(byte[] bytes) {
         ByteArrayReader byteReader = new ByteArrayReader(bytes);
 
-        byte[] blockIDBytes = byteReader.readNext(blockIdByteLen);
-        long blockID = ByteUtils.bytesToLong(blockIDBytes);
-        byte[] prevHash = byteReader.readNext(prevHashByteLen);
-        byte[] dataHash = byteReader.readNext(dataHashByteLen);
-        byte[] nonce = byteReader.readNext(nonceByteLen);
-        byte[] target = byteReader.readNext(targetByteLen);
+        byte[] blockIDBytes = byteReader.readNext(blockIdByteLen, true);
+        long blockID = ByteUtils.toLong(blockIDBytes);
+        byte[] prevHash = byteReader.readNext(prevHashByteLen, true);
+        byte[] dataHash = byteReader.readNext(dataHashByteLen, true);
+        byte[] nonce = byteReader.readNext(nonceByteLen, true);
+        byte[] target = byteReader.readNext(targetByteLen, true);
 
-        String timeStamp = new String(byteReader.readNext(timeStampByteLen));
+        String timeStamp = new String(byteReader.readNext(timeStampByteLen, true));
 
         return new Header(blockID, prevHash, dataHash, nonce, target, timeStamp);
     }

@@ -6,8 +6,11 @@ package blockchain.block.data_points;
  */
 
 
+import blockchain.utility.ByteUtils;
+
+import java.util.ArrayList;
+
 public class StorageContract implements DataPoint {
-    // TODO : Indsætte metoder til Transaction
 
     private String chunkId;
     private String storageIp;
@@ -15,7 +18,7 @@ public class StorageContract implements DataPoint {
     private long chunkSize;
     private double reward;
 
-    public StorageContract(String chunkId, String storageIp, String terminationTime, long chunkSize, double reward){
+    public StorageContract(String chunkId, String storageIp, String terminationTime, long chunkSize, double reward) {
         this.chunkId = chunkId;
         this.storageIp = storageIp;
         this.contractTerminationTime = terminationTime;
@@ -28,10 +31,10 @@ public class StorageContract implements DataPoint {
         StringBuilder sb = new StringBuilder();
 
         sb.append("Chunk ID : ").append(chunkId).append("\n")
-        .append("Storage Unit IP address : ").append(storageIp).append("\n")
-        .append("Date for termination of contract : ").append(contractTerminationTime).append("\n")
-        .append("Size of chunk : ").append(chunkSize).append("\n")
-        .append("Reward for chunk : ").append(reward). append("\n\n");
+                .append("Storage Unit IP address : ").append(storageIp).append("\n")
+                .append("Date for termination of contract : ").append(contractTerminationTime).append("\n")
+                .append("Size of chunk : ").append(chunkSize).append("\n")
+                .append("Reward for chunk : ").append(reward).append("\n\n");
 
         return sb.toString();
     }
@@ -54,6 +57,18 @@ public class StorageContract implements DataPoint {
 
     public double getReward() {
         return reward;
+    }
+
+    public byte[] getBytes(){
+        ArrayList<byte[]> allBytes = new ArrayList<>();
+
+        allBytes.add(chunkId.getBytes());
+        allBytes.add(storageIp.getBytes());
+        allBytes.add(contractTerminationTime.getBytes());
+        allBytes.add(ByteUtils.toByteArray(chunkSize));
+        allBytes.add(ByteUtils.toByteArray(reward));
+
+        return ByteUtils.combineByteArrays(allBytes);
     }
 
 }

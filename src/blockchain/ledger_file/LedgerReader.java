@@ -18,8 +18,11 @@ public class LedgerReader {
 
     private Path ledgerFilePath;
 
-    public LedgerReader(Path ledgerFilePath) {
+    public LedgerReader(Path ledgerFilePath) throws FileNotFoundException{
         this.ledgerFilePath = ledgerFilePath;
+
+        if(!Files.exists(ledgerFilePath))
+            throw new FileNotFoundException("Ledger file note found : " + ledgerFilePath.toString());
     }
 
     // TODO: 29-04-2018 : remove or change. Currently only exists for testing

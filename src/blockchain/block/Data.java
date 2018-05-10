@@ -5,6 +5,7 @@ package blockchain.block;
  */
 
 import blockchain.block.data_points.DataPoint;
+import blockchain.utility.ByteUtils;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -34,11 +35,11 @@ public class Data implements Serializable{
 
     // Converts all data into a sequence of bytes for hashing
     public byte[] getDataBytes(){
-        ArrayList<byte[]> allBytes;
-        for (DataPoint dp: dataPoints) {
-            //dp.getBytes();
-        }// TODO: 29-04-2018 Implement hash byte functionality
-        return new byte[0];
+        ArrayList<byte[]> allBytes = new ArrayList<>();
+        for (DataPoint dp: dataPoints)
+            allBytes.add(dp.getBytes());
+
+        return ByteUtils.combineByteArrays(allBytes);
     }
 
     public String getString(){

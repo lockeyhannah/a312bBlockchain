@@ -1,5 +1,7 @@
 package blockchain.block;
 
+import blockchain.block.mining.Hasher;
+import blockchain.utility.ByteUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -31,9 +33,4 @@ class HeaderTest {
         assertTrue(Arrays.compare(new byte[]{4}, header.getNonce()) == 0);
     }
 
-    @Test
-    public void headerTest03(){
-        header.setBlockId(10);
-        assertEquals(10, header.getBlockId());
-    }
 }
