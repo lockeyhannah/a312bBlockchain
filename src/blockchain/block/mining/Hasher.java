@@ -32,6 +32,4 @@ public class Hasher {
 
         return hexString.toString();
     }
-
-
 }
