@@ -7,6 +7,7 @@ import blockchain.utility.ByteUtils;
 import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 
 import static java.nio.file.StandardOpenOption.APPEND;
@@ -42,12 +43,10 @@ public class LedgerWriter {
         // This makes the outputStream append to the file rather than overwrite the existing data
         try (BufferedOutputStream bos = new BufferedOutputStream(Files.newOutputStream(ledgerFilePath, APPEND))){
             bos.write(bytes);
-        } catch (FileNotFoundException e){
+        } catch (NoSuchFileException e){
             System.out.println("Error. File not found.");
-            e.printStackTrace();
         } catch (IOException e) {
             System.out.println("Error writing bytes to ledger file");
-            e.printStackTrace();
         }
     }
 
