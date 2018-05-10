@@ -2,6 +2,8 @@ package blockchain.block;
 
 import blockchain.block.mining.Hasher;
 
+import java.util.Objects;
+
 public class Block {
 
     private Data data;
@@ -30,4 +32,12 @@ public class Block {
         System.out.println(data.getString());
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Block block = (Block) o;
+        return Objects.equals(data, block.data) &&
+                Objects.equals(header, block.header);
+    }
 }

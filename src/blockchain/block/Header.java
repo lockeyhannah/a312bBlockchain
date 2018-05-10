@@ -5,6 +5,8 @@ import blockchain.block.mining.Hasher;
 
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.Arrays;
+import java.util.Objects;
 
 import static blockchain.utility.ByteUtils.*;
 
@@ -82,4 +84,16 @@ public class Header{
         return sb.toString();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Header header = (Header) o;
+        return blockId == header.blockId &&
+                Arrays.equals(prevHash, header.prevHash) &&
+                Arrays.equals(dataHash, header.dataHash) &&
+                Arrays.equals(nonce, header.nonce) &&
+                Arrays.equals(target, header.target) &&
+                Objects.equals(timeStamp, header.timeStamp);
+    }
 }
