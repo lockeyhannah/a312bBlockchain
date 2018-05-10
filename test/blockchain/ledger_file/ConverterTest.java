@@ -106,7 +106,7 @@ public class ConverterTest {
         // Assert.assertEquals(resultingString, expetedString);
     }
 
-    @Test
+   /* @Test
     public void blockConverterTest(){
         Block block = generateBlock();
 
@@ -119,6 +119,6 @@ public class ConverterTest {
         block.printBlock();
         newBlock.printBlock();
     }
-
+*/
 
 }
