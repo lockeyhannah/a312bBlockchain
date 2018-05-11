@@ -10,8 +10,11 @@ import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.math.BigInteger;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -22,7 +25,7 @@ class LedgerWriterTest {
     Data data;
 
     ArrayList<Block> blocks = new ArrayList<>();
-    int blockCount = 100;
+    int blockCount = 10;
 
     @BeforeEach
     public void setup(){
@@ -36,6 +39,13 @@ class LedgerWriterTest {
         header = new Header(3, new byte[]{0}, new byte[]{1}, new byte[]{2}, new byte[]{3}, "mandag");
         data = new Data(new ArrayList<>());
         block = ConverterTest.generateBlock(null);
+
+        Path path = Paths.get("chain_test.txt");
+        try (BufferedWriter writer = Files.newBufferedWriter(path)){
+            writer.write("");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void generateRandomBlockChain(){
