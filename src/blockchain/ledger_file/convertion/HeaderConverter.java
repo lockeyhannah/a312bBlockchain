@@ -28,7 +28,7 @@ public class HeaderConverter extends Converter<Header> {
         byte[] blockIDBytes = byteReader.readNext(blockIdByteLen, true);
         long blockID = ByteUtils.toLong(blockIDBytes);
         byte[] prevHash = byteReader.readNext(prevHashByteLen, false);
-        byte[] dataHash = byteReader.readNext(dataHashByteLen, true);
+        byte[] dataHash = byteReader.readNext(dataHashByteLen, false);
         byte[] nonce = byteReader.readNext(nonceByteLen, true);
         byte[] target = byteReader.readNext(targetByteLen, true);
 

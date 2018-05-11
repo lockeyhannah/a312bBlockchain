@@ -16,6 +16,7 @@ import java.io.FileNotFoundException;
 import java.math.BigInteger;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Random;
 
 
 public class ConverterTest {
@@ -31,7 +32,7 @@ public class ConverterTest {
             int amountOfContracts = 7;
             StorageContract[] contracts = new StorageContract[amountOfContracts];
             for(int i = 0; i < amountOfContracts; i++){
-                contracts[i] = new StorageContract("5"+i, "192.168.1.5" + i, "OwO what's this", 10000000, 0.35);
+                contracts[i] = new StorageContract("5"+i, "192.168.1.5" + i, "OwO what's this", new Random().nextInt(1000000), 0.35);
             }
 
             dataPoints.add(new FileOverview("Me.me.more.me", "file_" + j, contracts));

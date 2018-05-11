@@ -63,6 +63,9 @@ public class Header{
         return blockId;
     }
 
+    public void setTimeStamp(String timeStamp){
+        this.timeStamp = timeStamp;
+    }
 
     public byte[] getBytes() {
         byte[] bytes = combineByteArrays(prevHash, dataHash);
@@ -78,10 +81,10 @@ public class Header{
                 append("Block header hash : " + Hasher.hashToHexString(Hasher.applySHA(getBytes()))).append("\n").
                 append("Previous header hash : " + Hasher.hashToHexString(getPrevHash())).append("\n").
                 append("Hash of block data : " + Hasher.hashToHexString(getDataHash())).append("\n").
-                append("Nonce : " + new BigInteger(getNonce()).toString()).append("\n").
+                append("Nonce : " + Hasher.hashToHexString(getNonce())).append("\n").
                 append("Target : " + new BigInteger(getTarget()).toString()).append("\n").
                 append("TimeStamp : " + getTimeStamp()).append("\n");
-        return sb.toString();
+        return sb.toString(); // new BigInteger(getNonce()).toString()).append("\n").
     }
 
     @Override

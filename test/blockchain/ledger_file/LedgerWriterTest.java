@@ -57,9 +57,9 @@ class LedgerWriterTest {
         try {
             LedgerReader ledgerReader = new LedgerReader(Paths.get(testFileName));
 
-            //
             for(int i = 0; i < blockCount; i++){
-
+                System.out.println(i);
+                Assert.assertEquals(blocks.get(i).toString(), ledgerReader.readBlock(i).toString());
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();

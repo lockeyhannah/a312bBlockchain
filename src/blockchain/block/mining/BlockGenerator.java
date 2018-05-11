@@ -3,6 +3,7 @@ package blockchain.block.mining;
 import blockchain.block.Block;
 import blockchain.block.Data;
 import blockchain.block.Header;
+import blockchain.utility.ByteUtils;
 
 import java.math.BigInteger;
 import java.text.SimpleDateFormat;
@@ -48,15 +49,22 @@ public class BlockGenerator {
         byte[] hash = Hasher.applySHA(header.getBytes());
         BigInteger hashInteger = new BigInteger(1, hash);
 
+        BigInteger nonceMax = BigInteger.TWO.pow(240);
+
         // Recalculate hash with new nonce values until the hash is below the target value
         while(hashInteger.compareTo(target) > 0){
             // Update nonce value
             nonce = nonce.add(BigInteger.ONE);
-            header.setNonce(nonce.toByteArray());
+            header.setNonce(ByteUtils.trimLeadingZeroes(nonce.toByteArray()));
 
             // Hash header with new nonce value
             hash = Hasher.applySHA(header.getBytes());
             hashInteger = new BigInteger(1, hash);
+
+            if(nonce.compareTo(nonceMax) > 0){
+                header.setTimeStamp(generateTimeStamp());
+                nonce = BigInteger.ONE;
+            }
         }
 
     }
