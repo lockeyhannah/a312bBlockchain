@@ -24,7 +24,7 @@ public class DataConverter extends Converter<Data> {
         converters.add(new StorageContractConverter(CONVERTER_VERSION_UID));
     }
 
-    @Override // Converts given bytes to an instance of the Data class
+    @Override
     public Data instanceFromBytes(byte[] bytes) {
         ByteArrayReader byteReader = new ByteArrayReader(bytes);
 
@@ -76,7 +76,7 @@ public class DataConverter extends Converter<Data> {
                 bytes.add(dpBytes);
             }
             else{
-                System.out.println("Could find to-byte-converter for datapoint: " + dp.getClass().getSimpleName() + " ");
+                System.out.println("Could not find converter for datapoint");
             }// TODO: 29-04-2018 add else logic
         }
 

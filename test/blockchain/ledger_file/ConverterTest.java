@@ -83,7 +83,6 @@ public class ConverterTest {
     @Test
     public void DataConverterTest(){
         Block testBlock = generateBlock(null);
-        testBlock.printBlock();
 
         Data data = testBlock.getData();
         System.out.println(data.getString());

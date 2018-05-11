@@ -41,6 +41,7 @@ public class BlockConverter extends Converter<Block> {
         int dataByteSize = bytes.length - headerConverter.getByteSize();
         Data data = dataConverter.instanceFromBytes(byteReader.readNext(dataByteSize, false));
 
+
         return new Block(header, data);
     }
 
