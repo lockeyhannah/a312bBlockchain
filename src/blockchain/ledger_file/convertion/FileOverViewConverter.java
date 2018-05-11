@@ -30,7 +30,6 @@ public class FileOverViewConverter extends Converter<FileOverview> {
         String fileId = new String(byteReader.readNext(FILE_ID_BYTE_LEN, true));
         int chunkCount = ByteUtils.toInt(byteReader.readNext(CHUNK_COUNT_BYTE_LEN, true));
 
-
         StorageContract[] contracts = new StorageContract[chunkCount];
         for (int i = 0; i < chunkCount; i++) {
             byte[] contractBytes = byteReader.readNext(contractConverter.getByteSize(), false);

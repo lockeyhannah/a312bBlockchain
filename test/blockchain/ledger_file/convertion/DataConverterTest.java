@@ -26,7 +26,7 @@ class DataConverterTest {
         contract = new StorageContract("chunkID", "StorageIP",
                 "TermTime", 4, 3);
 
-        //
+
         list = new ArrayList<>();
         list.add(contract);
         data1 = ConverterTest.generateBlock(null).getData();
@@ -43,6 +43,7 @@ class DataConverterTest {
 
     @Test
     public void dataConverterTest02(){
-        data1 = converter.instanceFromBytes(bytes1);
+        Data data1copy = converter.instanceFromBytes(bytes1);
+        assertEquals(data1.getString(), data1copy.getString());
     }
 }
