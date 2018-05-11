@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class ConverterTest {
 
 
-    public static Block generateBlock(byte[] previousHeaderHash){
+    public static Block generateBlock(Header previousHeader){
         Header header = new Header(3516, Hasher.applySHA("test".getBytes()), Hasher.applySHA("woops".getBytes()), BigInteger.valueOf(12).toByteArray(), BigInteger.valueOf(98765).toByteArray(), "today");
 
         int amountOfFiles = 15;
@@ -39,7 +39,7 @@ public class ConverterTest {
 
         Data data = new Data(dataPoints);
         BigInteger difficulty = BigInteger.TWO.pow(235);
-        return BlockGenerator.generateBlock(data, difficulty.toByteArray(), previousHeaderHash);
+        return BlockGenerator.generateBlock(data, previousHeader);
     }
 
     @Test
@@ -76,13 +76,13 @@ public class ConverterTest {
         fileOw = fileOwConverter.instanceFromBytes(fileOwBytes);
         System.out.println(resultingString = fileOw.getFormattedDataString());
 
-        Assert.assertEquals(resultingString, expetedString); // TODO: 29-04-2018 Kan ikke se nogen forskel wtf
+        Assert.assertEquals(resultingString, expetedString);
     }
 
 
     @Test
     public void DataConverterTest(){
-        Block testBlock = generateBlock(new byte[]{1});
+        Block testBlock = generateBlock(null);
         testBlock.printBlock();
 
         Data data = testBlock.getData();
@@ -94,12 +94,12 @@ public class ConverterTest {
         System.out.println(data.getString());
 
 
-        // Assert.assertEquals(resultingString, expetedString); // TODO: 29-04-2018 Kan ikke se nogen forskel wtf
+        // Assert.assertEquals(resultingString, expetedString); // TODO: add asserts
     }
 
     @Test
     public void HeaderConverterTest(){
-        Header header = generateBlock(new byte[]{1}).getHeader();
+        Header header = generateBlock(null).getHeader();
         System.out.println(header.getString());
 
         HeaderConverter headerConverter = new HeaderConverter((short) 1);

@@ -17,7 +17,6 @@ public class ByteArrayReader {
         if(trimLeadingZeroes) newArray = ByteUtils.trimLeadingZeroes(newArray);
         currentIndex += amountOfBytes;
 
-        // TODO: 29-04-2018 Add checks for length and readability
         return newArray;
     }
 

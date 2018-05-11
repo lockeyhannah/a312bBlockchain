@@ -23,7 +23,7 @@ class BlockGeneratorTest {
     public void blockGeneratorTest00() {
         data = new Data(new ArrayList<>());
         BigInteger difficulty = BigInteger.TWO.pow(235);
-        block = BlockGenerator.generateBlock(data, difficulty.toByteArray(), new byte[]{10});
+        block = BlockGenerator.generateBlock(data, null);
     }
 
     @Test

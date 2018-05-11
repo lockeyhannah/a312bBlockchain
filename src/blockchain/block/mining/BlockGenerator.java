@@ -11,12 +11,23 @@ import java.util.Date;
 public class BlockGenerator {
 
     // Mines and returns a new block based on the given data
-    public static Block generateBlock(Data data, byte[] difficulty, byte[] prevHeaderHash){
+    // If previous header is null generate standard header data
+    public static Block generateBlock(Data data, Header previousHeader){
         String timeStamp = generateTimeStamp();
-
         byte[] dataHash = Hasher.applySHA(data.getDataBytes());
-        byte[] nonce = {0};
-        int blockNo = 0;
+        byte[] difficulty = BigInteger.TWO.pow(238).toByteArray(); // Set standard difficulty
+
+        byte[] nonce = new byte[]{0};
+        byte[] prevHeaderHash = new byte[32];
+
+        long blockNo = 0;
+
+        // Update information if previous header is available
+        if(previousHeader != null){
+            blockNo = previousHeader.getBlockId() + 1;
+            prevHeaderHash = Hasher.applySHA(previousHeader.getBytes());
+            difficulty = previousHeader.getDifficultyTarget(); // todo : calculate difficulty
+        }
 
         Header header = new Header(blockNo, prevHeaderHash, dataHash, nonce, difficulty, timeStamp);
         mineBlock(header);
@@ -29,7 +40,7 @@ public class BlockGenerator {
     }
 
     // Mines a block and returns the resulting nonce value
-    private static void mineBlock(Header header){ // TODO: 29-04-2018 Reimplement
+    private static void mineBlock(Header header){
         BigInteger nonce = new BigInteger(header.getNonce());
         BigInteger target = new BigInteger(header.getDifficultyTarget());
 
@@ -46,7 +57,6 @@ public class BlockGenerator {
             // Hash header with new nonce value
             hash = Hasher.applySHA(header.getBytes());
             hashInteger = new BigInteger(1, hash);
-
         }
 
     }

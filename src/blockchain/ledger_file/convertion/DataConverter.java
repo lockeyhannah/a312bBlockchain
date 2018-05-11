@@ -21,6 +21,7 @@ public class DataConverter extends Converter<Data> {
     public DataConverter(short CONVERTER_VERSION_UID) {
         super(CONVERTER_VERSION_UID);
         converters.add(new FileOverViewConverter(CONVERTER_VERSION_UID));
+        converters.add(new StorageContractConverter(CONVERTER_VERSION_UID));
     }
 
     @Override
@@ -74,7 +75,9 @@ public class DataConverter extends Converter<Data> {
                 // Add data point
                 bytes.add(dpBytes);
             }
-            else ;// TODO: 29-04-2018 add else logic
+            else{
+                System.out.println("Could find converter for datapoint");
+            }// TODO: 29-04-2018 add else logic
         }
 
         return ByteUtils.combineByteArrays(bytes);

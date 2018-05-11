@@ -21,7 +21,7 @@ class BlockConverterTest {
     @BeforeEach
     public void blockConverterTest00() {
         converter = new BlockConverter((short) 2);
-        block = ConverterTest.generateBlock(new byte[32]);
+        block = ConverterTest.generateBlock(null);
         block2 = block;
         bytes1 = converter.bytesFromInstance(block);
         bytes2 = converter.bytesFromInstance(block2);
