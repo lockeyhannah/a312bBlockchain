@@ -35,12 +35,19 @@ class BlockConverterTest {
 
     @Test
     public void blockConverterTest02(){
+        block = converter.instanceFromBytes(bytes1);
 
-        block.printBlock();
+        assertEquals(block.toString(), block2.toString());
+    }
 
-        //block = converter.instanceFromBytes(bytes1);
+    @Test
+    public void blockConverterTest03(){
+        assertEquals((short) 1, converter.getOBJECT_TYPE_UID());
+    }
 
-        //assertEquals(block.getHeader().getNonce(), block2.getHeader().getNonce());
+    @Test
+    public void blockConverterTest04(){
+        assertEquals(-1, converter.getByteSize());
     }
 
 

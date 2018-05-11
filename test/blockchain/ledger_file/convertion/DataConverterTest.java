@@ -45,4 +45,10 @@ class DataConverterTest {
     public void dataConverterTest02(){
         data1 = converter.instanceFromBytes(bytes1);
     }
+
+    @Test
+    public void dataConverterTest03(){
+        assertEquals(3, converter.getOBJECT_TYPE_UID());
+        assertEquals(-1, converter.getByteSize());
+    }
 }

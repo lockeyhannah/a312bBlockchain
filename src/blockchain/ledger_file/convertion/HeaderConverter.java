@@ -15,7 +15,7 @@ public class HeaderConverter extends Converter<Header> {
     private static final int dataHashByteLen = 32;  //Data hash length in bytes
     private static final int targetByteLen = 32;    //Target length in bytes
     private static final int nonceByteLen = 32;     //Nonce length in bytes
-    private static final int timeStampByteLen = 8;  //timeStamp length in bytes
+    private static final int timeStampByteLen = 20;  //timeStamp length in bytes
 
     public HeaderConverter(short CONVERTER_VERSION_UID) {
         super(CONVERTER_VERSION_UID);

@@ -76,7 +76,7 @@ public class DataConverter extends Converter<Data> {
                 bytes.add(dpBytes);
             }
             else{
-                System.out.println("Could find converter for datapoint");
+                System.out.println("Could not find converter for datapoint");
             }// TODO: 29-04-2018 add else logic
         }
 

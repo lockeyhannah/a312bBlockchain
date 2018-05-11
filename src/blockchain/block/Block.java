@@ -27,9 +27,8 @@ public class Block {
     }
 
     // Prints out block information
-    public void printBlock() {
-        System.out.println(header.getString());
-        System.out.println(data.getString());
+    public String toString() {
+        return header.getString() + data.getString();
     }
 
     @Override
