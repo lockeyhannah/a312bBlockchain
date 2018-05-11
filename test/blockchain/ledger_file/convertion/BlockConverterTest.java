@@ -28,7 +28,6 @@ class BlockConverterTest {
 
     }
 
-    //TODO : make like header converter
     @Test
     public void blockConverterTest01() {
         assertTrue(Arrays.compare(bytes1, bytes2) == 0);
@@ -36,7 +35,10 @@ class BlockConverterTest {
 
     @Test
     public void blockConverterTest02(){
-        block = converter.instanceFromBytes(bytes1);
+
+        block.printBlock();
+
+        //block = converter.instanceFromBytes(bytes1);
 
         //assertEquals(block.getHeader().getNonce(), block2.getHeader().getNonce());
     }

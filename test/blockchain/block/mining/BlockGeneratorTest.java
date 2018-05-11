@@ -31,7 +31,7 @@ class BlockGeneratorTest {
         String hashString = Hasher.hashToHexString(block.getHash());
         System.out.println(hashString);
         //Check that the first 5 chars are zeroes
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 4; i++)
             assertEquals('0', hashString.charAt(i));
     }
 

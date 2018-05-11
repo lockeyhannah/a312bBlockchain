@@ -3,6 +3,7 @@ package blockchain.ledger_file.convertion;
 import blockchain.block.Data;
 import blockchain.block.data_points.DataPoint;
 import blockchain.block.data_points.StorageContract;
+import blockchain.ledger_file.ConverterTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -28,7 +29,7 @@ class DataConverterTest {
         //
         list = new ArrayList<>();
         list.add(contract);
-        data1 = new Data(list);
+        data1 = ConverterTest.generateBlock(null).getData();
         data2 = data1;
 
         bytes1 = converter.bytesFromInstance(data1);
