@@ -4,6 +4,7 @@ import blockchain.block.Block;
 import blockchain.block.Data;
 import blockchain.block.Header;
 import blockchain.ledger_file.convertion.BlockConverter;
+import blockchain.ledger_file.convertion.HeaderConverter;
 import blockchain.utility.ByteUtils;
 
 import java.io.*;
@@ -16,7 +17,12 @@ import static blockchain.ledger_file.LedgerWriter.BLOCK_SIZE_BYTE_LEN;
 
 public class LedgerReader {
 
+    // Path of the ledger file
     private Path ledgerFilePath;
+
+    // Converters for creating a block from bytes
+    private BlockConverter blockConverter;
+    private HeaderConverter headerConverter;
 
     public LedgerReader(Path ledgerFilePath) throws FileNotFoundException{
         this.ledgerFilePath = ledgerFilePath;
@@ -49,23 +55,41 @@ public class LedgerReader {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null; // TODO: 29-04-2018 maybe return empty byte array instead?
+
+        return null;
     }
 
-    // TODO: 24-04-2018 : make this shit
-    // Reads and returns the block with the given id
+    // Reads and returns the block with the given id. Returns null if no matching block was found
     public Block readBlock(long blockID){
+
+        try (BufferedInputStream bis = new BufferedInputStream(Files.newInputStream(ledgerFilePath))) {
+            byte[] blockSizeBytes = new byte[BLOCK_SIZE_BYTE_LEN];
+            BlockConverter blockConverter = new BlockConverter((short) 1);
+
+            // read while there's blocks left to read
+            while(bis.read(blockSizeBytes, 0, BLOCK_SIZE_BYTE_LEN) != -1){
+                // Convert Block size to an integer
+                int blockSize = ByteUtils.toInt(blockSizeBytes);
+
+                // Create a new byte array of corresponding size and read the block bytes into it
+                byte[] blockBytes = new byte[blockSize];
+                bis.read(blockBytes, 0, blockSize);
+
+                // Convert bytes to a block object
+                Block block = blockConverter.instanceFromBytes(blockBytes);
+
+                // Return block if it matches the given blockID
+                if(block.getHeader().getBlockId() == blockID) return block;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Return null if no block was found with the given ID
         return null;
     }
 
-    // TODO: 24-04-2018 : make this shit
-    //Returns the hash of the previous blocks header
-    public byte[] getPreviousHeaderHash(){
-        return null;
-    }
-
-
-    public byte[] readBytes(int byteCount){
+    private byte[] readBytes(int byteCount){
         try (BufferedInputStream bis = new BufferedInputStream(Files.newInputStream(ledgerFilePath))) {
             byte[] bytes = new byte[byteCount];
             bis.read(bytes, 0, 8);
