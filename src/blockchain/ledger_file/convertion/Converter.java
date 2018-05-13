@@ -19,7 +19,7 @@ public abstract class Converter <T> {
 
     public abstract short getOBJECT_TYPE_UID();
 
-    public boolean canConvert(Object o){ //todo might not work because shit extends datapoint
+    public boolean canConvert(Object o){ //todo add comment
         Class<T> type = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
         return type.isInstance(o);
     }

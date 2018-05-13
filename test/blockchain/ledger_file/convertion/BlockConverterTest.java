@@ -1,13 +1,10 @@
 package blockchain.ledger_file.convertion;
 
 import blockchain.block.Block;
-import blockchain.block.Data;
-import blockchain.block.Header;
 import blockchain.ledger_file.ConverterTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
