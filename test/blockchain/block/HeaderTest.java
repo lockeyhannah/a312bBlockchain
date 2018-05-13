@@ -31,6 +31,8 @@ class HeaderTest {
     public void headerTest02(){
         header.setNonce(new byte[]{4});
         assertTrue(Arrays.compare(new byte[]{4}, header.getNonce()) == 0);
+        header.setTimeStamp("tuesday");
+        assertEquals(header.getTimeStamp(), "tuesday");
     }
 
 }
