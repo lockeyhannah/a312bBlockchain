@@ -30,10 +30,10 @@ public class FileOverViewConverter extends Converter<FileOverview> {
         String fileId = new String(byteReader.readNext(FILE_ID_BYTE_LEN, true));
         int chunkCount = ByteUtils.toInt(byteReader.readNext(CHUNK_COUNT_BYTE_LEN, true));
 
-        StorageContract[] contracts = new StorageContract[chunkCount];
+        ArrayList<StorageContract> contracts = new ArrayList<>();
         for (int i = 0; i < chunkCount; i++) {
             byte[] contractBytes = byteReader.readNext(contractConverter.getByteSize(), false);
-            contracts[i] = contractConverter.instanceFromBytes(contractBytes);
+            contracts.add(contractConverter.instanceFromBytes(contractBytes));
         }
 
         return new FileOverview(ownerIP, fileId, contracts);
@@ -47,9 +47,9 @@ public class FileOverViewConverter extends Converter<FileOverview> {
         byteList.add(ByteUtils.extendByteArray(fileOw.getFileId().getBytes(), FILE_ID_BYTE_LEN));
         byteList.add(ByteUtils.extendByteArray(ByteUtils.toByteArray(fileOw.getChunkCount()), CHUNK_COUNT_BYTE_LEN));
 
-        StorageContract[] contracts = fileOw.getStorageContracts();
-        for (int i = 0; i < contracts.length; i++) {
-            byteList.add(contractConverter.bytesFromInstance(contracts[i]));
+        ArrayList<StorageContract> contracts = fileOw.getStorageContracts();
+        for (int i = 0; i < contracts.size(); i++) {
+            byteList.add(contractConverter.bytesFromInstance(contracts.get(i)));
         }
 
         return ByteUtils.combineByteArrays(byteList);

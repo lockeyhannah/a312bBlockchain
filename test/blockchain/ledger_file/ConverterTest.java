@@ -6,15 +6,14 @@ import blockchain.block.Header;
 import blockchain.block.data_points.DataPoint;
 import blockchain.block.data_points.FileOverview;
 import blockchain.block.data_points.StorageContract;
-import blockchain.block.mining.BlockGenerator;
+import blockchain.block.mining.BlockBuilder;
+import blockchain.block.mining.BlockMiner;
 import blockchain.block.mining.Hasher;
 import blockchain.ledger_file.convertion.*;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
-import java.io.FileNotFoundException;
 import java.math.BigInteger;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -24,23 +23,22 @@ public class ConverterTest {
 
     public static Block generateBlock(Header previousHeader){
         Header header = new Header(3516, Hasher.applySHA("test".getBytes()), Hasher.applySHA("woops".getBytes()), BigInteger.valueOf(12).toByteArray(), BigInteger.valueOf(98765).toByteArray(), "today");
+        BlockBuilder blockBuilder = new BlockBuilder(previousHeader);
 
         int amountOfFiles = 15;
-        ArrayList<DataPoint> dataPoints = new ArrayList<DataPoint>();
+        ArrayList<DataPoint> dataPoints = new ArrayList<>();
         for(int j = 0; j < amountOfFiles; j++){
 
             int amountOfContracts = 7;
-            StorageContract[] contracts = new StorageContract[amountOfContracts];
+            ArrayList<StorageContract> contracts = new ArrayList<>();
             for(int i = 0; i < amountOfContracts; i++){
-                contracts[i] = new StorageContract("5"+i, "192.168.1.5" + i, "OwO what's this", new Random().nextInt(1000000), 0.35);
+                contracts.add(new StorageContract("5" + i, "192.168.1.5" + i, "OwO what's this", new Random().nextInt(1000000), 0.35));
             }
 
-            dataPoints.add(new FileOverview("Me.me.more.me", "file_" + j, contracts));
+            blockBuilder.addData(new FileOverview("Me.me.more.me", "file_" + j, contracts));
         }
 
-        Data data = new Data(dataPoints);
-        BigInteger difficulty = BigInteger.TWO.pow(235);
-        return BlockGenerator.generateBlock(data, previousHeader);
+        return blockBuilder.build();
     }
 
     @Test
@@ -62,10 +60,11 @@ public class ConverterTest {
     @Test
     public void FileOverViewConverterTest(){
         int amountOfContracts = 7;
-        StorageContract[] contracts = new StorageContract[amountOfContracts];
+        ArrayList<StorageContract> contracts = new ArrayList<>();
         String expetedString, resultingString;
         for(int i = 0; i < amountOfContracts; i++){
-            contracts[i] = new StorageContract("5"+i, "192.168.1.5" + i, "OwO what's this", 10000000, 0.35);
+            contracts.add(new StorageContract("5"+i, "192.168.1.5" + i,
+                    "OwO what's this", 10000000, 0.35));
         }
 
         FileOverview fileOw = new FileOverview("Me.me.more.me", "filename", contracts);

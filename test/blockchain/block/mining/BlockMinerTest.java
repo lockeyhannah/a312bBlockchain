@@ -8,22 +8,21 @@ import org.junit.jupiter.api.Test;
 import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-class BlockGeneratorTest {
+class BlockMinerTest {
 
     Data data;
     Block block;
-
+/*
     @BeforeEach
     public void blockGeneratorTest00() {
         data = new Data(new ArrayList<>());
         BigInteger difficulty = BigInteger.TWO.pow(235);
-        block = BlockGenerator.generateBlock(data, null);
+        block = BlockMiner.generateBlock(data, null);
     }
 
     @Test
@@ -38,6 +37,6 @@ class BlockGeneratorTest {
     @Test
     public void blockGeneratorTest02() {
         assertEquals(new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date()),
-                BlockGenerator.generateTimeStamp());
-    }
+                BlockMiner.generateTimeStamp());
+    }*/ // todo reimplement
 }

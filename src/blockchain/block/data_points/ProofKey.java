@@ -2,7 +2,7 @@ package blockchain.block.data_points;
 
 /*
  *
- * This class is a datapoint in blocks.
+ *
  *
  */
 
@@ -10,12 +10,12 @@ public class ProofKey implements DataPoint {
 
     private String key;
 
-    public String getProofKey(){
-        return key;
+    public ProofKey(String key) {
+        this.key = key;
     }
 
-    public void setProofKey(String key){
-        this.key = key;
+    public String getProofKey(){
+        return key;
     }
 
     @Override

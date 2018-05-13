@@ -2,6 +2,7 @@ package blockchain.block;
 
 import blockchain.block.mining.Hasher;
 
+import java.math.BigInteger;
 import java.util.Objects;
 
 public class Block {
@@ -39,4 +40,6 @@ public class Block {
         return Objects.equals(data, block.data) &&
                 Objects.equals(header, block.header);
     }
+
+
 }

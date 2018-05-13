@@ -14,21 +14,21 @@ public class FileOverview implements DataPoint {
 
     private String ownerIp;
     private String fileId;
-    private StorageContract[] storageContracts;
+    private ArrayList<StorageContract> storageContracts;
     private int chunkCount;
 
 
-    public FileOverview(String ownerIp, String fileId, StorageContract[] storageContracts) {
+    public FileOverview(String ownerIp, String fileId, ArrayList<StorageContract> storageContracts) {
         this.ownerIp = ownerIp;
         this.fileId = fileId;
         this.storageContracts = storageContracts;
-        chunkCount = storageContracts.length;
+        chunkCount = storageContracts.size();
     }
 
     @Override
     public String getFormattedDataString() {
         StringBuilder sb = new StringBuilder();
-        int amountOfChunks = storageContracts.length;
+        int amountOfChunks = storageContracts.size();
 
         sb.append("Owners IP address : ").append(ownerIp).append("\n")
                 .append("File ID : ").append(fileId).append("\n")
@@ -37,7 +37,7 @@ public class FileOverview implements DataPoint {
 
         for (int i = 0; i < amountOfChunks; i++) {
             sb.append("Contract for chunk : ").append(i).append("\n");
-            sb.append(storageContracts[i].getFormattedDataString()).append("\n");
+            sb.append(storageContracts.get(i).getFormattedDataString()).append("\n");
         }
 
         sb.append("\n");
@@ -68,7 +68,7 @@ public class FileOverview implements DataPoint {
         return fileId;
     }
 
-    public StorageContract[] getStorageContracts() {
+    public ArrayList<StorageContract> getStorageContracts() {
         return storageContracts;
     }
 

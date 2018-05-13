@@ -20,9 +20,16 @@ public class Data implements Serializable{
         datapointCount = dataPoints.size();
     }
 
-    public void addData(DataPoint dataPoint){
+    public Data() {
+        this.dataPoints = new ArrayList<>();
+        datapointCount = 0;
+    }
+
+    // Adds a given data point to the list and returns the data point count
+    public int addData(DataPoint dataPoint){
         dataPoints.add(dataPoint);
-        datapointCount++;
+        // Increment before returning data point count
+        return ++datapointCount;
     }
 
     public ArrayList<DataPoint> getDataPoints() {
