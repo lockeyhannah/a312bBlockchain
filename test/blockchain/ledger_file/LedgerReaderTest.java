@@ -21,8 +21,6 @@ class LedgerReaderTest {
         path2 = Paths.get("chain_test.txt");
     }
 
-    // TODO: 11-05-2018 reeeeeee
-
     @Test
     public void ledgerReaderTest01(){
         try {
