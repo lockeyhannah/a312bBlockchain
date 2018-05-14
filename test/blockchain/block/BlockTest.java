@@ -8,7 +8,8 @@ import static org.junit.Assert.assertTrue;
 
 class BlockTest {
 
-    Block block1, block2;
+    private Block block1;
+    private Block block2;
 
     @BeforeEach
     public void blockTest00(){

@@ -7,9 +7,6 @@ import blockchain.block.data_points.DataPoint;
 import blockchain.block.data_points.DataPointUID;
 
 import java.math.BigInteger;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 /*
  * Builder for the block class
  * When built a header is generated and the block is mined according to its difficulty
@@ -17,10 +14,10 @@ import java.util.Date;
 
 public class BlockBuilder{
 
-    Data data;
-    Header header;
-    Header previousHeader;
-    long blockNumber;
+    private Data data;
+    private Header header;
+    private Header previousHeader;
+    private long blockNumber;
 
     // Initiates the builder potentially based on a previous header
     public BlockBuilder(Header previousHeader){

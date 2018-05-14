@@ -12,8 +12,10 @@ import static org.junit.jupiter.api.Assertions.*;
 class BlockConverterTest {
 
     private BlockConverter converter;
-    Block block, block2;
-    byte[] bytes1, bytes2;
+    private Block block;
+    private Block block2;
+    private byte[] bytes1;
+    private byte[] bytes2;
 
     @BeforeEach
     public void blockConverterTest00() {
