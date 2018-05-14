@@ -22,11 +22,9 @@ public class ConverterTest {
 
 
     public static Block generateBlock(Header previousHeader){
-        Header header = new Header(3516, Hasher.applySHA("test".getBytes()), Hasher.applySHA("woops".getBytes()), BigInteger.valueOf(12).toByteArray(), BigInteger.valueOf(98765).toByteArray(), "today");
         BlockBuilder blockBuilder = new BlockBuilder(previousHeader);
 
         int amountOfFiles = 15;
-        ArrayList<DataPoint> dataPoints = new ArrayList<>();
         for(int j = 0; j < amountOfFiles; j++){
 
             int amountOfContracts = 7;

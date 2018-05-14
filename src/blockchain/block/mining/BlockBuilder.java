@@ -28,7 +28,7 @@ public class BlockBuilder{
         data = new Data();
     }
 
-    private Header generateHeader(){
+    private void generateHeader(){
         String timeStamp = BlockMiner.generateTimeStamp();
 
         byte[] dataHash = Hasher.applySHA(data.getDataBytes()); // Hash data
@@ -45,7 +45,7 @@ public class BlockBuilder{
             difficulty = previousHeader.getDifficultyTarget(); // todo Add difficulty calculation
         }
 
-        return new Header(blockNumber, prevHeaderHash, dataHash, nonce, difficulty, timeStamp);
+        header = new Header(blockNumber, prevHeaderHash, dataHash, nonce, difficulty, timeStamp);
     }
 
     public DataPointUID addData(DataPoint dp){
