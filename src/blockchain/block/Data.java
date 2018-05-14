@@ -10,7 +10,7 @@ import blockchain.utility.ByteUtils;
 import java.io.*;
 import java.util.ArrayList;
 
-public class Data implements Serializable{
+public class Data implements Serializable {
 
     private ArrayList<DataPoint> dataPoints;
     private int datapointCount;
@@ -26,7 +26,7 @@ public class Data implements Serializable{
     }
 
     // Adds a given data point to the list and returns the data point count
-    public int addData(DataPoint dataPoint){
+    public int addData(DataPoint dataPoint) {
         dataPoints.add(dataPoint);
         // Increment before returning data point count
         return ++datapointCount;
@@ -41,21 +41,21 @@ public class Data implements Serializable{
     }
 
     // Converts all data into a sequence of bytes for hashing
-    public byte[] getDataBytes(){
+    public byte[] getDataBytes() {
         ArrayList<byte[]> allBytes = new ArrayList<>();
-        for (DataPoint dp: dataPoints)
+        for (DataPoint dp : dataPoints)
             allBytes.add(dp.getBytes());
 
         return ByteUtils.combineByteArrays(allBytes);
     }
 
-    public String getString(){
+    public String getString() {
         StringBuilder sb = new StringBuilder();
 
-        for (DataPoint dp : dataPoints){
+        for (DataPoint dp : dataPoints) {
             sb.append(dp.getFormattedDataString());
         }
+
         return sb.toString();
     }
-
 }

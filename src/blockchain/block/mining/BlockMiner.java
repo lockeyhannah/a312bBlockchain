@@ -11,12 +11,12 @@ import java.util.Date;
 
 public class BlockMiner {
 
-    public static String generateTimeStamp(){
+    public static String generateTimeStamp() {
         return new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
     }
 
     // Mines for valid nonce value and returns a valid block
-    public static Block mineBlock(Header header, Data data){
+    public static Block mineBlock(Header header, Data data) {
         BigInteger nonce = new BigInteger(header.getNonce());
         BigInteger target = new BigInteger(header.getDifficultyTarget());
 
@@ -27,7 +27,7 @@ public class BlockMiner {
         BigInteger nonceMax = BigInteger.TWO.pow(240);
 
         // Recalculate hash with new nonce values until the hash is below the target value
-        while(hashInteger.compareTo(target) > 0){
+        while (hashInteger.compareTo(target) > 0) {
             // Update nonce value
             nonce = nonce.add(BigInteger.ONE);
             header.setNonce(ByteUtils.trimLeadingZeroes(nonce.toByteArray()));
@@ -36,7 +36,7 @@ public class BlockMiner {
             hash = Hasher.applySHA(header.getBytes());
             hashInteger = new BigInteger(1, hash);
 
-            if(nonce.compareTo(nonceMax) > 0){
+            if (nonce.compareTo(nonceMax) > 0) {
                 header.setTimeStamp(generateTimeStamp());
                 nonce = BigInteger.ONE;
             }
@@ -44,7 +44,4 @@ public class BlockMiner {
 
         return new Block(header, data);
     }
-
-
-
 }

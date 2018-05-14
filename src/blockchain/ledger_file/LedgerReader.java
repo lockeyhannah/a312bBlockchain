@@ -5,7 +5,6 @@ import blockchain.ledger_file.convertion.BlockConverter;
 import blockchain.utility.ByteUtils;
 
 import java.io.*;
-import java.nio.ByteBuffer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -83,12 +82,12 @@ public class LedgerReader {
         long totalSkippedBytes = bis.skip(blockSize);
 
         // Skip bytes until the end of the block
-        while(totalSkippedBytes < blockSize){
+        while (totalSkippedBytes < blockSize) {
             // Attempt to skip till the end of the block and get actual amount of bytes skipped
             long tempSkipped = bis.skip(blockSize - totalSkippedBytes);
 
             //Return false if no bytes could be skipped
-            if(tempSkipped < 0) return false;
+            if (tempSkipped < 0) return false;
 
             totalSkippedBytes += tempSkipped;
         }
@@ -120,8 +119,6 @@ public class LedgerReader {
 
         return blockCount;
     }
-
-
 }
 
 

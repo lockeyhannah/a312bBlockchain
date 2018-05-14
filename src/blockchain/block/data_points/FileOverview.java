@@ -54,7 +54,7 @@ public class FileOverview implements DataPoint {
         byteArrays.add(fileId.getBytes());
 
         // Add bytes from all contracts
-        for(StorageContract contract : storageContracts)
+        for (StorageContract contract : storageContracts)
             byteArrays.add(contract.getBytes());
 
         return ByteUtils.combineByteArrays(byteArrays);

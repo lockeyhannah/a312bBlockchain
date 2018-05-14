@@ -2,7 +2,7 @@ package blockchain.ledger_file.convertion;
 
 import java.lang.reflect.ParameterizedType;
 
-public abstract class Converter <T> {
+public abstract class Converter<T> {
 
     private final short CONVERTER_VERSION_UID;
 
@@ -11,6 +11,7 @@ public abstract class Converter <T> {
     }
 
     public abstract T instanceFromBytes(byte[] bytes);
+
     public abstract byte[] bytesFromInstance(T instance);
 
     public short getCONVERTER_VERSION_UID() {
@@ -19,7 +20,7 @@ public abstract class Converter <T> {
 
     public abstract short getOBJECT_TYPE_UID();
 
-    public boolean canConvert(Object o){ //todo add comment
+    public boolean canConvert(Object o) { //todo add comment
         Class<T> type = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
         return type.isInstance(o);
     }

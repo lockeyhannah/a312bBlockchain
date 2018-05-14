@@ -22,6 +22,7 @@ public class FileOverViewConverter extends Converter<FileOverview> {
         contractConverter = new StorageContractConverter(CONVERTER_VERSION_UID);
     }
 
+    //Converts byte array to FileOverview object
     @Override
     public FileOverview instanceFromBytes(byte[] bytes) {
         ByteArrayReader byteReader = new ByteArrayReader(bytes);
@@ -39,6 +40,7 @@ public class FileOverViewConverter extends Converter<FileOverview> {
         return new FileOverview(ownerIP, fileId, contracts);
     }
 
+    //Converts FilerOverview object to byte array
     @Override
     public byte[] bytesFromInstance(FileOverview fileOw) {
         ArrayList<byte[]> byteList = new ArrayList<>();

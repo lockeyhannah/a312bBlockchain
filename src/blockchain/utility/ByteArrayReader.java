@@ -1,6 +1,5 @@
 package blockchain.utility;
 
-import java.io.InputStream;
 import java.util.Arrays;
 
 public class ByteArrayReader {
@@ -12,13 +11,12 @@ public class ByteArrayReader {
         this.array = array;
     }
 
-    public byte[] readNext(int amountOfBytes, boolean trimLeadingZeroes){
+    //Reads bytes
+    public byte[] readNext(int amountOfBytes, boolean trimLeadingZeroes) {
         byte[] newArray = (Arrays.copyOfRange(array, currentIndex, currentIndex + amountOfBytes));
-        if(trimLeadingZeroes) newArray = ByteUtils.trimLeadingZeroes(newArray);
+        if (trimLeadingZeroes) newArray = ByteUtils.trimLeadingZeroes(newArray);
         currentIndex += amountOfBytes;
 
         return newArray;
     }
-
-
 }

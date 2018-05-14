@@ -24,6 +24,7 @@ public class DataConverter extends Converter<Data> {
         converters.add(new StorageContractConverter(CONVERTER_VERSION_UID));
     }
 
+    //Converts byte array to Data object
     @Override
     public Data instanceFromBytes(byte[] bytes) {
         ByteArrayReader byteReader = new ByteArrayReader(bytes);
@@ -32,14 +33,14 @@ public class DataConverter extends Converter<Data> {
         int dataPointCount = ByteUtils.toInt(byteReader.readNext(DATA_POINT_COUNT_BYTE_LEN, true));
 
         ArrayList<DataPoint> dataPoints = new ArrayList<>();
-        for(int i = 0; i < dataPointCount; i++){
+        for (int i = 0; i < dataPointCount; i++) {
             short dataPointTypeID = ByteUtils.toShort(byteReader.readNext(OBJECT_TYPE_UID_BYTE_LEN, true));
             short dataPointByteLen = ByteUtils.toShort(byteReader.readNext(DATA_POINT_SIZE_BYTE_LEN, true));
             Converter c = getConverter(dataPointTypeID);
 
-            if(c != null){
+            if (c != null) {
                 dataPoints.add((DataPoint) c.instanceFromBytes(byteReader.readNext(dataPointByteLen, false)));
-            }else{
+            } else {
                 System.out.println("Could not read data point with ID : " + dataPointTypeID);
                 byteReader.readNext(dataPointByteLen, true); // Skip this datapoint
             }
@@ -48,6 +49,7 @@ public class DataConverter extends Converter<Data> {
         return new Data(dataPoints);
     }
 
+    //Converts Data object to byte array
     @Override
     public byte[] bytesFromInstance(Data data) {
         ArrayList<byte[]> bytes = new ArrayList<>();
@@ -58,12 +60,12 @@ public class DataConverter extends Converter<Data> {
 
         // Iterate through every data point, transform it to bytes and add it to the byte array
         ArrayList<DataPoint> dataPoints = data.getDataPoints();
-        for(DataPoint dp : dataPoints){
+        for (DataPoint dp : dataPoints) {
 
             // Find the converter that can transform the given DataPoint to bytes
             Converter c = getConverter(dp);
 
-            if(c != null){
+            if (c != null) {
                 // Add DataPoint ID to byte array
                 bytes.add(ByteUtils.toByteArray(c.getOBJECT_TYPE_UID()));
                 byte[] dpBytes = c.bytesFromInstance(dp);
@@ -74,8 +76,7 @@ public class DataConverter extends Converter<Data> {
 
                 // Add data point
                 bytes.add(dpBytes);
-            }
-            else{
+            } else {
                 System.out.println("Could not find converter for datapoint");
             }// TODO: 29-04-2018 add else logic
         }
@@ -83,17 +84,19 @@ public class DataConverter extends Converter<Data> {
         return ByteUtils.combineByteArrays(bytes);
     }
 
-    private Converter getConverter(short objectTypeID){
-        for (Converter c : converters){
+    private Converter getConverter(short objectTypeID) {
+        for (Converter c : converters) {
             if (c.getOBJECT_TYPE_UID() == objectTypeID) return c;
         }
+
         return null;
     }
 
-    private Converter getConverter(Object o){
-        for (Converter c : converters){
-            if(c.canConvert(o)) return c;
+    private Converter getConverter(Object o) {
+        for (Converter c : converters) {
+            if (c.canConvert(o)) return c;
         }
+
         return null;
     }
 

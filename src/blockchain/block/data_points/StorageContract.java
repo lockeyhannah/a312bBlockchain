@@ -5,7 +5,6 @@ package blockchain.block.data_points;
  * made between two units
  */
 
-
 import blockchain.utility.ByteUtils;
 
 import java.util.ArrayList;
@@ -26,7 +25,7 @@ public class StorageContract {
         this.reward = reward;
     }
 
-    public byte[] getBytes(){
+    public byte[] getBytes() {
         ArrayList<byte[]> allBytes = new ArrayList<>();
 
         allBytes.add(chunkId.getBytes());
@@ -69,7 +68,6 @@ public class StorageContract {
     public double getReward() {
         return reward;
     }
-
 
 
 }

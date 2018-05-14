@@ -25,12 +25,13 @@ public class StorageContractConverter extends Converter<StorageContract> {
         super(CONVERTER_VERSION_UID);
     }
 
+    //Converts byte array to a StorageContract object
     @Override
     public StorageContract instanceFromBytes(byte[] bytes) {
         ByteArrayReader byteReader = new ByteArrayReader(bytes);
 
         String chunkIDBytes = new String(byteReader.readNext(chunkIdByteLen, true));
-        String storageIP = new String(byteReader.readNext(storageIPByteLen,true));
+        String storageIP = new String(byteReader.readNext(storageIPByteLen, true));
         String terminationTime = new String(byteReader.readNext(terminationTimeByteLen, true));
 
         long chunkSize = ByteUtils.toLong(byteReader.readNext(chunkSizeByteLen, true));
@@ -39,6 +40,7 @@ public class StorageContractConverter extends Converter<StorageContract> {
         return new StorageContract(chunkIDBytes, storageIP, terminationTime, chunkSize, reward);
     }
 
+    //Converts a StorageContract object to byte array
     @Override
     public byte[] bytesFromInstance(StorageContract contract) {
         ArrayList<byte[]> byteList = new ArrayList<>();

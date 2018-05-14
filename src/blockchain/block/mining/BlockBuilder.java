@@ -7,20 +7,18 @@ import blockchain.block.data_points.DataPoint;
 import blockchain.block.data_points.DataPointUID;
 
 import java.math.BigInteger;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
-public class BlockBuilder{
+public class BlockBuilder {
 
     Data data;
     Header header;
     Header previousHeader;
     long blockNumber;
 
-    public BlockBuilder(Header previousHeader){
+    public BlockBuilder(Header previousHeader) {
         this.previousHeader = previousHeader;
 
-        if(previousHeader != null)
+        if (previousHeader != null)
             blockNumber = previousHeader.getBlockId() - 1;
         else
             blockNumber = 0;
@@ -28,7 +26,7 @@ public class BlockBuilder{
         data = new Data();
     }
 
-    private void generateHeader(){
+    private void generateHeader() {
         String timeStamp = BlockMiner.generateTimeStamp();
 
         byte[] dataHash = Hasher.applySHA(data.getDataBytes()); // Hash data
@@ -36,11 +34,11 @@ public class BlockBuilder{
         byte[] difficulty;
         byte[] prevHeaderHash;
 
-        if(previousHeader == null) { // Set standard values if no previous header is given
+        if (previousHeader == null) { // Set standard values if no previous header is given
             dataHash = new byte[32];
             difficulty = BigInteger.TWO.pow(238).toByteArray();
             prevHeaderHash = new byte[32];
-        }else{ // Otherwise set values based on previous block
+        } else { // Otherwise set values based on previous block
             prevHeaderHash = Hasher.applySHA(previousHeader.getBytes());
             difficulty = previousHeader.getDifficultyTarget(); // todo Add difficulty calculation
         }
@@ -48,20 +46,15 @@ public class BlockBuilder{
         header = new Header(blockNumber, prevHeaderHash, dataHash, nonce, difficulty, timeStamp);
     }
 
-    public DataPointUID addData(DataPoint dp){
+    public DataPointUID addData(DataPoint dp) {
         int dataPointNumber = data.addData(dp);
         return new DataPointUID(blockNumber, dataPointNumber);
     }
 
-
-
-    public Block build(){
+    public Block build() {
         generateHeader();
         return BlockMiner.mineBlock(header, data);
-
     }
-
-
 
 
 }

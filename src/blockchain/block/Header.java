@@ -2,15 +2,13 @@ package blockchain.block;
 
 import blockchain.block.mining.Hasher;
 
-
-import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Objects;
 
 import static blockchain.utility.ByteUtils.*;
 
-public class Header{
+public class Header {
 
     private long blockId;
 
@@ -63,10 +61,11 @@ public class Header{
         return blockId;
     }
 
-    public void setTimeStamp(String timeStamp){
+    public void setTimeStamp(String timeStamp) {
         this.timeStamp = timeStamp;
     }
 
+    //Converts header to byte array
     public byte[] getBytes() {
         byte[] bytes = combineByteArrays(prevHash, dataHash);
         bytes = combineByteArrays(bytes, nonce);

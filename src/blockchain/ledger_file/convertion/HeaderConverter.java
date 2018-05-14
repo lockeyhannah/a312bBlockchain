@@ -21,6 +21,7 @@ public class HeaderConverter extends Converter<Header> {
         super(CONVERTER_VERSION_UID);
     }
 
+    //Converts byte array to a Header object
     @Override
     public Header instanceFromBytes(byte[] bytes) {
         ByteArrayReader byteReader = new ByteArrayReader(bytes);
@@ -37,6 +38,7 @@ public class HeaderConverter extends Converter<Header> {
         return new Header(blockID, prevHash, dataHash, nonce, target, timeStamp);
     }
 
+    //Converts Header object to byte array
     @Override
     public byte[] bytesFromInstance(Header h) {
         ArrayList<byte[]> byteList = new ArrayList<>();
