@@ -18,7 +18,7 @@ class BlockTest {
 
     @Test
     public void blockTest01(){
-        assertTrue(block1.equals(block2));
+        assertTrue(block1.toString().equals(block2.toString()));
     }
 
     @Test

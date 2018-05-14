@@ -30,6 +30,7 @@ class LedgerReaderTest {
         }
     }
 
+    /*
     @Test
     public void ledgerReaderTest02(){
 
@@ -40,5 +41,5 @@ class LedgerReaderTest {
         }
 
         System.out.println(block.toString());
-    }
+    }*/
 }
