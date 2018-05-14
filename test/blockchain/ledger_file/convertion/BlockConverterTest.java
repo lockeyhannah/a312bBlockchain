@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BlockConverterTest {
 
-    BlockConverter converter;
+    private BlockConverter converter;
     Block block, block2;
     byte[] bytes1, bytes2;
 

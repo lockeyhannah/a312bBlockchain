@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class DataConverter extends Converter<Data> {
 
     private final short OBJECT_TYPE_UID = 3;
-    ArrayList<Converter> converters = new ArrayList<>();
+    private ArrayList<Converter> converters = new ArrayList<>();
 
 
     private final int DATA_POINT_COUNT_BYTE_LEN = Integer.BYTES;

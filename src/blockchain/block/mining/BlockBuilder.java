@@ -10,10 +10,10 @@ import java.math.BigInteger;
 
 public class BlockBuilder {
 
-    Data data;
-    Header header;
-    Header previousHeader;
-    long blockNumber;
+    private Data data;
+    private Header header;
+    private Header previousHeader;
+    private long blockNumber;
 
     public BlockBuilder(Header previousHeader) {
         this.previousHeader = previousHeader;

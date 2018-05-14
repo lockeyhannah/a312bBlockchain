@@ -4,8 +4,8 @@ import java.util.Arrays;
 
 public class ByteArrayReader {
 
-    byte[] array;
-    int currentIndex = 0;
+    private byte[] array;
+    private int currentIndex = 0;
 
     public ByteArrayReader(byte[] array) {
         this.array = array;
