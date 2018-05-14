@@ -1,8 +1,7 @@
 package blockchain.block.data_points;
 
-/*
- *
- * This class is a datapoint in blocks.
+/* Represents an overview of storage for all chunks of a single file
+ * This contains information about the IP of the file owner
  *
  */
 
@@ -12,11 +11,10 @@ import java.util.ArrayList;
 
 public class FileOverview implements DataPoint {
 
-    private String ownerIp;
-    private String fileId;
-    private ArrayList<StorageContract> storageContracts;
-    private int chunkCount;
-
+    private String ownerIp; // IP address of the original file owner
+    private String fileId; //
+    private ArrayList<StorageContract> storageContracts; // List of all chunk storage contracts for the fle
+    private int chunkCount; // Amount of chunks that this file is split into
 
     public FileOverview(String ownerIp, String fileId, ArrayList<StorageContract> storageContracts) {
         this.ownerIp = ownerIp;
@@ -25,7 +23,7 @@ public class FileOverview implements DataPoint {
         chunkCount = storageContracts.size();
     }
 
-    @Override
+    @Override // Returns a formatted string including all storage contracts
     public String getFormattedDataString() {
         StringBuilder sb = new StringBuilder();
         int amountOfChunks = storageContracts.size();
