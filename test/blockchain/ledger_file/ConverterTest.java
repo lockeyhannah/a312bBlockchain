@@ -42,7 +42,6 @@ public class ConverterTest {
     @Test
     public void StorageContractConverterTest(){
         StorageContract originalContract = new StorageContract("56", "192.168.1.50", "now!", 10000000, 0.35);
-        System.out.println(originalContract.getFormattedDataString());
 
         StorageContractConverter converter = new StorageContractConverter((short) 1);
         byte[] contractBytes = converter.bytesFromInstance(originalContract);
@@ -59,22 +58,22 @@ public class ConverterTest {
     public void FileOverViewConverterTest(){
         int amountOfContracts = 7;
         ArrayList<StorageContract> contracts = new ArrayList<>();
-        String expetedString, resultingString;
+        String expectedString, resultingString;
         for(int i = 0; i < amountOfContracts; i++){
             contracts.add(new StorageContract("5"+i, "192.168.1.5" + i,
                     "OwO what's this", 10000000, 0.35));
         }
 
         FileOverview fileOw = new FileOverview("Me.me.more.me", "filename", contracts);
-        System.out.println(expetedString = fileOw.getFormattedDataString());
+        expectedString = fileOw.getFormattedDataString();
 
         FileOverViewConverter fileOwConverter = new FileOverViewConverter((short) 1);
         byte[] fileOwBytes = fileOwConverter.bytesFromInstance(fileOw);
 
         fileOw = fileOwConverter.instanceFromBytes(fileOwBytes);
-        System.out.println(resultingString = fileOw.getFormattedDataString());
+        resultingString = fileOw.getFormattedDataString();
 
-        Assert.assertEquals(resultingString, expetedString);
+        Assert.assertEquals(resultingString, expectedString);
     }
 
 
@@ -83,12 +82,11 @@ public class ConverterTest {
         Block testBlock = generateBlock(null);
 
         Data data = testBlock.getData();
-        System.out.println(data.getString());
+
         DataConverter dataConverter = new DataConverter((short) 1);
         byte[] dataBytes = dataConverter.bytesFromInstance(data);
 
         data = dataConverter.instanceFromBytes(dataBytes);
-        System.out.println(data.getString());
 
 
         // Assert.assertEquals(resultingString, expetedString); // TODO: add asserts
@@ -97,7 +95,6 @@ public class ConverterTest {
     @Test
     public void HeaderConverterTest(){
         Header header = generateBlock(null).getHeader();
-        System.out.println(header.getString());
 
         HeaderConverter headerConverter = new HeaderConverter((short) 1);
         byte[] headerBytes = headerConverter.bytesFromInstance(header);

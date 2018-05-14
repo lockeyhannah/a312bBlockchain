@@ -1,10 +1,5 @@
 package blockchain.block;
 
-import blockchain.block.mining.Hasher;
-
-import java.math.BigInteger;
-import java.util.Objects;
-
 public class Block {
 
     private Data data;
@@ -23,23 +18,8 @@ public class Block {
         return header;
     }
 
-    public byte[] getHash(){
-        return Hasher.applySHA(getHeader().getBytes());
-    }
-
     // Prints out block information
     public String toString() {
         return header.getString() + data.getString();
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Block block = (Block) o;
-        return Objects.equals(data, block.data) &&
-                Objects.equals(header, block.header);
-    }
-
-
 }
