@@ -96,12 +96,12 @@ public class LedgerReader {
     }
 
     // Return the block most recently added to the chain
-    private Block getNewestBlock() {
+    public Block getNewestBlock() {
         return readBlock(getBlockCount());
     }
 
     // Returns the amount of blocks currently stored in the chain
-    private long getBlockCount() {
+    public long getBlockCount() {
         long blockCount = 0;
 
         try (BufferedInputStream bis = new BufferedInputStream(Files.newInputStream(ledgerFilePath))) {

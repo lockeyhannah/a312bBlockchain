@@ -30,6 +30,17 @@ class LedgerReaderTest {
         }
     }
 
+    /*@Test
+    public void blockIntegrityTest(){
+        try{
+            for (int i = 0; i < new LedgerReader().)
+            block = new LedgerReader(path2).readBlock(i);
+
+        } catch (FileNotFoundException e) {
+            System.out.println("file not found");
+        }
+    }*/
+
     /*
     @Test
     public void ledgerReaderTest02(){

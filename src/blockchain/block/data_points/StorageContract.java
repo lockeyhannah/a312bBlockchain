@@ -4,7 +4,6 @@ package blockchain.block.data_points;
  * This contains information about a contract of file storage made between two units in the network
  */
 
-
 import blockchain.utility.ByteUtils;
 
 import java.util.ArrayList;
@@ -70,7 +69,4 @@ public class StorageContract {
     public double getReward() {
         return reward;
     }
-
-
-
 }

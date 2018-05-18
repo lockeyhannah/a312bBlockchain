@@ -66,8 +66,4 @@ public class BlockBuilder{
         return BlockMiner.mineBlock(header, data);
 
     }
-
-
-
-
 }
