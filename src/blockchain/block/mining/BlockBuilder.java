@@ -24,7 +24,7 @@ public class BlockBuilder{
         this.previousHeader = previousHeader;
 
         if(previousHeader != null)
-            blockNumber = previousHeader.getBlockId() - 1;
+            blockNumber = previousHeader.getBlockId() + 1;
         else
             blockNumber = 0;
 

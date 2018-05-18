@@ -30,6 +30,7 @@ class LedgerWriterTest {
 
         for(int i = 1; i < blockCount; i++){
             blocks.add(ConverterTest.generateBlock(blocks.get(i - 1).getHeader()));
+            System.out.println(blocks.get(i).getHeader().getBlockId());
         }
 
         header = new Header(3, new byte[]{0}, new byte[]{1}, new byte[]{2}, new byte[]{3}, "mandag");
@@ -59,6 +60,7 @@ class LedgerWriterTest {
 
             for(int i = 0; i < blockCount; i++){
                 Assert.assertEquals(blocks.get(i).toString(), ledgerReader.readBlock(i).toString());
+                System.out.println(ledgerReader.readBlock(i).getHeader().getString());
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();

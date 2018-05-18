@@ -26,7 +26,7 @@ public class HeaderConverter extends Converter<Header> {
     public Header instanceFromBytes(byte[] bytes) {
         ByteArrayReader byteReader = new ByteArrayReader(bytes);
 
-        byte[] blockIDBytes = byteReader.readNext(blockIdByteLen, true);
+        byte[] blockIDBytes = byteReader.readNext(blockIdByteLen, false);
         long blockID = ByteUtils.toLong(blockIDBytes);
         byte[] prevHash = byteReader.readNext(prevHashByteLen, false);
         byte[] dataHash = byteReader.readNext(dataHashByteLen, false);
