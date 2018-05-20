@@ -45,7 +45,7 @@ public class FileOverViewConverter extends Converter<FileOverview> {
     public byte[] bytesFromInstance(FileOverview fileOw) {
         ArrayList<byte[]> byteList = new ArrayList<>();
 
-        byteList.add(ByteUtils.extendByteArray(fileOw.getOwnerIp().getBytes(), OWNER_IP_BYTE_LEN));
+        byteList.add(ByteUtils.extendByteArray(fileOw.getOwnerID().getBytes(), OWNER_IP_BYTE_LEN));
         byteList.add(ByteUtils.extendByteArray(fileOw.getFileId().getBytes(), FILE_ID_BYTE_LEN));
         byteList.add(ByteUtils.extendByteArray(ByteUtils.toByteArray(fileOw.getChunkCount()), CHUNK_COUNT_BYTE_LEN));
 

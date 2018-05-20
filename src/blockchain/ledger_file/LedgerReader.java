@@ -15,11 +15,8 @@ public class LedgerReader {
     // Path of the ledger file
     private Path ledgerFilePath;
 
-    public LedgerReader(Path ledgerFilePath) throws FileNotFoundException {
+    public LedgerReader(Path ledgerFilePath) {
         this.ledgerFilePath = ledgerFilePath;
-
-        if (!Files.exists(ledgerFilePath))
-            throw new FileNotFoundException("Ledger file note found : " + ledgerFilePath.toString());
     }
 
     // Reads and returns the block with the given block number from the ledger file,
@@ -97,7 +94,7 @@ public class LedgerReader {
 
     // Return the block most recently added to the chain
     public Block getNewestBlock() {
-        return readBlock(getBlockCount());
+        return readBlock(getBlockCount() - 1);
     }
 
     // Returns the amount of blocks currently stored in the chain
@@ -109,8 +106,7 @@ public class LedgerReader {
             byte[] blockSizeBytes = new byte[BLOCK_SIZE_BYTE_LEN];
 
             // Skip blocks until end of file and increment counter for each block skipped
-            while (bis.read(blockSizeBytes, 0, BLOCK_SIZE_BYTE_LEN) != -1) {
-                bis.skip(ByteUtils.toInt(blockSizeBytes));
+            while (skipNextBlock(bis)) {
                 blockCount++;
             }
         } catch (IOException e) {

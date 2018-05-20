@@ -7,20 +7,19 @@ package blockchain.block.data_points;
 import blockchain.utility.ByteUtils;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class StorageContract {
 
     private String chunkId;
-    private String storageIp; // IP address of the storage unit
-    private String contractTerminationTime;
-    private long chunkSize; // Size of the chunk measured in bytes
+    private String storageID; // ID address of the storage unit
+    private long contractTerminationTime;
     private double reward; // The reward for storing the file until contract termination
 
-    public StorageContract(String chunkId, String storageIp, String terminationTime, long chunkSize, double reward) {
+    public StorageContract(String chunkId, String storageIp, long terminationTime, double reward) {
         this.chunkId = chunkId;
-        this.storageIp = storageIp;
+        this.storageID = storageIp;
         this.contractTerminationTime = terminationTime;
-        this.chunkSize = chunkSize;
         this.reward = reward;
     }
 
@@ -29,9 +28,8 @@ public class StorageContract {
         ArrayList<byte[]> allBytes = new ArrayList<>();
 
         allBytes.add(chunkId.getBytes());
-        allBytes.add(storageIp.getBytes());
-        allBytes.add(contractTerminationTime.getBytes());
-        allBytes.add(ByteUtils.toByteArray(chunkSize));
+        allBytes.add(storageID.getBytes());
+        allBytes.add(ByteUtils.toByteArray(contractTerminationTime));
         allBytes.add(ByteUtils.toByteArray(reward));
 
         return ByteUtils.combineByteArrays(allBytes);
@@ -42,9 +40,8 @@ public class StorageContract {
         StringBuilder sb = new StringBuilder();
 
         sb.append("Chunk ID : ").append(chunkId).append("\n")
-                .append("Storage Unit IP address : ").append(storageIp).append("\n")
+                .append("Storage Unit IP address : ").append(storageID).append("\n")
                 .append("Date for termination of contract : ").append(contractTerminationTime).append("\n")
-                .append("Size of chunk : ").append(chunkSize).append("\n")
                 .append("Reward for chunk : ").append(reward).append("\n\n");
 
         return sb.toString();
@@ -54,16 +51,12 @@ public class StorageContract {
         return chunkId;
     }
 
-    public String getStorageIp() {
-        return storageIp;
+    public String getStorageID() {
+        return storageID;
     }
 
-    public String getContractTerminationTime() {
+    public long getContractTerminationTime() {
         return contractTerminationTime;
-    }
-
-    public long getChunkSize() {
-        return chunkSize;
     }
 
     public double getReward() {

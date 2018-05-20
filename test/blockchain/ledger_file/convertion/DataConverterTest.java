@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -26,12 +27,12 @@ class DataConverterTest {
     public void dataConverterTest00(){
         converter = new DataConverter((short)1);
         contract = new StorageContract("chunkID", "StorageIP",
-                "TermTime", 4, 3);
+                System.currentTimeMillis(), 3);
 
-        Block block = ConverterTest.generateBlock(null);
+        Block block = ConverterTest.generateBlock();
 
 
-        data1 = ConverterTest.generateBlock(null).getData();
+        data1 = ConverterTest.generateBlock().getData();
         data2 = data1;
 
         bytes1 = converter.bytesFromInstance(data1);

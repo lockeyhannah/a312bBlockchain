@@ -21,15 +21,6 @@ class LedgerReaderTest {
         path2 = Paths.get("chain_test.txt");
     }
 
-    @Test
-    public void ledgerReaderTest01(){
-        try {
-            new LedgerReader(path1);
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found.");
-        }
-    }
-
     /*@Test
     public void blockIntegrityTest(){
         try{

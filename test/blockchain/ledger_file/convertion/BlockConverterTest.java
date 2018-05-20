@@ -20,7 +20,7 @@ class BlockConverterTest {
     @BeforeEach
     public void blockConverterTest00() {
         converter = new BlockConverter((short) 2);
-        block = ConverterTest.generateBlock(null);
+        block = ConverterTest.generateBlock();
         block2 = block;
         bytes1 = converter.bytesFromInstance(block);
         bytes2 = converter.bytesFromInstance(block2);

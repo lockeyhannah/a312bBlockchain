@@ -1,6 +1,7 @@
 package blockchain.block;
 
 import blockchain.block.mining.Hasher;
+import blockchain.utility.ByteUtils;
 
 import java.math.BigInteger;
 import java.util.Arrays;
@@ -18,9 +19,9 @@ public class Header {
     private byte[] nonce;       // Nonce value appended to the hashed data to generate a hash below the target value
     private byte[] target;      // Hash values must be smaller than target to be valid
 
-    private String timeStamp;   // Block creation time
+    private long timeStamp;   // Block creation time
 
-    public Header(long blockId, byte[] prevHash, byte[] dataHash, byte[] nonce, byte[] target, String timeStamp) {
+    public Header(long blockId, byte[] prevHash, byte[] dataHash, byte[] nonce, byte[] target, long timeStamp) {
         this.blockId = blockId;
         this.prevHash = prevHash;
         this.dataHash = dataHash;
@@ -53,7 +54,7 @@ public class Header {
         return target;
     }
 
-    public String getTimeStamp() {
+    public long getTimeStamp() {
         return timeStamp;
     }
 
@@ -61,7 +62,7 @@ public class Header {
         return blockId;
     }
 
-    public void setTimeStamp(String timeStamp) {
+    public void setTimeStamp(long timeStamp) {
         this.timeStamp = timeStamp;
     }
 
@@ -70,11 +71,11 @@ public class Header {
         byte[] bytes = combineByteArrays(prevHash, dataHash);
         bytes = combineByteArrays(bytes, nonce);
         bytes = combineByteArrays(bytes, target);
-        bytes = combineByteArrays(bytes, timeStamp.getBytes());
+        bytes = combineByteArrays(bytes, ByteUtils.toByteArray(timeStamp));
         return bytes;
     }
 
-    public String getString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Block ID : " + getBlockId()).append("\n").
                 append("Block header hash : " + Hasher.hashToHexString(Hasher.applySHA(getBytes()))).append("\n").

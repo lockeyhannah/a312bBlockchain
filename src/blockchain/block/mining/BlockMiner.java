@@ -13,15 +13,11 @@ import java.util.Date;
 
 public class BlockMiner {
 
-    // Generates a timestamp string with the current time
-    public static String generateTimeStamp(){
-        return new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
-    }
-
     // Mines for valid nonce value and returns a valid block
     public static Block mineBlock(Header header, Data data){
         BigInteger nonce = new BigInteger(header.getNonce());
         BigInteger target = new BigInteger(header.getDifficultyTarget());
+
 
         //Calculate the hash value with the default nonce and convert to an integer value
         byte[] hash = Hasher.applySHA(header.getBytes());
@@ -40,9 +36,11 @@ public class BlockMiner {
             hash = Hasher.applySHA(header.getBytes());
             hashInteger = new BigInteger(1, hash);
 
+
+
             // Pick new timestamp and reset nonce if nonce value is above max
             if(nonce.compareTo(nonceMax) > 0){
-                header.setTimeStamp(generateTimeStamp());
+                header.setTimeStamp(System.currentTimeMillis());
                 nonce = BigInteger.ONE;
             }
         }

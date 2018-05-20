@@ -1,8 +1,12 @@
 package blockchain.block;
 
 import blockchain.ledger_file.ConverterTest;
+import blockchain.ledger_file.LedgerReader;
+import blockchain.ledger_file.LedgerWriterReaderTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.nio.file.Paths;
 
 import static org.junit.Assert.assertTrue;
 
@@ -13,7 +17,7 @@ class BlockTest {
 
     @BeforeEach
     public void blockTest00(){
-        block1 = ConverterTest.generateBlock(null);
+        block1 = ConverterTest.generateBlock(new LedgerReader(Paths.get(LedgerWriterReaderTest.emptyFilePath)));
         block2 = block1;
     }
 
@@ -24,7 +28,7 @@ class BlockTest {
 
     @Test
     public void blockTest02(){
-        assertTrue(block1.toString().contains(block1.getHeader().getString()));
+        assertTrue(block1.toString().contains(block1.getHeader().toString()));
     }
 
 }

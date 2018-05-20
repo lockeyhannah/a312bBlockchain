@@ -11,13 +11,13 @@ import java.util.ArrayList;
 
 public class FileOverview implements DataPoint {
 
-    private String ownerIp; // IP address of the original file owner
+    private String ownerID; // IP address of the original file owner
     private String fileId; //
     private ArrayList<StorageContract> storageContracts; // List of all chunk storage contracts for the fle
     private int chunkCount; // Amount of chunks that this file is split into
 
     public FileOverview(String ownerIp, String fileId, ArrayList<StorageContract> storageContracts) {
-        this.ownerIp = ownerIp;
+        this.ownerID = ownerIp;
         this.fileId = fileId;
         this.storageContracts = storageContracts;
         chunkCount = storageContracts.size();
@@ -28,7 +28,7 @@ public class FileOverview implements DataPoint {
         StringBuilder sb = new StringBuilder();
         int amountOfChunks = storageContracts.size();
 
-        sb.append("Owners IP address : ").append(ownerIp).append("\n")
+        sb.append("Owners IP address : ").append(ownerID).append("\n")
                 .append("File ID : ").append(fileId).append("\n")
                 .append("Amount of chunks : ").append(amountOfChunks).append("\n")
                 .append("All file contracts : ").append("\n");
@@ -48,7 +48,7 @@ public class FileOverview implements DataPoint {
         ArrayList<byte[]> byteArrays = new ArrayList<>();
 
         // Add overview details bytes
-        byteArrays.add(ownerIp.getBytes());
+        byteArrays.add(ownerID.getBytes());
         byteArrays.add(fileId.getBytes());
 
         // Add bytes from all contracts
@@ -58,8 +58,8 @@ public class FileOverview implements DataPoint {
         return ByteUtils.combineByteArrays(byteArrays);
     }
 
-    public String getOwnerIp() {
-        return ownerIp;
+    public String getOwnerID() {
+        return ownerID;
     }
 
     public String getFileId() {

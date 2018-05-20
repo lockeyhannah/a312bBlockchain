@@ -13,11 +13,13 @@ class FileOverviewTest {
     FileOverview overview, overview2;
     ArrayList<StorageContract> contracts;
     StorageContract c;
+    long terminationTime;
     byte[] byteOverview, byteOverview2;
 
     @BeforeEach
     public void fileOverviewTest00(){
-        c = new StorageContract("5", "100", "monday", 3, 5);
+        terminationTime = System.currentTimeMillis();
+        c = new StorageContract("5", "100", terminationTime,5);
         contracts = new ArrayList<>();
 
         contracts.add(c);
@@ -31,7 +33,6 @@ class FileOverviewTest {
     @Test
     public void fileOverviewTest01(){
         assertTrue(overview.getFormattedDataString().contains("100"));
-        assertTrue(overview.getFormattedDataString().contains("monday"));
         assertTrue(overview.getFormattedDataString().contains("fileID"));
     }
 

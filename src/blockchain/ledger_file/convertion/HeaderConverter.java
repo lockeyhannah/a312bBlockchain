@@ -5,17 +5,18 @@ import blockchain.utility.ByteArrayReader;
 import blockchain.utility.ByteUtils;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class HeaderConverter extends Converter<Header> {
 
     private final short OBJECT_TYPE_UID = 2;
 
-    private static final int blockIdByteLen = 8;    //BlockId length in bytes
-    private static final int prevHashByteLen = 32;  //Previous hash length in bytes
-    private static final int dataHashByteLen = 32;  //Data hash length in bytes
-    private static final int targetByteLen = 32;    //Target length in bytes
-    private static final int nonceByteLen = 32;     //Nonce length in bytes
-    private static final int timeStampByteLen = 20;  //timeStamp length in bytes
+    private static final int blockIdByteLen = 8;            //BlockId length in bytes
+    private static final int prevHashByteLen = 32;          //Previous hash length in bytes
+    private static final int dataHashByteLen = 32;          //Data hash length in bytes
+    private static final int targetByteLen = 32;            //Target length in bytes
+    private static final int nonceByteLen = 32;             //Nonce length in bytes
+    private static final int timeStampByteLen = Long.BYTES; //timeStamp length in bytes
 
     public HeaderConverter(short CONVERTER_VERSION_UID) {
         super(CONVERTER_VERSION_UID);
@@ -33,7 +34,8 @@ public class HeaderConverter extends Converter<Header> {
         byte[] nonce = byteReader.readNext(nonceByteLen, true);
         byte[] target = byteReader.readNext(targetByteLen, true);
 
-        String timeStamp = new String(byteReader.readNext(timeStampByteLen, true));
+        byte[] timeStampBytes = byteReader.readNext(timeStampByteLen, true);
+        long timeStamp = ByteUtils.toLong(timeStampBytes);
 
         return new Header(blockID, prevHash, dataHash, nonce, target, timeStamp);
     }
@@ -48,7 +50,7 @@ public class HeaderConverter extends Converter<Header> {
         byteList.add(ByteUtils.extendByteArray(h.getDataHash(), dataHashByteLen));
         byteList.add(ByteUtils.extendByteArray(h.getNonce(), nonceByteLen));
         byteList.add(ByteUtils.extendByteArray(h.getTarget(), targetByteLen));
-        byteList.add(ByteUtils.extendByteArray(h.getTimeStamp().getBytes(), timeStampByteLen));
+        byteList.add(ByteUtils.extendByteArray(ByteUtils.toByteArray(h.getTimeStamp()), timeStampByteLen));
 
         return ByteUtils.combineByteArrays(byteList);
     }

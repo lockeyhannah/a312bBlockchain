@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,11 +16,11 @@ class HeaderTest {
 
     @BeforeEach
     public void headerTest00(){
-        header = new Header(4, new byte[]{3}, new byte[]{1}, new byte[]{2}, new byte[]{3}, "mandag");
+        header = new Header(4, new byte[]{3}, new byte[]{1}, new byte[]{2}, new byte[]{3}, System.currentTimeMillis());
     }
 
     @Test
-    public void headerTest01(){
+    public void headerTest01(){ // todo change to assert array equals and give more descriptive names to tests
         assertTrue(Arrays.compare(new byte[]{3}, header.getDifficultyTarget()) == 0);
         assertTrue(Arrays.compare(new byte[]{2}, header.getNonce()) == 0);
         assertTrue(Arrays.compare(new byte[]{1}, header.getDataHash()) == 0);
@@ -31,8 +32,9 @@ class HeaderTest {
     public void headerTest02(){
         header.setNonce(new byte[]{4});
         assertTrue(Arrays.compare(new byte[]{4}, header.getNonce()) == 0);
-        header.setTimeStamp("tuesday");
-        assertEquals(header.getTimeStamp(), "tuesday");
+
+        header.setTimeStamp(System.currentTimeMillis());
+        assertEquals(System.currentTimeMillis(), header.getTimeStamp());
     }
 
 }

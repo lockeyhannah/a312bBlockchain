@@ -20,6 +20,6 @@ public class Block {
 
     // Prints out block information
     public String toString() {
-        return header.getString() + data.getString();
+        return header.toString() + data.getString();
     }
 }

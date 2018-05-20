@@ -18,7 +18,7 @@ class HeaderConverterTest {
     @BeforeEach
     public void headerConverterTest00(){
         converter = new HeaderConverter((short)3);
-        header = ConverterTest.generateBlock(null).getHeader();
+        header = ConverterTest.generateBlock().getHeader();
         header2 = header;
         bytes1 = converter.bytesFromInstance(header);
         bytes2 = converter.bytesFromInstance(header2);
