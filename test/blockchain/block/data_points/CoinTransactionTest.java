@@ -69,7 +69,6 @@ public class CoinTransactionTest {
             blockBuilder.addData(transaction);
         } catch (InsufficientFundsException e) {
             // Fail if an exception is thrown
-            e.printStackTrace();
             fail("User with sufficient funds could not complete transaction");
         }
 
@@ -80,7 +79,6 @@ public class CoinTransactionTest {
 
         // Check that the balance is 0 for the paying user
         assertEquals(0.0, ChainAnalyzer.getUserBalance(ledgerReader, userOneID));
-
         // Check that the balance is correct for the receiving user
         assertEquals(transferAmount, ChainAnalyzer.getUserBalance(ledgerReader, userTwoID));
 

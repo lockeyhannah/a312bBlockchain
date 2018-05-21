@@ -1,6 +1,8 @@
 package blockchain.ledger_file;
 
 import blockchain.block.Block;
+import blockchain.block.data_points.DataPoint;
+import blockchain.block.data_points.DataPointUID;
 import blockchain.ledger_file.convertion.BlockConverter;
 import blockchain.utility.ByteUtils;
 
@@ -38,7 +40,7 @@ public class LedgerReader {
             return readNextBlock(bis);
 
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Could not read block " + blockNum + " - at path " + ledgerFilePath.toString());
         }
 
         return null;
@@ -110,11 +112,25 @@ public class LedgerReader {
                 blockCount++;
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Could not read ledger file - " + ledgerFilePath.toString());
+            return 0;
         }
 
         return blockCount;
     }
+
+    // Returns a data point from the ledger based on the given unique data point id
+    public DataPoint getDataPoint(DataPointUID uid){
+        Block block = readBlock(uid.getBlockNumber());
+
+        if(block != null){
+            return block.getData().getDataPoints().get(uid.getDataPointNumber());
+        }
+
+        return null;
+    }
+
+
 }
 
 

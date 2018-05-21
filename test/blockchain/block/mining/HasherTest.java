@@ -18,34 +18,32 @@ class HasherTest {
         msg2 = "message".getBytes();
         output1 = Hasher.applySHA(msg1);
         output2 = Hasher.applySHA(msg2);
-        hex1 = Hasher.hashToHexString(output1);
-        hex2 = Hasher.hashToHexString(output2);
+        hex1 = Hasher.bytesToHexString(output1);
+        hex2 = Hasher.bytesToHexString(output2);
     }
 
-    @Test
-    public void hasherTest01(){
-        assertTrue(Arrays.compare(output1, output2) == 0);
+    @Test // Test that hashes of the same input gives the same output
+    public void sameHashTest(){
+        byte[] output1 = Hasher.applySHA("message".getBytes());
+        byte[] output2 = Hasher.applySHA("message".getBytes());
+
+        assertArrayEquals(output1, output2);
     }
 
-    @Test
-    public void hasherTest02(){
-        msg1 = "messag".getBytes();
-        output1 = Hasher.applySHA(msg1);
+    @Test // Test that a slightly altered input gives a different output
+    public void differentHashTest(){
+        output1 = Hasher.applySHA("message".getBytes());
+        output2 = Hasher.applySHA("messag".getBytes());
 
         assertFalse(Arrays.compare(output1, output2) == 0);
     }
 
-    @Test
-    public void hasherTest03(){
-        assertEquals(hex1, hex2);
-    }
+    @Test // Test the byte to hex converter
+    public void toHexTest(){
+        // Write 0x6C21 in byte format
+        byte[] b = {108, 33};
 
-    @Test
-    public void hasherTest04(){
-        msg1 = "messag".getBytes();
-        output1 = Hasher.applySHA(msg1);
-        hex1 = Hasher.hashToHexString(output1);
-
-        assertNotEquals(hex1, hex2);
+        String hexString = Hasher.bytesToHexString(b);
+        assertEquals(hexString, "6c21");
     }
 }

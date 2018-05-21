@@ -18,7 +18,6 @@ import java.util.Date;
 
 public class ChainAnalyzer {
 
-
     public static double getUserBalance(LedgerReader reader, String userID) {
         double userBalance = 0;
         long totalBlocks = reader.getBlockCount();
@@ -44,6 +43,7 @@ public class ChainAnalyzer {
         return balanceChange;
     }
 
+    // Returns the balance change for a user in the given data point
     public static double getBalanceChange(DataPoint dataPoint, String userID){
         double balanceChange = 0;
 

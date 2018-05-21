@@ -78,10 +78,10 @@ public class Header {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Block ID : " + getBlockId()).append("\n").
-                append("Block header hash : " + Hasher.hashToHexString(Hasher.applySHA(getBytes()))).append("\n").
-                append("Previous header hash : " + Hasher.hashToHexString(getPrevHash())).append("\n").
-                append("Hash of block data : " + Hasher.hashToHexString(getDataHash())).append("\n").
-                append("Nonce : " + Hasher.hashToHexString(getNonce())).append("\n").
+                append("Block header hash : " + Hasher.bytesToHexString(Hasher.applySHA(getBytes()))).append("\n").
+                append("Previous header hash : " + Hasher.bytesToHexString(getPrevHash())).append("\n").
+                append("Hash of block data : " + Hasher.bytesToHexString(getDataHash())).append("\n").
+                append("Nonce : " + Hasher.bytesToHexString(getNonce())).append("\n").
                 append("Target : " + new BigInteger(getTarget()).toString()).append("\n").
                 append("TimeStamp : " + getTimeStamp()).append("\n");
         return sb.toString(); // new BigInteger(getNonce()).toString()).append("\n").

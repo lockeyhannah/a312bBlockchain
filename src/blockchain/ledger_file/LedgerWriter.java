@@ -19,6 +19,15 @@ public class LedgerWriter {
 
     public LedgerWriter(Path ledgerFilePath) {// TODO: 29-04-2018  throw exception
         this.ledgerFilePath = ledgerFilePath;
+        if(!Files.exists(ledgerFilePath)) createNewFile();
+    }
+
+    private void createNewFile(){
+        try {
+            Files.createFile(ledgerFilePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     // Appends a block to the ledger file
@@ -43,9 +52,11 @@ public class LedgerWriter {
         try (BufferedOutputStream bos = new BufferedOutputStream(Files.newOutputStream(ledgerFilePath, APPEND))) {
             bos.write(bytes);
         } catch (NoSuchFileException e) {
-            System.out.println("Error. File not found.");
+            System.out.println("Could not write to ledger file : File not found - " + ledgerFilePath.toString());
+            e.printStackTrace();
         } catch (IOException e) {
             System.out.println("Error writing bytes to ledger file");
+            e.printStackTrace();
         }
     }
 }

@@ -21,7 +21,7 @@ public class Hasher {
 
     // TODO: 21-04-2018 : stjaalet fra det store interweb - forstaa lige hvad der sker
     // Converts the given bytes to a hex string representation
-    public static String hashToHexString(byte[] hashBytes) {
+    public static String bytesToHexString(byte[] hashBytes) {
         StringBuilder hexString = new StringBuilder();
 
         for (int i = 0; i < hashBytes.length; i++) {
