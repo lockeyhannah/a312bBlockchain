@@ -97,7 +97,7 @@ public class ChainAnalyzer {
 
 
     // Checks if all blocks in the chain are valid
-    public static boolean isChainValid(LedgerReader reader) throws FileNotFoundException {
+    public static boolean isChainValid(LedgerReader reader) {
         long totalBlocks = reader.getBlockCount();
 
         // Check all blocks starting from block 0
@@ -110,7 +110,7 @@ public class ChainAnalyzer {
     }
 
     // Checks if a given block is valid in the chain
-    public static boolean isBlockValid(Block block, LedgerReader reader) throws FileNotFoundException {
+    public static boolean isBlockValid(Block block, LedgerReader reader) {
         BigInteger target = new BigInteger(block.getHeader().getDifficultyTarget());
         BigInteger hash = new BigInteger(Hasher.applySHA(block.getHeader().getBytes()));
 

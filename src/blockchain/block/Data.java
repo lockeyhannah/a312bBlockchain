@@ -1,6 +1,6 @@
 package blockchain.block;
 /*
- * This is the interface for all classes that is a part of data in blockchain.block
+ * This class contains all the data points stored in the block
  *
  */
 
@@ -49,12 +49,12 @@ public class Data implements Serializable {
         return ByteUtils.combineByteArrays(allBytes);
     }
 
+    // Returns a string containing the formatted strings of each data point
     public String getString() {
         StringBuilder sb = new StringBuilder();
 
-        for (DataPoint dp : dataPoints) {
+        for (DataPoint dp : dataPoints)
             sb.append(dp.getFormattedDataString());
-        }
 
         return sb.toString();
     }

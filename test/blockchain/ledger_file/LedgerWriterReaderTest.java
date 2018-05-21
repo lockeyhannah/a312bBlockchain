@@ -18,21 +18,22 @@ public class LedgerWriterReaderTest {
     public static final String emptyFilePath = "empty_file.dat";
     private static final String filePath = "chain_test.txt";
     private ArrayList<Block> originalBlocks;
+    private String minerID = "1";
 
     @BeforeEach
     private void setup() {
-        originalBlocks = saveRandomBlocks(Paths.get(filePath), 10);
+        originalBlocks = saveRandomBlocks(Paths.get(filePath), 10, minerID);
     }
 
     // Saves and returns a randomly generated list of blocks
-    public static ArrayList<Block> saveRandomBlocks(Path path, int amount) {
+    public static ArrayList<Block> saveRandomBlocks(Path path, int amount, String minerID) {
         clearFile(path);
         LedgerWriter ledgerWriter = new LedgerWriter(path);
         LedgerReader ledgerReader = new LedgerReader(path);
 
         ArrayList<Block> blocks = new ArrayList<>();
         for (int i = 0; i < amount; i++){
-            Block b = ConverterTest.generateBlock(ledgerReader);
+            Block b = ConverterTest.generateBlock(ledgerReader, minerID);
             ledgerWriter.writeBlock(b);
             blocks.add(b);
         }

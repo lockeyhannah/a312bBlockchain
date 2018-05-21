@@ -16,6 +16,9 @@ import java.util.Date;
 
 public class BlockBuilder {
 
+    // Reward given to the miner of the block
+    public static final double miningReward = 5.0;
+
     private Data data;
     private Header header;
     private Header previousHeader;
@@ -97,7 +100,10 @@ public class BlockBuilder {
 
 
     // Builds the block, generating the header and mining the block
-    public Block build() {
+    public Block build(String ownerID) {
+        // Add reward for mining the block
+        data.addData(new CoinTransaction("0", ownerID, miningReward));
+
         generateHeader();
         return BlockMiner.mineBlock(header, data);
     }

@@ -8,6 +8,7 @@ import blockchain.block.data_points.InsufficientFundsException;
 import blockchain.block.data_points.StorageContract;
 import blockchain.block.mining.BlockBuilder;
 import blockchain.ledger_file.convertion.*;
+import blockchain.utility.ByteUtils;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
@@ -21,7 +22,7 @@ import java.util.Random;
 public class ConverterTest {
 
     // Generates a new block with random contents
-    public static Block generateBlock(LedgerReader ledgerReader){
+    public static Block generateBlock(LedgerReader ledgerReader, String minerID){
         BlockBuilder blockBuilder = new BlockBuilder(ledgerReader);
 
         int amountOfFiles = 15;
@@ -41,11 +42,11 @@ public class ConverterTest {
             }
         }
 
-        return blockBuilder.build();
+        return blockBuilder.build(minerID);
     }
 
     public static Block generateBlock(){
-        return generateBlock(new LedgerReader(Paths.get(LedgerWriterReaderTest.emptyFilePath)));
+        return generateBlock(new LedgerReader(Paths.get(LedgerWriterReaderTest.emptyFilePath)), "1");
     }
 
     @Test
