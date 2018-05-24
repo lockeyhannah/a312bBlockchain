@@ -20,7 +20,7 @@ public class DataConverter extends Converter<Data> {
 
     public DataConverter(short CONVERTER_VERSION_UID) {
         super(CONVERTER_VERSION_UID);
-        converters.add(new FileOverViewConverter(CONVERTER_VERSION_UID));
+        converters.add(new StorageContractConverter(CONVERTER_VERSION_UID));
         converters.add(new CoinTransactionConverter(CONVERTER_VERSION_UID));
     }
 

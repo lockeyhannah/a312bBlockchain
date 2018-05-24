@@ -3,7 +3,6 @@ package blockchain.ledger_file.convertion;
 import blockchain.block.Block;
 import blockchain.block.Data;
 import blockchain.block.data_points.DataPoint;
-import blockchain.block.data_points.FileOverview;
 import blockchain.block.data_points.StorageContract;
 import blockchain.ledger_file.ConverterTest;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,7 +10,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -26,11 +24,8 @@ class DataConverterTest {
     @BeforeEach
     public void dataConverterTest00(){
         converter = new DataConverter((short)1);
-        contract = new StorageContract("chunkID", "StorageIP",
+        contract = new StorageContract("chunkID", "OwnerID","StorageIP",
                 System.currentTimeMillis(), 3);
-
-        Block block = ConverterTest.generateBlock();
-
 
         data1 = ConverterTest.generateBlock().getData();
         data2 = data1;

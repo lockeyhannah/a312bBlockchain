@@ -17,7 +17,7 @@ public class LedgerReader {
     // Path of the ledger file
     private Path ledgerFilePath;
 
-    public LedgerReader(Path ledgerFilePath) throws IOException{
+    public LedgerReader(Path ledgerFilePath){
         this.ledgerFilePath = ledgerFilePath;
 
         if(!Files.exists(ledgerFilePath)){

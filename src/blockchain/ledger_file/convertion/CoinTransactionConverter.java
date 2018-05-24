@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 public class CoinTransactionConverter extends Converter<CoinTransaction> {
 
+    public static final int userIdByteLen = 16;
     private static final int GIVER_ID_BYTE_LEN = 8;
     private static final int RECIPIENT_ID_BYTE_LEN = 8;
     private static final int TRANSACTION_AMOUNT_BYTE_LEN = Double.BYTES;

@@ -4,17 +4,12 @@ import blockchain.block.Block;
 import blockchain.block.Data;
 import blockchain.block.data_points.CoinTransaction;
 import blockchain.block.data_points.DataPoint;
-import blockchain.block.data_points.FileOverview;
 import blockchain.block.data_points.StorageContract;
-import blockchain.block.mining.BlockMiner;
 import blockchain.block.mining.Hasher;
 
-import java.io.FileNotFoundException;
 import java.math.BigInteger;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 
 public class ChainAnalyzer {
 
@@ -50,8 +45,8 @@ public class ChainAnalyzer {
         if (dataPoint instanceof CoinTransaction)
             balanceChange += getBalanceChange((CoinTransaction) dataPoint, userID);
 
-        else if (dataPoint instanceof FileOverview)
-            balanceChange += getBalanceChange((FileOverview) dataPoint, userID);
+        else if (dataPoint instanceof StorageContract)
+            balanceChange += getBalanceChange((StorageContract) dataPoint, userID);
 
         return balanceChange;
     }
@@ -69,27 +64,16 @@ public class ChainAnalyzer {
         return 0;
     }
 
-    private static double getBalanceChange(FileOverview fileOverview, String userID) {
+    private static double getBalanceChange(StorageContract storageContract, String userID) {
         double balanceChange = 0;
 
         // Subtract all payments from balance if the user has payed for storage
-        if(fileOverview.getOwnerID().equals(userID)){
-            for(StorageContract contract : fileOverview.getStorageContracts())
-                balanceChange -= contract.getReward();
+        if(storageContract.getFileOwnerID().equals(userID))
+            balanceChange = -storageContract.getReward();
 
-        }else{ // Otherwise check if the user is storing/has stored a file for somebody
-            for(StorageContract contract : fileOverview.getStorageContracts()){
-                long currentTime = System.currentTimeMillis();
-
-                if(contract.getStorageID().equals(userID)){
-                    // If the contract is terminated the payment is granted
-                    if(contract.getContractTerminationTime() < currentTime)
-                        balanceChange = contract.getReward();
-
-                    // Break the loop as a unit is only be able store one of the chunks of a file
-                    break;
-                }
-            }
+        else if(storageContract.getStorageUnitID().equals(userID)){
+            if(storageContract.getContractTerminationTime() < System.currentTimeMillis())
+                balanceChange = storageContract.getReward();
         }
 
         return balanceChange;

@@ -79,14 +79,14 @@ public class BlockBuilder {
             // Add the funds that are in the current block and therefore not added to the ledger file yet
             availableFunds += ChainAnalyzer.getBalanceChange(data, transaction.getGiverID());
 
-        } else if (dp instanceof FileOverview) {
-            FileOverview fileOverview = (FileOverview) dp;
-            requiredFunds = ChainAnalyzer.getBalanceChange(fileOverview, fileOverview.getOwnerID());
+        } else if (dp instanceof StorageContract) {
+            StorageContract storageContract = (StorageContract) dp;
+            requiredFunds = ChainAnalyzer.getBalanceChange(storageContract, storageContract.getFileOwnerID());
 
             // Find the users total funds
-            availableFunds = ChainAnalyzer.getUserBalance(ledgerReader, fileOverview.getOwnerID());
+            availableFunds = ChainAnalyzer.getUserBalance(ledgerReader, storageContract.getFileOwnerID());
             // Add the funds that are in the current block and therefore not added to the ledger file yet
-            availableFunds += ChainAnalyzer.getBalanceChange(data, fileOverview.getOwnerID());
+            availableFunds += ChainAnalyzer.getBalanceChange(data, storageContract.getFileOwnerID());
         }
 
         // Throw exception if the user does not have the required funds
