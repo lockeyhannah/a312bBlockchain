@@ -17,8 +17,12 @@ public class LedgerReader {
     // Path of the ledger file
     private Path ledgerFilePath;
 
-    public LedgerReader(Path ledgerFilePath) {
+    public LedgerReader(Path ledgerFilePath) throws IOException{
         this.ledgerFilePath = ledgerFilePath;
+
+        if(!Files.exists(ledgerFilePath)){
+
+        }
     }
 
     // Reads and returns the block with the given block number from the ledger file,
