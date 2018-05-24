@@ -10,12 +10,12 @@ class StorageContractConverterTest {
     StorageContractConverter converter;
 
     @BeforeEach
-    public void storageContractConverterTest00(){
+    public void setup(){
         converter = new StorageContractConverter((short) 3);
     }
 
     @Test
-    public void storageContractConverterTest01(){
+    public void correctDataTest(){
         assertEquals(5, converter.getOBJECT_TYPE_UID());
     }
 

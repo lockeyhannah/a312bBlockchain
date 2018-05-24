@@ -13,7 +13,7 @@ class HasherTest {
     String hex1, hex2;
 
     @BeforeEach
-    public void hasherTest00(){
+    public void setup(){
         msg1 = "message".getBytes();
         msg2 = "message".getBytes();
         output1 = Hasher.applySHA(msg1);

@@ -22,7 +22,7 @@ class DataConverterTest {
     DataConverter converter;
 
     @BeforeEach
-    public void dataConverterTest00(){
+    public void setup(){
         converter = new DataConverter((short)1);
         contract = new StorageContract("chunkID", "OwnerID","StorageIP",
                 System.currentTimeMillis(), 3);
@@ -35,18 +35,18 @@ class DataConverterTest {
     }
 
     @Test
-    public void dataConverterTest01(){
+    public void sameBytesTest(){
         assertTrue(Arrays.compare(bytes1, bytes2) == 0);
     }
 
     @Test
-    public void dataConverterTest02(){
+    public void sameStringTest(){
         Data data1copy = converter.instanceFromBytes(bytes1);
         assertEquals(data1.getString(), data1copy.getString());
     }
 
     @Test
-    public void dataConverterTest03(){
+    public void correctDataTest(){
         assertEquals(3, converter.getOBJECT_TYPE_UID());
         assertEquals(-1, converter.getByteSize());
     }

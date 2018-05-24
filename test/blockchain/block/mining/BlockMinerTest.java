@@ -25,7 +25,7 @@ class BlockMinerTest {
     Block block;
 
     @BeforeEach
-    public void blockGeneratorTest00() {
+    public void setup() {
         block = ConverterTest.generateBlock();
     }
 

@@ -20,18 +20,18 @@ class BlockTest {
     private static String minerID = "1";
 
     @BeforeAll
-    public static void blockTest00(){
+    public static void setup(){
         block1 = ConverterTest.generateBlock(new LedgerReader(Paths.get(LedgerWriterReaderTest.emptyFilePath)), minerID);
         block2 = block1;
     }
 
     @Test
-    public void blockTest01(){
+    public void sameBlockTest(){
         assertTrue(block1.toString().equals(block2.toString()));
     }
 
     @Test
-    public void blockTest02(){
+    public void sameHeaderTest(){
         assertTrue(block1.toString().contains(block1.getHeader().toString()));
     }
 

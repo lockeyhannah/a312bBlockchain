@@ -10,12 +10,12 @@ class DataPointUIDTest {
     DataPointUID dpUID;
 
     @BeforeEach
-    public void dataPointUIDTest00(){
+    public void setup(){
         dpUID = new DataPointUID(234, 789);
     }
 
     @Test
-    public void dataPointUIDTest01(){
+    public void sameDataPointUIDTest(){
         assertEquals(234, dpUID.getBlockNumber());
         assertEquals(789, dpUID.getDataPointNumber());
     }

@@ -18,7 +18,7 @@ class BlockConverterTest {
     private byte[] bytes2;
 
     @BeforeEach
-    public void blockConverterTest00() {
+    public void setup() {
         converter = new BlockConverter((short) 2);
         block = ConverterTest.generateBlock();
         block2 = block;
@@ -28,24 +28,24 @@ class BlockConverterTest {
     }
 
     @Test
-    public void blockConverterTest01() {
+    public void sameBytesTest() {
         assertTrue(Arrays.compare(bytes1, bytes2) == 0);
     }
 
     @Test
-    public void blockConverterTest02(){
+    public void sameStringTest(){
         block = converter.instanceFromBytes(bytes1);
 
         assertEquals(block.toString(), block2.toString());
     }
 
     @Test
-    public void blockConverterTest03(){
+    public void sameUIDTest(){
         assertEquals((short) 1, converter.getOBJECT_TYPE_UID());
     }
 
     @Test
-    public void blockConverterTest04(){
+    public void sameByteSizeTest(){
         assertEquals(-1, converter.getByteSize());
     }
 

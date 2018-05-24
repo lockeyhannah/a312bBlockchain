@@ -16,7 +16,7 @@ class HeaderConverterTest {
     HeaderConverter converter;
 
     @BeforeEach
-    public void headerConverterTest00(){
+    public void setup(){
         converter = new HeaderConverter((short)3);
         header = ConverterTest.generateBlock().getHeader();
         header2 = header;
@@ -25,19 +25,19 @@ class HeaderConverterTest {
     }
 
     @Test
-    public void headerConverterTest01(){
-        assertTrue(Arrays.compare(bytes1, bytes2) == 0);
+    public void sameBytesTest(){
+        assertEquals(0, Arrays.compare(bytes1, bytes2));
     }
 
     @Test
-    public void headerConverterTest02(){
+    public void sameHeaderTest(){
         header = converter.instanceFromBytes(bytes1);
 
-        assertTrue(header.equals(header2));
+        assertEquals(header, header2);
     }
 
     @Test
-    public void headerConverterTest03(){
+    public void correctDataTest(){
         assertEquals(2, converter.getOBJECT_TYPE_UID());
     }
 }

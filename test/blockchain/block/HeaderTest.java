@@ -15,26 +15,25 @@ class HeaderTest {
     Header header;
 
     @BeforeEach
-    public void headerTest00(){
+    public void setup(){
         header = new Header(4, new byte[]{3}, new byte[]{1}, new byte[]{2}, new byte[]{3}, System.currentTimeMillis());
     }
 
     @Test
-    public void headerTest01(){ // todo change to assert array equals and give more descriptive names to tests
-        assertTrue(Arrays.compare(new byte[]{3}, header.getDifficultyTarget()) == 0);
-        assertTrue(Arrays.compare(new byte[]{2}, header.getNonce()) == 0);
-        assertTrue(Arrays.compare(new byte[]{1}, header.getDataHash()) == 0);
-        assertTrue(Arrays.compare(new byte[]{3}, header.getPrevHash()) == 0);
+    public void sameHeaderTest(){
+        assertEquals(0, Arrays.compare(new byte[]{3}, header.getDifficultyTarget()));
+        assertEquals(0, Arrays.compare(new byte[]{2}, header.getNonce()));
+        assertEquals(0, Arrays.compare(new byte[]{1}, header.getDataHash()));
+        assertEquals(0, Arrays.compare(new byte[]{3}, header.getPrevHash()));
         assertEquals(4, header.getBlockId());
     }
 
     @Test
-    public void headerTest02(){
+    public void sameTimeStampTest(){
         header.setNonce(new byte[]{4});
-        assertTrue(Arrays.compare(new byte[]{4}, header.getNonce()) == 0);
+        assertEquals(0, Arrays.compare(new byte[]{4}, header.getNonce()));
 
         header.setTimeStamp(System.currentTimeMillis());
         assertEquals(System.currentTimeMillis(), header.getTimeStamp());
     }
-
 }
