@@ -47,9 +47,4 @@ class BlockMinerTest {
             assertTrue(target.compareTo(hash) > 0);
         }
     }
-
-
-
-
-
 }
