@@ -21,7 +21,8 @@ public class LedgerReader {
         this.ledgerFilePath = ledgerFilePath;
 
         if(!Files.exists(ledgerFilePath)){
-
+            System.out.println("Creating new ledger file : " + ledgerFilePath.toString());
+            LedgerWriter.createNewLedgerFile(ledgerFilePath);
         }
     }
 
@@ -108,13 +109,12 @@ public class LedgerReader {
         long blockCount = 0;
 
         try (BufferedInputStream bis = new BufferedInputStream(Files.newInputStream(ledgerFilePath))) {
-            // Allocate memory to store the read bytes
-            byte[] blockSizeBytes = new byte[BLOCK_SIZE_BYTE_LEN];
 
             // Skip blocks until end of file and increment counter for each block skipped
             while (skipNextBlock(bis)) {
                 blockCount++;
             }
+            
         } catch (IOException e) {
             System.out.println("Could not read ledger file - " + ledgerFilePath.toString());
             return 0;
@@ -125,11 +125,10 @@ public class LedgerReader {
 
     // Returns a data point from the ledger based on the given unique data point id
     public DataPoint getDataPoint(DataPointUID uid){
-        Block block = readBlock(uid.getBlockNumber());
+        Block block = readBlock(uid.getBlockId());
 
-        if(block != null){
+        if(block != null)
             return block.getData().getDataPoints().get(uid.getDataPointNumber());
-        }
 
         return null;
     }

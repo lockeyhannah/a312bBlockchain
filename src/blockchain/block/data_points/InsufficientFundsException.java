@@ -1,5 +1,6 @@
 package blockchain.block.data_points;
 
+
 public class InsufficientFundsException extends Exception {
 
     private DataPoint dataPoint;

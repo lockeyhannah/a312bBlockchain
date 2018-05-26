@@ -1,19 +1,22 @@
 package blockchain.block.data_points;
 
-// A unique identifier of a data point, containing information about position in the chain for easy retrieval
+/*
+ * A unique identifier for a data point
+  * Containing information about position in the chain for fast retrieval of data point
+ */
 
 public class DataPointUID {
 
-    private final long blockNumber;
-    private final int dataPointNumber;
+    private final long blockId;
+    private final int dataPointNumber; // Position of the data point in the block
 
-    public DataPointUID(long blockNumber, int dataPointNumber) {
-        this.blockNumber = blockNumber;
+    public DataPointUID(long blockId, int dataPointNumber) {
+        this.blockId = blockId;
         this.dataPointNumber = dataPointNumber;
     }
 
-    public long getBlockNumber() {
-        return blockNumber;
+    public long getBlockId() {
+        return blockId;
     }
 
     public int getDataPointNumber() {

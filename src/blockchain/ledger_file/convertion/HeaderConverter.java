@@ -22,26 +22,9 @@ public class HeaderConverter extends Converter<Header> {
         super(CONVERTER_VERSION_UID);
     }
 
-    //Converts byte array to a Header object
-    @Override
-    public Header instanceFromBytes(byte[] bytes) {
-        ByteArrayReader byteReader = new ByteArrayReader(bytes);
 
-        byte[] blockIDBytes = byteReader.readNext(blockIdByteLen, false);
-        long blockID = ByteUtils.toLong(blockIDBytes);
-        byte[] prevHash = byteReader.readNext(prevHashByteLen, false);
-        byte[] dataHash = byteReader.readNext(dataHashByteLen, false);
-        byte[] nonce = byteReader.readNext(nonceByteLen, true);
-        byte[] target = byteReader.readNext(targetByteLen, true);
 
-        byte[] timeStampBytes = byteReader.readNext(timeStampByteLen, true);
-        long timeStamp = ByteUtils.toLong(timeStampBytes);
-
-        return new Header(blockID, prevHash, dataHash, nonce, target, timeStamp);
-    }
-
-    //Converts Header object to byte array
-    @Override
+    @Override //Converts Header object to byte array
     public byte[] bytesFromInstance(Header h) {
         ArrayList<byte[]> byteList = new ArrayList<>();
 
@@ -53,6 +36,27 @@ public class HeaderConverter extends Converter<Header> {
         byteList.add(ByteUtils.extendByteArray(ByteUtils.toByteArray(h.getTimeStamp()), timeStampByteLen));
 
         return ByteUtils.combineByteArrays(byteList);
+    }
+
+    @Override //Converts byte array to a Header object
+    public Header instanceFromBytes(byte[] bytes) {
+        ByteArrayReader byteReader = new ByteArrayReader(bytes);
+
+        // Read bytes in the same order they were written
+        byte[] blockIDBytes = byteReader.readNext(blockIdByteLen, false);
+        long blockID = ByteUtils.toLong(blockIDBytes);
+
+        // Hash values should not have leading zeroes trimmed as they are always 256 bits long
+        byte[] prevHash = byteReader.readNext(prevHashByteLen, false);
+        byte[] dataHash = byteReader.readNext(dataHashByteLen, false);
+
+        byte[] nonce = byteReader.readNext(nonceByteLen, true);
+        byte[] target = byteReader.readNext(targetByteLen, true);
+
+        byte[] timeStampBytes = byteReader.readNext(timeStampByteLen, true);
+        long timeStamp = ByteUtils.toLong(timeStampBytes);
+
+        return new Header(blockID, prevHash, dataHash, nonce, target, timeStamp);
     }
 
     @Override

@@ -16,7 +16,7 @@ class DataPointUIDTest {
 
     @Test
     public void sameDataPointUIDTest(){
-        assertEquals(234, dpUID.getBlockNumber());
+        assertEquals(234, dpUID.getBlockId());
         assertEquals(789, dpUID.getDataPointNumber());
     }
 

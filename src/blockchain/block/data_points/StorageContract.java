@@ -9,11 +9,11 @@ import java.util.ArrayList;
 
 public class StorageContract implements DataPoint {
 
-    private String fileId; // Unique identifier of the file
-    private String fileOwnerID; // ID of the original file owner
-    private String storageUnitID; // ID of the storage unit
+    private String fileId;
+    private String fileOwnerID;
+    private String storageUnitID;
 
-    private long contractTerminationTime; // Time of contract termination measuered in millis since epoch
+    private long contractTerminationTime; // Time of contract termination measured in millis since epoch
     private double reward; // The amount of tokens storing the file until contract termination
 
     public StorageContract(String fileId, String fileOwnerID, String storageUnitID, long contractTerminationTime, double reward) {
@@ -24,7 +24,7 @@ public class StorageContract implements DataPoint {
         this.reward = reward;
     }
 
-    // Returns the bytes used for hashing
+    @Override // Returns the bytes used for hashing
     public byte[] getBytes(){
         ArrayList<byte[]> allBytes = new ArrayList<>();
 

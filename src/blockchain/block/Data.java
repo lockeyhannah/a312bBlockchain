@@ -1,7 +1,7 @@
 package blockchain.block;
 /*
- * This class contains all the data points stored in the block
- *
+ * Represents the data section of the block and contains a list of all data points in the block
+ * The data section can vary in size from block to block
  */
 
 import blockchain.block.data_points.DataPoint;
@@ -13,34 +13,41 @@ import java.util.ArrayList;
 public class Data implements Serializable {
 
     private ArrayList<DataPoint> dataPoints;
-    private int datapointCount;
+    private int dataPointCount;
 
+    // Construct a data object based on a list of DataPoints
     public Data(ArrayList<DataPoint> dataPoints) {
         this.dataPoints = dataPoints;
-        datapointCount = dataPoints.size();
+        dataPointCount = dataPoints.size();
     }
 
+    // Constructs a data object with an empty list of DataPoints
     public Data() {
         this.dataPoints = new ArrayList<>();
-        datapointCount = 0;
+        dataPointCount = 0;
     }
 
-    // Adds a given data point to the list and returns the data point count
+    // Adds a DataPoint and returns its' position in the list
     public int addData(DataPoint dataPoint) {
         dataPoints.add(dataPoint);
-        // Increment before returning data point count
-        return ++datapointCount;
+
+        // Increment after returning data point count
+        return dataPointCount++;
     }
 
     public ArrayList<DataPoint> getDataPoints() {
         return dataPoints;
     }
 
-    public int getDatapointCount() {
-        return datapointCount;
+    public DataPoint getDataPoint(int index) {
+        return dataPoints.get(index);
     }
 
-    // Converts all data into a sequence of bytes for hashing
+    public int getDataPointCount() {
+        return dataPointCount;
+    }
+
+    // Converts all DataPoints into a sequence of bytes for hashing
     public byte[] getDataBytes() {
         ArrayList<byte[]> allBytes = new ArrayList<>();
         for (DataPoint dp : dataPoints)

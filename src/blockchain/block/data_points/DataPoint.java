@@ -6,7 +6,9 @@ package blockchain.block.data_points;
 
 public interface DataPoint{
 
+    // Return a well-formatted string containing all relevant information from the data point
     String getFormattedDataString();
-    byte[] getBytes();
 
+    // Return the bytes used for hashing
+    byte[] getBytes();
 }

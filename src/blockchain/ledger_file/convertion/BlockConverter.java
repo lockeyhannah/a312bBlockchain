@@ -22,7 +22,7 @@ public class BlockConverter extends Converter<Block> {
         dataConverter = new DataConverter(CONVERTER_VERSION_UID);
     }
 
-    @Override // Converts a block object to a corresponding byte array
+    @Override // Converts a block object to a byte array
     public byte[] bytesFromInstance(Block block) {
         ArrayList<byte[]> bytes = new ArrayList<>();
 
@@ -48,7 +48,7 @@ public class BlockConverter extends Converter<Block> {
         return OBJECT_TYPE_ID;
     }
 
-    @Override
+    @Override // Byte size is variable
     public int getByteSize() {
         return -1;
     }

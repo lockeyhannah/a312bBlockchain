@@ -1,5 +1,11 @@
 package blockchain.block;
 
+/*
+ * Represents a single block in the chain.
+ * The block contains a header and a data section.
+ */
+
+
 public class Block {
 
     private Data data;
@@ -18,7 +24,7 @@ public class Block {
         return header;
     }
 
-    // Prints out block information
+    // Prints out all block information including all data points
     public String toString() {
         return header.toString() + data.getString();
     }

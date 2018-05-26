@@ -13,13 +13,12 @@ import java.util.Date;
 
 public class BlockMiner {
 
-    // Mines for valid nonce value and returns a valid block
+    // Mines for a valid nonce value and returns a valid block
     public static Block mineBlock(Header header, Data data){
         BigInteger nonce = new BigInteger(header.getNonce());
         BigInteger target = new BigInteger(header.getDifficultyTarget());
 
-
-        //Calculate the hash value with the default nonce and convert to an integer value
+        //Calculate the hash value with the default nonce and convert to an integer value for comparing
         byte[] hash = Hasher.applySHA(header.getBytes());
         BigInteger hashInteger = new BigInteger(1, hash);
 
@@ -35,9 +34,7 @@ public class BlockMiner {
             // Hash header with new nonce value
             hash = Hasher.applySHA(header.getBytes());
             hashInteger = new BigInteger(1, hash);
-
-
-
+            
             // Pick new timestamp and reset nonce if nonce value is above max
             if(nonce.compareTo(nonceMax) > 0){
                 header.setTimeStamp(System.currentTimeMillis());

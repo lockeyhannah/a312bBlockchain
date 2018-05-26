@@ -11,9 +11,10 @@ public class ByteArrayReader {
         this.array = array;
     }
 
-    //Reads bytes
+    //Reads the next amountOfBytes bytes
     public byte[] readNext(int amountOfBytes, boolean trimLeadingZeroes) {
         byte[] newArray = (Arrays.copyOfRange(array, currentIndex, currentIndex + amountOfBytes));
+
         if (trimLeadingZeroes) newArray = ByteUtils.trimLeadingZeroes(newArray);
         currentIndex += amountOfBytes;
 

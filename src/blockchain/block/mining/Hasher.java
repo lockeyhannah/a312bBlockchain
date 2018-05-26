@@ -19,16 +19,18 @@ public class Hasher {
     }
 
 
-    // TODO: 21-04-2018 : stjaalet fra det store interweb - forstaa lige hvad der sker
     // Converts the given bytes to a hex string representation
     public static String bytesToHexString(byte[] hashBytes) {
         StringBuilder hexString = new StringBuilder();
 
         for (int i = 0; i < hashBytes.length; i++) {
+            // Convert byte to an unsigned value and then convert to a string
             String hex = Integer.toHexString(0xFF & hashBytes[i]);
-            if (hex.length() == 1) {
+
+            // Append a leading 0 if hex value is only one character long (ie. less than 16)
+            if (hex.length() == 1)
                 hexString.append('0');
-            }
+
             hexString.append(hex);
         }
 

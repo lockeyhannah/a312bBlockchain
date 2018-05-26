@@ -17,14 +17,14 @@ public class LedgerWriter {
     private Path ledgerFilePath;
     public static final int BLOCK_SIZE_BYTE_LEN = Integer.BYTES;
 
-    public LedgerWriter(Path ledgerFilePath) {// TODO: 29-04-2018  throw exception
+    public LedgerWriter(Path ledgerFilePath) {
         this.ledgerFilePath = ledgerFilePath;
-        if(!Files.exists(ledgerFilePath)) createNewFile();
+        if(!Files.exists(ledgerFilePath)) createNewLedgerFile(ledgerFilePath);
     }
 
-    private void createNewFile(){
+    public static void createNewLedgerFile(Path newFilePath){
         try {
-            Files.createFile(ledgerFilePath);
+            Files.createFile(newFilePath);
         } catch (IOException e) {
             e.printStackTrace();
         }

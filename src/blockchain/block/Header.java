@@ -66,15 +66,17 @@ public class Header {
         this.timeStamp = timeStamp;
     }
 
-    //Converts header to byte array
+    // Returns the combined byte arrays of all fields for hashing
     public byte[] getBytes() {
-        byte[] bytes = combineByteArrays(prevHash, dataHash);
+        byte[] bytes = combineByteArrays(ByteUtils.toByteArray(blockId), prevHash);
+        bytes = combineByteArrays(bytes, dataHash);
         bytes = combineByteArrays(bytes, nonce);
         bytes = combineByteArrays(bytes, target);
         bytes = combineByteArrays(bytes, ByteUtils.toByteArray(timeStamp));
         return bytes;
     }
 
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Block ID : " + getBlockId()).append("\n").
@@ -84,6 +86,7 @@ public class Header {
                 append("Nonce : " + Hasher.bytesToHexString(getNonce())).append("\n").
                 append("Target : " + new BigInteger(getTarget()).toString()).append("\n").
                 append("TimeStamp : " + getTimeStamp()).append("\n");
+
         return sb.toString(); // new BigInteger(getNonce()).toString()).append("\n").
     }
 

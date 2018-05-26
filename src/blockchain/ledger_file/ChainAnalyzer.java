@@ -13,6 +13,8 @@ import java.util.Arrays;
 
 public class ChainAnalyzer {
 
+    /* Looks through the entire chain and sums up all
+       transactions made to and from the given user */
     public static double getUserBalance(LedgerReader reader, String userID) {
         double userBalance = 0;
         long totalBlocks = reader.getBlockCount();
@@ -51,14 +53,15 @@ public class ChainAnalyzer {
         return balanceChange;
     }
 
+    // Returns the balance change for a user if he is involved in the given transaction
     private static double getBalanceChange(CoinTransaction coinTransaction, String userID) {
         // Return positive transfer amount if the user is the recipient of coins
         if (coinTransaction.getRecipientID().equals(userID))
-            return coinTransaction.getCoins();
+            return coinTransaction.getTokens();
 
         // Subtract transfer amount if the user is the giver
         if (coinTransaction.getGiverID().equals(userID))
-            return -(coinTransaction.getCoins());
+            return -(coinTransaction.getTokens());
 
         // Return 0 if the user was not part of this transaction
         return 0;
@@ -67,10 +70,12 @@ public class ChainAnalyzer {
     private static double getBalanceChange(StorageContract storageContract, String userID) {
         double balanceChange = 0;
 
-        // Subtract all payments from balance if the user has payed for storage
+        // Subtract payments if the user paid for storage
         if(storageContract.getFileOwnerID().equals(userID))
             balanceChange = -storageContract.getReward();
 
+        // Add payments if the user is the storage unit and the contract has been fulfilled
+        // In this implementation the contract fulfillment means that the storage period has expired
         else if(storageContract.getStorageUnitID().equals(userID)){
             if(storageContract.getContractTerminationTime() < System.currentTimeMillis())
                 balanceChange = storageContract.getReward();
@@ -93,7 +98,7 @@ public class ChainAnalyzer {
         return true;
     }
 
-    // Checks if a given block is valid in the chain
+    // Checks if a given block is valid
     public static boolean isBlockValid(Block block, LedgerReader reader) {
         BigInteger target = new BigInteger(block.getHeader().getDifficultyTarget());
         BigInteger hash = new BigInteger(Hasher.applySHA(block.getHeader().getBytes()));
@@ -102,7 +107,7 @@ public class ChainAnalyzer {
         if (hash.compareTo(target) > 0)
             return false;
 
-        // Check that hash of data matches the dataHash in the header
+        // Check that hash of data matches the dataHash value in the header
         byte[] dataHash = Hasher.applySHA(block.getData().getDataBytes());
         if (Arrays.compare(dataHash, block.getHeader().getDataHash()) != 0)
             return false;
@@ -114,12 +119,8 @@ public class ChainAnalyzer {
         // Get the previous block
         Block previousBlock = reader.readBlock(block.getHeader().getBlockId() - 1);
 
-        // Check that the hash of previous header matches the prevHeaderHash in the current block's header
+        // Check that the hash of previous header matches the prevHeaderHash value in the current block's header
         byte[] previousHeaderHash = (Hasher.applySHA(previousBlock.getHeader().getBytes()));
-        if (!(Arrays.compare(previousHeaderHash, block.getHeader().getPrevHash()) == 0)) {
-            return false;
-        }
-
-        return true;
+        return Arrays.compare(previousHeaderHash, block.getHeader().getPrevHash()) == 0;
     }
 }

@@ -25,24 +25,8 @@ public class StorageContractConverter extends Converter<StorageContract> {
         super(CONVERTER_VERSION_UID);
     }
 
-    //Converts byte array to a StorageContract object
-    @Override
-    public StorageContract instanceFromBytes(byte[] bytes) {
-        ByteArrayReader byteReader = new ByteArrayReader(bytes);
 
-        String chunkIDBytes = new String(byteReader.readNext(fileIdByteLen, true));
-        String storageID = new String(byteReader.readNext(storageIdByteLen, true));
-        String ownerID = new String(byteReader.readNext(ownerIDByteLen, true));
-        byte[] timeStampBytes = byteReader.readNext(terminationTimeByteLen, true);
-        long timeStamp = ByteUtils.toLong(timeStampBytes);
-
-        double reward = ByteUtils.toDouble(byteReader.readNext(rewardByteLen, true));
-
-        return new StorageContract(chunkIDBytes, ownerID, storageID, timeStamp, reward);
-    }
-
-    //Converts a StorageContract object to byte array
-    @Override
+    @Override // Converts an instance of StorageContract to byte a array
     public byte[] bytesFromInstance(StorageContract contract) {
         ArrayList<byte[]> byteList = new ArrayList<>();
 
@@ -53,6 +37,23 @@ public class StorageContractConverter extends Converter<StorageContract> {
         byteList.add(ByteUtils.extendByteArray(ByteUtils.toByteArray(contract.getReward()), rewardByteLen));
 
         return ByteUtils.combineByteArrays(byteList);
+    }
+
+
+    @Override //Converts byte array to an instance of StorageContract
+    public StorageContract instanceFromBytes(byte[] bytes) {
+        ByteArrayReader byteReader = new ByteArrayReader(bytes);
+
+        // Read fields in the same order they were written
+        String chunkIDBytes = new String(byteReader.readNext(fileIdByteLen, true));
+        String storageID = new String(byteReader.readNext(storageIdByteLen, true));
+        String ownerID = new String(byteReader.readNext(ownerIDByteLen, true));
+        byte[] timeStampBytes = byteReader.readNext(terminationTimeByteLen, true);
+        long timeStamp = ByteUtils.toLong(timeStampBytes);
+
+        double reward = ByteUtils.toDouble(byteReader.readNext(rewardByteLen, true));
+
+        return new StorageContract(chunkIDBytes, ownerID, storageID, timeStamp, reward);
     }
 
     @Override

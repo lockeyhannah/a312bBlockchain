@@ -1,7 +1,6 @@
 package blockchain.ledger_file.convertion;
 
 import blockchain.block.data_points.CoinTransaction;
-import blockchain.block.data_points.StorageContract;
 import blockchain.utility.ByteArrayReader;
 import blockchain.utility.ByteUtils;
 
@@ -18,27 +17,27 @@ public class CoinTransactionConverter extends Converter<CoinTransaction> {
         super(CONVERTER_VERSION_UID);
     }
 
-    @Override
-    public CoinTransaction instanceFromBytes(byte[] bytes) {
-        ByteArrayReader byteReader = new ByteArrayReader(bytes);
-
-        String giverID = new String(byteReader.readNext(GIVER_ID_BYTE_LEN, true));
-        String recipientID = new String(byteReader.readNext(RECIPIENT_ID_BYTE_LEN, true));
-        double coins = ByteUtils.toDouble(byteReader.readNext(TRANSACTION_AMOUNT_BYTE_LEN, true));
-
-        return new CoinTransaction(giverID, recipientID, coins);
-    }
-
-    //Converts a CoinTransaction object to byte array
-    @Override
+    @Override // Converts a CoinTransaction object to byte array
     public byte[] bytesFromInstance(CoinTransaction coinTransaction) {
         ArrayList<byte[]> byteList = new ArrayList<>();
 
         byteList.add(ByteUtils.extendByteArray(coinTransaction.getGiverID().getBytes(), GIVER_ID_BYTE_LEN));
         byteList.add(ByteUtils.extendByteArray(coinTransaction.getRecipientID().getBytes(), RECIPIENT_ID_BYTE_LEN));
-        byteList.add(ByteUtils.extendByteArray(ByteUtils.toByteArray(coinTransaction.getCoins()), TRANSACTION_AMOUNT_BYTE_LEN));
+        byteList.add(ByteUtils.extendByteArray(ByteUtils.toByteArray(coinTransaction.getTokens()), TRANSACTION_AMOUNT_BYTE_LEN));
 
         return ByteUtils.combineByteArrays(byteList);
+    }
+
+    @Override // Converts a CoinTransaction object to byte array
+    public CoinTransaction instanceFromBytes(byte[] bytes) {
+        ByteArrayReader byteReader = new ByteArrayReader(bytes);
+
+        // Read bytes in the same order they were written
+        String giverID = new String(byteReader.readNext(GIVER_ID_BYTE_LEN, true));
+        String recipientID = new String(byteReader.readNext(RECIPIENT_ID_BYTE_LEN, true));
+        double coins = ByteUtils.toDouble(byteReader.readNext(TRANSACTION_AMOUNT_BYTE_LEN, true));
+
+        return new CoinTransaction(giverID, recipientID, coins);
     }
 
     @Override
