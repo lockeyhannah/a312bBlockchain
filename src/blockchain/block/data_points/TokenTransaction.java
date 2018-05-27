@@ -10,9 +10,9 @@ import java.util.ArrayList;
 
 public class TokenTransaction implements DataPoint {
 
-    private String giverID;
-    private String recipientID;
-    private double tokens;
+    private final String giverID;
+    private final String recipientID;
+    private final double tokens;
 
     public TokenTransaction(String giverID, String recipientID, double tokens) {
         this.giverID = giverID;
@@ -59,11 +59,11 @@ public class TokenTransaction implements DataPoint {
     @Override
     public double getBalanceChange(String userId) {
         // Return the negative token amount if the user is the paying party of the transaction
-        if(giverID.equals(userId))
+        if (giverID.equals(userId))
             return -tokens;
 
         // Return the token amount if the user is the recipient
-        if(recipientID.equals(userId))
+        if (recipientID.equals(userId))
             return tokens;
 
         return 0;

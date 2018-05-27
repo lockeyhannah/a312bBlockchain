@@ -8,8 +8,11 @@ package blockchain.block;
 
 public class Block {
 
-    private Data data;
-    private Header header;
+    // Represents the current version of the block chain
+    public static final short BLOCKCHAIN_VERSION = 1;
+
+    private final Data data;
+    private final Header header;
 
     public Block(Header header, Data data) {
         this.data = data;

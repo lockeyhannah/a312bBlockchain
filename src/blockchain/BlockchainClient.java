@@ -10,18 +10,22 @@ import blockchain.ledger_file.LedgerWriter;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
+/*
+ * Provides an overview of the blockchain's basic functionality
+ */
+
 public class BlockchainClient {
 
-    private Path ledgerFilePath;
-    private LedgerReader ledgerReader;
-    private LedgerWriter ledgerWriter;
+    private final Path ledgerFilePath;
+    private final LedgerReader ledgerReader;
+    private final LedgerWriter ledgerWriter;
 
     private String clientID;
     private BlockBuilder blockBuilder;
 
-    private ChainAnalyzer chainAnalyzer;
+    private final ChainAnalyzer chainAnalyzer;
 
-    public BlockchainClient(Path ledgerFilePath, String clientID){
+    public BlockchainClient(Path ledgerFilePath, String clientID) {
         this.clientID = clientID;
         this.ledgerFilePath = ledgerFilePath;
 
@@ -32,25 +36,27 @@ public class BlockchainClient {
     }
 
     // Adds a given data point to the current block if it is valid
-    public DataPointUID addDataPoint(DataPoint dataPoint) throws InsufficientFundsException{
+    public DataPointUID addDataPoint(DataPoint dataPoint) throws InsufficientFundsException {
         return blockBuilder.addData(dataPoint);
     }
 
-    // Returns data points that contain the given id (userId, fileId etc.)
-    public ArrayList<DataPoint> getDataPoints(String id){
+    // Returns all data points that contain the given id (userId, fileId etc.)
+    public ArrayList<DataPoint> getDataPoints(String id) {
         return chainAnalyzer.getDataPoints(id);
     }
 
-    public DataPoint getDataPoint(DataPointUID dataPointUID){
+    // Retrieves a data point given an identifier
+    public DataPoint getDataPoint(DataPointUID dataPointUID) {
         return ledgerReader.getDataPoint(dataPointUID);
     }
 
-    public double getUserBalance(String userID){
+    // Finds the users balance by summing all transactions and contracts involving this user
+    public double getUserBalance(String userID) {
         return chainAnalyzer.getUserBalance(userID);
     }
 
     // Mines the current block and appends it to the ledger
-    public void mineCurrentBlock(){
+    public void mineCurrentBlock() {
         Block block = blockBuilder.build(clientID);
         ledgerWriter.writeBlock(block);
 
@@ -58,11 +64,12 @@ public class BlockchainClient {
         blockBuilder = new BlockBuilder(ledgerReader);
     }
 
-    public boolean isChainValid(){
+    // Checks the validity of the entire chain
+    public boolean isChainValid() {
         return chainAnalyzer.isChainValid();
     }
 
-
-
-
+    public Path getLedgerFilePath() {
+        return ledgerFilePath;
+    }
 }

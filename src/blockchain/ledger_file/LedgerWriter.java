@@ -14,15 +14,16 @@ import static java.nio.file.StandardOpenOption.APPEND;
 
 public class LedgerWriter {
 
-    private Path ledgerFilePath;
+    private final Path ledgerFilePath;
     public static final int BLOCK_SIZE_BYTE_LEN = Integer.BYTES;
+    public static final int BLOCKCHAIN_VERSION_BYTE_LEN = Short.BYTES;
 
     public LedgerWriter(Path ledgerFilePath) {
         this.ledgerFilePath = ledgerFilePath;
-        if(!Files.exists(ledgerFilePath)) createNewLedgerFile(ledgerFilePath);
+        if (!Files.exists(ledgerFilePath)) createNewLedgerFile(ledgerFilePath);
     }
 
-    public static void createNewLedgerFile(Path newFilePath){
+    public static void createNewLedgerFile(Path newFilePath) {
         try {
             Files.createFile(newFilePath);
         } catch (IOException e) {
@@ -37,8 +38,11 @@ public class LedgerWriter {
         // Convert block to bytes and find block size in bytes
         byte[] blockBytes = blockConverter.bytesFromInstance(block);
         byte[] blockLength = ByteUtils.extendByteArray(ByteUtils.toByteArray(blockBytes.length), BLOCK_SIZE_BYTE_LEN);
+        byte[] blockChainVersion = ByteUtils.extendByteArray(ByteUtils.toByteArray(Block.BLOCKCHAIN_VERSION), BLOCKCHAIN_VERSION_BYTE_LEN);
 
-        //Write block length to the file so that the parser will know how many bytes to read
+        // Write blockchain version to the file so that the reader will know which converter version to use
+        writeToFile(blockChainVersion);
+        // Write block length to the file so that the parser will know how many bytes to read
         writeToFile(blockLength);
         // Write block bytes to the file
         writeToFile(blockBytes);

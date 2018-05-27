@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class Data implements Serializable {
 
-    private ArrayList<DataPoint> dataPoints;
+    private final ArrayList<DataPoint> dataPoints;
     private int dataPointCount;
 
     // Construct a data object based on a list of DataPoints
@@ -37,10 +37,6 @@ public class Data implements Serializable {
 
     public ArrayList<DataPoint> getDataPoints() {
         return dataPoints;
-    }
-
-    public DataPoint getDataPoint(int index) {
-        return dataPoints.get(index);
     }
 
     public int getDataPointCount() {

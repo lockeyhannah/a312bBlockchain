@@ -18,12 +18,12 @@ public class BlockBuilder {
     // Reward given to the miner of the block
     public static final double miningReward = 5.0;
 
-    private Data data;
+    private final Data data;
     private Header header;
-    private Header previousHeader;
-    private long blockNumber;
-    private LedgerReader ledgerReader;
-    private ChainAnalyzer chainAnalyzer;
+    private final Header previousHeader;
+    private final long blockNumber;
+    private final LedgerReader ledgerReader;
+    private final ChainAnalyzer chainAnalyzer;
 
     // Initiates the builder, potentially based on a previous header
     public BlockBuilder(LedgerReader ledgerReader) {

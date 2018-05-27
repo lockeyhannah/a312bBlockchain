@@ -11,13 +11,13 @@ import static blockchain.utility.ByteUtils.*;
 
 public class Header {
 
-    private long blockId;
+    private final long blockId;
 
-    private byte[] prevHash;    // Hash of previous block header
+    private final byte[] prevHash;    // Hash of previous block header
     private byte[] dataHash;    // Hash of block data (without nonce)
 
     private byte[] nonce;       // Nonce value appended to the hashed data to generate a hash below the target value
-    private byte[] target;      // Hash values must be smaller than target to be valid
+    private final byte[] target;      // Hash values must be smaller than target to be valid
 
     private long timeStamp;   // Block creation time
 
@@ -78,16 +78,13 @@ public class Header {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Block ID : " + getBlockId()).append("\n").
-                append("Block header hash : " + Hasher.bytesToHexString(Hasher.applySHA(getBytes()))).append("\n").
-                append("Previous header hash : " + Hasher.bytesToHexString(getPrevHash())).append("\n").
-                append("Hash of block data : " + Hasher.bytesToHexString(getDataHash())).append("\n").
-                append("Nonce : " + Hasher.bytesToHexString(getNonce())).append("\n").
-                append("Target : " + new BigInteger(getTarget()).toString()).append("\n").
-                append("TimeStamp : " + getTimeStamp()).append("\n");
-
-        return sb.toString(); // new BigInteger(getNonce()).toString()).append("\n").
+        return ("Block ID : " + getBlockId()) + "\n" +
+                "Block header hash : " + Hasher.bytesToHexString(Hasher.applySHA(getBytes())) + "\n" +
+                "Previous header hash : " + Hasher.bytesToHexString(getPrevHash()) + "\n" +
+                "Hash of block data : " + Hasher.bytesToHexString(getDataHash()) + "\n" +
+                "Nonce : " + Hasher.bytesToHexString(getNonce()) + "\n" +
+                "Target : " + new BigInteger(getTarget()).toString() + "\n" +
+                "TimeStamp : " + getTimeStamp() + "\n";
     }
 
     @Override

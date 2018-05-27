@@ -2,7 +2,7 @@ package blockchain.block.data_points;
 
 /*
  * A unique identifier for a data point
-  * Containing information about position in the chain for fast retrieval of data point
+ * Containing information about position in the chain for fast retrieval of data point
  */
 
 public class DataPointUID {

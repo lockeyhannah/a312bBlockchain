@@ -10,14 +10,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigInteger;
-import java.nio.file.Paths;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 class BlockMinerTest {
 
-    Block block;
+    private Block block;
 
     @BeforeEach
     public void setup() {
@@ -25,8 +23,8 @@ class BlockMinerTest {
     }
 
     @Test // Tests that blocks are mined with a correct hash value
-    public void validHashTest() throws InsufficientFundsException{
-        BlockBuilder builder = new BlockBuilder(new LedgerReader(Paths.get(LedgerWriterReaderTest.emptyFilePath)));
+    public void validHashTest() throws InsufficientFundsException {
+        BlockBuilder builder = new BlockBuilder(new LedgerReader(LedgerWriterReaderTest.getEmptyPath()));
 
         // Mine 5 blocks and test hash validity for each one
         for (int i = 0; i < 5; i++) {

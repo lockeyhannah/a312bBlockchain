@@ -12,9 +12,8 @@ import java.util.ArrayList;
 
 public class BlockConverter extends Converter<Block> {
 
-    private final short OBJECT_TYPE_ID = 1; // Identifies the type of object that this class converts
-    private HeaderConverter headerConverter;
-    private DataConverter dataConverter;
+    private final HeaderConverter headerConverter;
+    private final DataConverter dataConverter;
 
     public BlockConverter(short CONVERTER_VERSION_UID) {
         super(CONVERTER_VERSION_UID);
@@ -45,7 +44,7 @@ public class BlockConverter extends Converter<Block> {
 
     @Override
     public short getOBJECT_TYPE_UID() {
-        return OBJECT_TYPE_ID;
+        return (short) 1;
     }
 
     @Override // Byte size is variable

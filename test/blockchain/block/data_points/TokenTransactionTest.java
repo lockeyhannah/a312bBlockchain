@@ -1,16 +1,12 @@
 package blockchain.block.data_points;
 
 
-import blockchain.block.mining.BlockBuilder;
-import blockchain.ledger_file.ChainAnalyzer;
-import blockchain.ledger_file.LedgerReader;
-import blockchain.ledger_file.LedgerWriter;
 import blockchain.ledger_file.LedgerWriterReaderTest;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
 
 import java.nio.file.Paths;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TokenTransactionTest {
@@ -18,15 +14,15 @@ public class TokenTransactionTest {
     private static final String userOneID = "1";
     private static final String userTwoID = "2";
     private static final String filePath = "CoinTransaction.dat";
-    private static int blockCount = 5;
 
     @BeforeAll
-    private static void setup(){
+    private static void setup() {
+        int blockCount = 5;
         LedgerWriterReaderTest.saveRandomBlocks(Paths.get(filePath), blockCount, userOneID);
     }
 
     @Test
-    void getterTest(){
+    void getterTest() {
         double reward = 0.35;
         TokenTransaction tokenTransaction = new TokenTransaction(userOneID, userTwoID, reward);
         assertEquals(userOneID, tokenTransaction.getGiverID());
@@ -35,7 +31,7 @@ public class TokenTransactionTest {
     }
 
     @Test
-    void containsIdTest(){
+    void containsIdTest() {
         double transferAmount = 0.35;
         TokenTransaction tokenTransaction = new TokenTransaction(userOneID, userTwoID, transferAmount);
 
@@ -45,7 +41,7 @@ public class TokenTransactionTest {
     }
 
     @Test
-    void getBalanceChangeTest(){
+    void getBalanceChangeTest() {
         double transferAmount = 0.35;
         TokenTransaction tokenTransaction = new TokenTransaction(userOneID, userTwoID, transferAmount);
 
@@ -53,7 +49,6 @@ public class TokenTransactionTest {
         assertEquals(transferAmount, tokenTransaction.getBalanceChange(userTwoID));
         assertEquals(0, tokenTransaction.getBalanceChange("Unrelated user"));
     }
-
 
 
 }

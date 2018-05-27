@@ -10,8 +10,6 @@ import blockchain.block.mining.BlockBuilder;
 import blockchain.ledger_file.convertion.*;
 import org.junit.jupiter.api.Test;
 
-import java.nio.file.Paths;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -37,7 +35,7 @@ public class ConverterTest {
 
     // Generates a block based on an empty chain
     public static Block generateBlock() {
-        return generateBlock(new LedgerReader(Paths.get(LedgerWriterReaderTest.emptyFilePath)), "1");
+        return generateBlock(new LedgerReader(LedgerWriterReaderTest.getEmptyPath()), "1");
     }
 
     @Test // Tests that a TokenTransaction object can be correctly converted to bytes and back
@@ -93,7 +91,6 @@ public class ConverterTest {
 
         assertEquals(header.toString(), convertedHeader.toString());
     }
-
 
 
 }

@@ -17,23 +17,24 @@ public class StorageContractTest {
     private static StorageContract expiredContract, activeContract;
 
     @BeforeAll
-    static void setup(){
+    static void setup() {
         // Create contract that is already expired
         expiredContract = new StorageContract(fileId, userOneID, userTwoID, 0, reward);
         // Add contract that expires in one hour
-        activeContract = new StorageContract(fileId, userOneID, userTwoID, System.currentTimeMillis() + 1000 * 60 * 60, reward);
+        expiration = System.currentTimeMillis() + 1000 * 60 * 60;
+        activeContract = new StorageContract(fileId, userOneID, userTwoID, expiration, reward);
     }
 
     @Test
-    void getterTest(){
+    void getterTest() {
         assertEquals(fileId, expiredContract.getFileId());
         assertEquals(userOneID, expiredContract.getFileOwnerID());
         assertEquals(userTwoID, expiredContract.getStorageUnitID());
-        assertEquals(expiration, expiredContract.getContractTerminationTime());
+        assertEquals(0, expiredContract.getContractTerminationTime());
     }
 
     @Test
-    void containsIdTest(){
+    void containsIdTest() {
         assertTrue(expiredContract.containsIdentifier(userOneID));
         assertTrue(expiredContract.containsIdentifier(userTwoID));
         assertTrue(expiredContract.containsIdentifier(fileId));
@@ -42,7 +43,7 @@ public class StorageContractTest {
     }
 
     @Test
-    void expiredContractBalanceChangeTest(){
+    void expiredContractBalanceChangeTest() {
         assertEquals(-reward, expiredContract.getBalanceChange(userOneID));
         assertEquals(reward, expiredContract.getBalanceChange(userTwoID));
 
@@ -50,7 +51,7 @@ public class StorageContractTest {
     }
 
     @Test
-    void activeContractBalanceChangeTest(){
+    void activeContractBalanceChangeTest() {
         assertEquals(-reward, activeContract.getBalanceChange(userOneID));
         assertEquals(0, activeContract.getBalanceChange(userTwoID));
 

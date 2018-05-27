@@ -5,16 +5,17 @@ package blockchain.block.data_points;
  */
 
 import blockchain.utility.ByteUtils;
+
 import java.util.ArrayList;
 
 public class StorageContract implements DataPoint {
 
-    private String fileId;
-    private String fileOwnerID;
-    private String storageUnitID;
+    private final String fileId;
+    private final String fileOwnerID;
+    private final String storageUnitID;
 
-    private long contractTerminationTime; // Time of contract termination measured in millis since epoch
-    private double reward; // The amount of tokens storing the file until contract termination
+    private final long contractTerminationTime; // Time of contract termination measured in millis since epoch
+    private final double reward; // The amount of tokens storing the file until contract termination
 
     public StorageContract(String fileId, String fileOwnerID, String storageUnitID, long contractTerminationTime, double reward) {
         this.fileId = fileId;
@@ -25,7 +26,7 @@ public class StorageContract implements DataPoint {
     }
 
     @Override // Returns the bytes used for hashing
-    public byte[] getBytes(){
+    public byte[] getBytes() {
         ArrayList<byte[]> allBytes = new ArrayList<>();
 
         allBytes.add(fileId.getBytes());
@@ -39,15 +40,11 @@ public class StorageContract implements DataPoint {
 
     // Returns a formatted string containing contract information
     public String getFormattedDataString() {
-        StringBuilder sb = new StringBuilder();
-
-        sb.append("File ID : ").append(fileId).append("\n")
-                .append("File owner ID : ").append(fileOwnerID).append("\n")
-                .append("Storage Unit IP address : ").append(storageUnitID).append("\n")
-                .append("Date for termination of contract : ").append(contractTerminationTime).append("\n")
-                .append("Reward for chunk : ").append(reward).append("\n\n");
-
-        return sb.toString();
+        return "File ID : " + fileId + "\n" +
+                "File owner ID : " + fileOwnerID + "\n" +
+                "Storage Unit IP address : " + storageUnitID + "\n" +
+                "Date for termination of contract : " + contractTerminationTime + "\n" +
+                "Reward for chunk : " + reward + "\n\n";
     }
 
     public long getContractTerminationTime() {
@@ -78,11 +75,11 @@ public class StorageContract implements DataPoint {
     @Override
     public double getBalanceChange(String userId) {
         // Return the negative reward if the user is the paying party of the contract
-        if(fileOwnerID.equals(userId))
+        if (fileOwnerID.equals(userId))
             return -reward;
 
         // Return the reward if the user is the storage unit and the contract has ended
-        if(storageUnitID.equals(userId) && System.currentTimeMillis() > getContractTerminationTime())
+        if (storageUnitID.equals(userId) && System.currentTimeMillis() > getContractTerminationTime())
             return reward;
 
         return 0;

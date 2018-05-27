@@ -5,11 +5,8 @@ import blockchain.utility.ByteArrayReader;
 import blockchain.utility.ByteUtils;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class HeaderConverter extends Converter<Header> {
-
-    private final short OBJECT_TYPE_UID = 2;
 
     private static final int blockIdByteLen = 8;            //BlockId length in bytes
     private static final int prevHashByteLen = 32;          //Previous hash length in bytes
@@ -21,7 +18,6 @@ public class HeaderConverter extends Converter<Header> {
     public HeaderConverter(short CONVERTER_VERSION_UID) {
         super(CONVERTER_VERSION_UID);
     }
-
 
 
     @Override //Converts Header object to byte array
@@ -61,7 +57,7 @@ public class HeaderConverter extends Converter<Header> {
 
     @Override
     public short getOBJECT_TYPE_UID() {
-        return OBJECT_TYPE_UID;
+        return (short) 2;
     }
 
     @Override

@@ -2,9 +2,7 @@ package blockchain.ledger_file;
 
 import blockchain.block.Block;
 import blockchain.block.Data;
-import blockchain.block.data_points.TokenTransaction;
 import blockchain.block.data_points.DataPoint;
-import blockchain.block.data_points.StorageContract;
 import blockchain.block.mining.Hasher;
 
 import java.math.BigInteger;
@@ -13,9 +11,9 @@ import java.util.Arrays;
 
 public class ChainAnalyzer {
 
-    private LedgerReader reader;
+    private final LedgerReader reader;
 
-    public ChainAnalyzer (LedgerReader reader){
+    public ChainAnalyzer(LedgerReader reader) {
         this.reader = reader;
     }
 
@@ -47,7 +45,7 @@ public class ChainAnalyzer {
     }
 
     // Returns a list of all data points containing the given id
-    public ArrayList<DataPoint> getDataPoints(String id){
+    public ArrayList<DataPoint> getDataPoints(String id) {
         ArrayList<DataPoint> matchingDataPoints = new ArrayList<>();
 
         long totalBlocks = reader.getBlockCount();
@@ -57,8 +55,8 @@ public class ChainAnalyzer {
             ArrayList<DataPoint> dataPoints = reader.readBlock(i).getData().getDataPoints();
 
             // Check each DataPoint in the block and add it if it contain the id
-            for(DataPoint dp : dataPoints){
-                if(dp.containsIdentifier(id))
+            for (DataPoint dp : dataPoints) {
+                if (dp.containsIdentifier(id))
                     matchingDataPoints.add(dp);
             }
 

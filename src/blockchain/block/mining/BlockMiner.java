@@ -6,15 +6,12 @@ import blockchain.block.Header;
 import blockchain.utility.ByteUtils;
 
 import java.math.BigInteger;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 
 
 public class BlockMiner {
 
     // Mines for a valid nonce value and returns a valid block
-    public static Block mineBlock(Header header, Data data){
+    public static Block mineBlock(Header header, Data data) {
         BigInteger nonce = new BigInteger(header.getNonce());
         BigInteger target = new BigInteger(header.getDifficultyTarget());
 
@@ -26,7 +23,7 @@ public class BlockMiner {
         BigInteger nonceMax = BigInteger.TWO.pow(255);
 
         // Recalculate hash with new nonce values until the hash is below the target value
-        while(hashInteger.compareTo(target) > 0){
+        while (hashInteger.compareTo(target) > 0) {
             // Update nonce value
             nonce = nonce.add(BigInteger.ONE);
             header.setNonce(ByteUtils.trimLeadingZeroes(nonce.toByteArray()));
@@ -34,9 +31,9 @@ public class BlockMiner {
             // Hash header with new nonce value
             hash = Hasher.applySHA(header.getBytes());
             hashInteger = new BigInteger(1, hash);
-            
+
             // Pick new timestamp and reset nonce if nonce value is above max
-            if(nonce.compareTo(nonceMax) > 0){
+            if (nonce.compareTo(nonceMax) > 0) {
                 header.setTimeStamp(System.currentTimeMillis());
                 nonce = BigInteger.ONE;
             }
@@ -44,7 +41,6 @@ public class BlockMiner {
 
         return new Block(header, data);
     }
-
 
 
 }

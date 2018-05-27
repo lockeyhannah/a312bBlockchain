@@ -15,12 +15,12 @@ import static blockchain.ledger_file.LedgerWriter.BLOCK_SIZE_BYTE_LEN;
 public class LedgerReader {
 
     // Path of the ledger file
-    private Path ledgerFilePath;
+    private final Path ledgerFilePath;
 
-    public LedgerReader(Path ledgerFilePath){
+    public LedgerReader(Path ledgerFilePath) {
         this.ledgerFilePath = ledgerFilePath;
 
-        if(!Files.exists(ledgerFilePath)){
+        if (!Files.exists(ledgerFilePath)) {
             System.out.println("Creating new ledger file : " + ledgerFilePath.toString());
             LedgerWriter.createNewLedgerFile(ledgerFilePath);
         }
@@ -53,12 +53,15 @@ public class LedgerReader {
 
     // Reads and returns the next block from the given input stream
     private Block readNextBlock(BufferedInputStream bis) throws IOException {
+        byte[] chainVersionBytes = new byte[LedgerWriter.BLOCKCHAIN_VERSION_BYTE_LEN];
         byte[] blockSizeBytes = new byte[BLOCK_SIZE_BYTE_LEN];
 
-        // Read block size into byte array and return null if end of is reached
-        if (bis.read(blockSizeBytes, 0, BLOCK_SIZE_BYTE_LEN) == -1)
+        // Read blockchain version into byte array and return null if end of file is reached
+        if (bis.read(chainVersionBytes, 0, LedgerWriter.BLOCKCHAIN_VERSION_BYTE_LEN) == -1)
             return null;
 
+        // Read block size
+        bis.read(blockSizeBytes, 0, BLOCK_SIZE_BYTE_LEN);
         // Convert block size to an integer
         int blockSize = ByteUtils.toInt(blockSizeBytes);
 
@@ -66,20 +69,23 @@ public class LedgerReader {
         byte[] blockBytes = new byte[blockSize];
         bis.read(blockBytes, 0, blockSize);
 
+        // Initiate converter with the version read from the file
+        BlockConverter blockConverter = new BlockConverter(ByteUtils.toShort(chainVersionBytes));
         // Convert bytes into a block object and return it
-        BlockConverter blockConverter = new BlockConverter((short) 1);
         return blockConverter.instanceFromBytes(blockBytes);
     }
 
     // Skips the next block from the given input stream
     private boolean skipNextBlock(BufferedInputStream bis) throws IOException {
+        byte[] chainVersionBytes = new byte[LedgerWriter.BLOCKCHAIN_VERSION_BYTE_LEN];
         byte[] blockSizeBytes = new byte[BLOCK_SIZE_BYTE_LEN];
 
-        // Read block size into byte array and return null if end of is reached
-        if (bis.read(blockSizeBytes, 0, BLOCK_SIZE_BYTE_LEN) == -1)
+        // Read blockchain version into byte array and return null if end of file is reached
+        if (bis.read(chainVersionBytes, 0, LedgerWriter.BLOCKCHAIN_VERSION_BYTE_LEN) == -1)
             return false;
 
-        // Convert block size to an integer
+        // Read block size and convert it to an integer
+        bis.read(blockSizeBytes, 0, BLOCK_SIZE_BYTE_LEN);
         int blockSize = ByteUtils.toInt(blockSizeBytes);
 
         // Skip to next block and return true if it skipped the correct amount of bytes
@@ -114,7 +120,7 @@ public class LedgerReader {
             while (skipNextBlock(bis)) {
                 blockCount++;
             }
-            
+
         } catch (IOException e) {
             System.out.println("Could not read ledger file - " + ledgerFilePath.toString());
             return 0;
@@ -124,10 +130,10 @@ public class LedgerReader {
     }
 
     // Returns a data point from the ledger based on the given unique data point id
-    public DataPoint getDataPoint(DataPointUID uid){
+    public DataPoint getDataPoint(DataPointUID uid) {
         Block block = readBlock(uid.getBlockId());
 
-        if(block != null)
+        if (block != null)
             return block.getData().getDataPoints().get(uid.getDataPointNumber());
 
         return null;

@@ -8,17 +8,12 @@ import java.util.ArrayList;
 
 public class StorageContractConverter extends Converter<StorageContract> {
 
-    private final short OBJECT_TYPE_UID = 5;
-
     // Byte length of each individual field when converted
-    private static final int fileIdByteLen = Integer.BYTES;
+    private static final int fileIdByteLen = TokenTransactionConverter.USER_ID_BYTE_LEN;
     private static final int storageIdByteLen = TokenTransactionConverter.USER_ID_BYTE_LEN;
     private static final int ownerIDByteLen = TokenTransactionConverter.USER_ID_BYTE_LEN;
     private static final int terminationTimeByteLen = Long.BYTES;
     private static final int rewardByteLen = Double.BYTES;
-
-    private final int CONTRACT_BYTE_LEN = fileIdByteLen + storageIdByteLen + ownerIDByteLen +
-            terminationTimeByteLen + rewardByteLen;
 
     public StorageContractConverter(short CONVERTER_VERSION_UID) {
         super(CONVERTER_VERSION_UID);
@@ -57,11 +52,12 @@ public class StorageContractConverter extends Converter<StorageContract> {
 
     @Override
     public short getOBJECT_TYPE_UID() {
-        return OBJECT_TYPE_UID;
+        return (short) 5;
     }
 
     public int getByteSize() {
-        return CONTRACT_BYTE_LEN;
+        return fileIdByteLen + storageIdByteLen + ownerIDByteLen +
+                terminationTimeByteLen + rewardByteLen;
     }
 
 }

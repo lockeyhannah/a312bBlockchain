@@ -23,9 +23,9 @@ public class Hasher {
     public static String bytesToHexString(byte[] hashBytes) {
         StringBuilder hexString = new StringBuilder();
 
-        for (int i = 0; i < hashBytes.length; i++) {
+        for (byte hashByte : hashBytes) {
             // Convert byte to an unsigned value and then convert to a string
-            String hex = Integer.toHexString(0xFF & hashBytes[i]);
+            String hex = Integer.toHexString(0xFF & hashByte);
 
             // Append a leading 0 if hex value is only one character long (ie. less than 16)
             if (hex.length() == 1)

@@ -1,6 +1,5 @@
 package blockchain.block.mining;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -10,7 +9,7 @@ import static org.junit.Assert.*;
 class HasherTest {
 
     @Test // Test that two hashes of the same input gives the same output
-    public void sameHashTest(){
+    public void sameHashTest() {
         byte[] output1 = Hasher.applySHA("message".getBytes());
         byte[] output2 = Hasher.applySHA("message".getBytes());
 
@@ -18,7 +17,7 @@ class HasherTest {
     }
 
     @Test // Test that a slightly altered input gives a different output
-    public void differentHashTest(){
+    public void differentHashTest() {
         byte[] output1 = Hasher.applySHA("message".getBytes());
         byte[] output2 = Hasher.applySHA("messag".getBytes());
 
@@ -26,7 +25,7 @@ class HasherTest {
     }
 
     @Test // Test the byte to hex converter
-    public void toHexTest(){
+    public void toHexTest() {
         // Write 0x6C21 in byte format
         byte[] b = {108, 33};
 

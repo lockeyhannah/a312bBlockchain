@@ -6,7 +6,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -15,14 +14,13 @@ import java.util.ArrayList;
 
 public class LedgerWriterReaderTest {
 
-    public static final String emptyFilePath = "empty_file.dat";
+    private static final String emptyFilePath = "empty_file.dat";
     private static final String filePath = "chain_test.txt";
     private ArrayList<Block> originalBlocks;
-    private String minerID = "1";
 
     @BeforeEach
     private void setup() {
-        originalBlocks = saveRandomBlocks(Paths.get(filePath), 10, minerID);
+        originalBlocks = saveRandomBlocks(Paths.get(filePath), 10, "miner id");
     }
 
     // Saves and returns a randomly generated list of blocks
@@ -32,7 +30,7 @@ public class LedgerWriterReaderTest {
         LedgerReader ledgerReader = new LedgerReader(path);
 
         ArrayList<Block> blocks = new ArrayList<>();
-        for (int i = 0; i < amount; i++){
+        for (int i = 0; i < amount; i++) {
             Block b = ConverterTest.generateBlock(ledgerReader, minerID);
             ledgerWriter.writeBlock(b);
             blocks.add(b);
@@ -42,12 +40,18 @@ public class LedgerWriterReaderTest {
     }
 
     // Empties the given file
-    public static void clearFile(Path path) {
+    private static void clearFile(Path path) {
         try (BufferedWriter writer = Files.newBufferedWriter(path)) {
             writer.write("");
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static Path getEmptyPath() {
+        Path path = Paths.get(emptyFilePath);
+        clearFile(path);
+        return path;
     }
 
 

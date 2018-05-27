@@ -72,13 +72,11 @@ public abstract class ByteUtils {
         int totalBytes = 0;
 
         // Find total byte size
-        for (int i = 0; i < byteList.size(); i++)
-            totalBytes += byteList.get(i).length;
+        for (byte[] aByteList1 : byteList) totalBytes += aByteList1.length;
 
         // Combine all arrays
         ByteBuffer buffer = ByteBuffer.allocate(totalBytes);
-        for (int i = 0; i < byteList.size(); i++)
-            buffer.put(byteList.get(i));
+        for (byte[] aByteList : byteList) buffer.put(aByteList);
 
         return buffer.array();
     }
@@ -97,8 +95,8 @@ public abstract class ByteUtils {
         int leadingZeroes = 0;
 
         // Count amount of leading zeroes
-        for (int i = 0; i < len; i++) {
-            if (inputBytes[i] == 0) leadingZeroes++;
+        for (byte inputByte : inputBytes) {
+            if (inputByte == 0) leadingZeroes++;
             else break;
         }
 

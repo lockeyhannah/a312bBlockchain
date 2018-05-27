@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class ByteArrayReader {
 
-    private byte[] array;
+    private final byte[] array;
     private int currentIndex = 0;
 
     public ByteArrayReader(byte[] array) {

@@ -7,15 +7,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class DataPointUIDTest {
 
-    DataPointUID dpUID;
+    private DataPointUID dpUID;
 
     @BeforeEach
-    public void setup(){
+    public void setup() {
         dpUID = new DataPointUID(234, 789);
     }
 
     @Test
-    public void getterTest(){
+    public void getterTest() {
         assertEquals(234, dpUID.getBlockId());
         assertEquals(789, dpUID.getDataPointNumber());
     }

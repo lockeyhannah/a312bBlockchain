@@ -22,11 +22,11 @@ public class BlockBuilderTest {
     private static final String minerID = "User1";
     private static final String filePath = "CoinTransaction.dat";
     private static LedgerReader ledgerReader;
-    private static int blockCount = 5;
+    private static final int blockCount = 5;
 
 
     @BeforeAll
-    static void setup(){
+    static void setup() {
         // Generate and save 5 random blocks mined by userOne
         ledgerReader = new LedgerReader(Paths.get(filePath));
         LedgerWriterReaderTest.saveRandomBlocks(Paths.get(filePath), blockCount, minerID);
@@ -34,15 +34,16 @@ public class BlockBuilderTest {
 
 
     @Test // Tests that an empty block can be built and mined correctly
-    public void emptyBlockBuildTest(){
-        LedgerReader reader = new LedgerReader(Paths.get(LedgerWriterReaderTest.emptyFilePath));
+    public void emptyBlockBuildTest() {
+        LedgerReader reader = new LedgerReader(LedgerWriterReaderTest.getEmptyPath());
         Block block = new BlockBuilder(reader).build("1");
         assertTrue(ChainAnalyzer.isBlockValid(block, reader));
     }
 
 
-    @Test // Tests that a transaction cannot be added when the user does not have sufficient funds
-    void transactionInsufficientFundsTest(){
+    @Test
+        // Tests that a transaction cannot be added when the user does not have sufficient funds
+    void transactionInsufficientFundsTest() {
         BlockBuilder blockBuilder = new BlockBuilder(ledgerReader);
 
         // Create transaction from user who doesn't have sufficient funds
@@ -53,8 +54,9 @@ public class BlockBuilderTest {
         assertThrows(InsufficientFundsException.class, insufficientFundsTransaction);
     }
 
-    @Test // Tests that a transaction can be added when the user does have sufficient funds
-    void transactionSufficientFundsTest(){
+    @Test
+        // Tests that a transaction can be added when the user does have sufficient funds
+    void transactionSufficientFundsTest() {
         BlockBuilder blockBuilder = new BlockBuilder(ledgerReader);
 
         // Create transaction from user who has sufficient funds
@@ -71,8 +73,9 @@ public class BlockBuilderTest {
     }
 
 
-    @Test // Tests that a contract cannot be added when the user does not have sufficient funds
-    void contractInsufficientFundsTest(){
+    @Test
+        // Tests that a contract cannot be added when the user does not have sufficient funds
+    void contractInsufficientFundsTest() {
         BlockBuilder blockBuilder = new BlockBuilder(ledgerReader);
 
         // Create transaction from user who doesn't have sufficient funds
@@ -84,8 +87,9 @@ public class BlockBuilderTest {
         assertThrows(InsufficientFundsException.class, insufficientFundsTransaction);
     }
 
-    @Test // Tests that a contract can be added when the user does have sufficient funds
-    void contractSufficientFundsTest(){
+    @Test
+        // Tests that a contract can be added when the user does have sufficient funds
+    void contractSufficientFundsTest() {
         BlockBuilder blockBuilder = new BlockBuilder(ledgerReader);
 
         // Create transaction with reward corresponding to user one's funds
@@ -101,6 +105,4 @@ public class BlockBuilderTest {
             fail("User with sufficient funds could not complete transaction");
         }
     }
-
-
 }
