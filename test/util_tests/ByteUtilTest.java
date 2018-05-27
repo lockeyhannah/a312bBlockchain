@@ -22,7 +22,7 @@ public class ByteUtilTest {
         assertArrayEquals(bytes2, expectedBytes);
     }
 
-    @Test
+    @Test // Tests that different data type can be converted to bytes and back correctly
     public void toByteTest(){
         int originalInt = 30510;
         long originalLong = 30510;
@@ -40,7 +40,7 @@ public class ByteUtilTest {
         assertEquals(convertedDouble, originalDouble, 0.001);
     }
 
-    @Test
+    @Test // Tests that different data types with negative values can be converted to bytes and back correctly
     public void negativeToByteTest(){
         int originalInt = -30510;
         long originalLong = -30510;
@@ -58,7 +58,7 @@ public class ByteUtilTest {
         assertEquals(convertedDouble, originalDouble, 0.001);
     }
 
-    @Test
+    @Test // Tests that two byte arrays are correctly combined
     public void combineByteArrayTest(){
         byte[] array1 = {0, 15, 65, 15, 24, 35};
         byte[] array2 = {64, 65, 15, 24, 35};
@@ -69,7 +69,7 @@ public class ByteUtilTest {
         assertArrayEquals(combinedArray, expectedArray);
     }
 
-    @Test
+    @Test // Tests that a list of byte arrays are combined correctly
     public void combineByteArrayListTest(){
         ArrayList<byte[]> byteList = new ArrayList<>();
         byte[] expectedArray = {0, 15, 65, 15, 24, 35, 64, 65, 15, 24, 35, 15};
@@ -83,7 +83,7 @@ public class ByteUtilTest {
         assertArrayEquals(combinedArray, expectedArray);
     }
 
-    @Test
+    @Test // Tests that leading zeroes are added to a byte array
     public void extendByteArrayTest(){
         byte[] bytes = {15, 65};
         byte[] expectedBytes = {0, 0, 0, 15, 65};
@@ -94,8 +94,6 @@ public class ByteUtilTest {
 
         byte[] extendedBytes = ByteUtils.extendByteArray(bytes, 5);
         assertArrayEquals(extendedBytes, expectedBytes);
-
-
     }
 
 

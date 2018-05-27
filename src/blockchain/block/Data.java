@@ -57,7 +57,7 @@ public class Data implements Serializable {
     }
 
     // Returns a string containing the formatted strings of each data point
-    public String getString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
 
         for (DataPoint dp : dataPoints)

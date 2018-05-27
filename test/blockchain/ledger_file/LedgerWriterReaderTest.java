@@ -51,7 +51,7 @@ public class LedgerWriterReaderTest {
     }
 
 
-    @Test
+    @Test // Tests that the entire chain can be read
     public void blockchainReadTest() {
         LedgerReader ledgerReader = new LedgerReader(Paths.get(filePath));
 
@@ -59,8 +59,6 @@ public class LedgerWriterReaderTest {
             Block readBlock = ledgerReader.readBlock(originalBlock.getHeader().getBlockId());
             Assert.assertEquals(originalBlock.toString(), readBlock.toString());
         }
-
-
     }
 
 

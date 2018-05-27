@@ -70,6 +70,23 @@ public class StorageContract implements DataPoint {
         return storageUnitID;
     }
 
+    @Override
+    public boolean containsIdentifier(String id) {
+        return (fileId.equals(id) || fileOwnerID.equals(id) || storageUnitID.equals(id));
+    }
+
+    @Override
+    public double getBalanceChange(String userId) {
+        // Return the negative reward if the user is the paying party of the contract
+        if(fileOwnerID.equals(userId))
+            return -reward;
+
+        // Return the reward if the user is the storage unit and the contract has ended
+        if(storageUnitID.equals(userId) && System.currentTimeMillis() > getContractTerminationTime())
+            return reward;
+
+        return 0;
+    }
 }
 
 

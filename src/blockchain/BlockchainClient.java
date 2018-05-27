@@ -1,15 +1,14 @@
 package blockchain;
 
 import blockchain.block.Block;
-import blockchain.block.data_points.DataPoint;
-import blockchain.block.data_points.DataPointUID;
-import blockchain.block.data_points.InsufficientFundsException;
+import blockchain.block.data_points.*;
 import blockchain.block.mining.BlockBuilder;
 import blockchain.ledger_file.ChainAnalyzer;
 import blockchain.ledger_file.LedgerReader;
 import blockchain.ledger_file.LedgerWriter;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 
 public class BlockchainClient {
 
@@ -20,6 +19,8 @@ public class BlockchainClient {
     private String clientID;
     private BlockBuilder blockBuilder;
 
+    private ChainAnalyzer chainAnalyzer;
+
     public BlockchainClient(Path ledgerFilePath, String clientID){
         this.clientID = clientID;
         this.ledgerFilePath = ledgerFilePath;
@@ -27,6 +28,7 @@ public class BlockchainClient {
         ledgerWriter = new LedgerWriter(ledgerFilePath);
         ledgerReader = new LedgerReader(ledgerFilePath);
         blockBuilder = new BlockBuilder(ledgerReader);
+        chainAnalyzer = new ChainAnalyzer(ledgerReader);
     }
 
     // Adds a given data point to the current block if it is valid
@@ -34,12 +36,17 @@ public class BlockchainClient {
         return blockBuilder.addData(dataPoint);
     }
 
+    // Returns data points that contain the given id (userId, fileId etc.)
+    public ArrayList<DataPoint> getDataPoints(String id){
+        return chainAnalyzer.getDataPoints(id);
+    }
+
     public DataPoint getDataPoint(DataPointUID dataPointUID){
         return ledgerReader.getDataPoint(dataPointUID);
     }
 
     public double getUserBalance(String userID){
-        return ChainAnalyzer.getUserBalance(ledgerReader, userID);
+        return chainAnalyzer.getUserBalance(userID);
     }
 
     // Mines the current block and appends it to the ledger
@@ -52,7 +59,7 @@ public class BlockchainClient {
     }
 
     public boolean isChainValid(){
-        return ChainAnalyzer.isChainValid(ledgerReader);
+        return chainAnalyzer.isChainValid();
     }
 
 

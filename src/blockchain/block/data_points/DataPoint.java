@@ -11,4 +11,11 @@ public interface DataPoint{
 
     // Return the bytes used for hashing
     byte[] getBytes();
+
+    // Returns true if the data point contains the given identifier
+    boolean containsIdentifier(String id);
+
+    // Returns the change in balance for the given user in this data point
+    double getBalanceChange(String userId);
+
 }

@@ -26,6 +26,6 @@ public class Block {
 
     // Prints out all block information including all data points
     public String toString() {
-        return header.toString() + data.getString();
+        return header.toString() + data.toString();
     }
 }

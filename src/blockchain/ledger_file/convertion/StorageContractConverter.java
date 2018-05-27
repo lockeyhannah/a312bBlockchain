@@ -1,6 +1,5 @@
 package blockchain.ledger_file.convertion;
 
-import blockchain.block.data_points.CoinTransaction;
 import blockchain.block.data_points.StorageContract;
 import blockchain.utility.ByteArrayReader;
 import blockchain.utility.ByteUtils;
@@ -13,8 +12,8 @@ public class StorageContractConverter extends Converter<StorageContract> {
 
     // Byte length of each individual field when converted
     private static final int fileIdByteLen = Integer.BYTES;
-    private static final int storageIdByteLen = CoinTransactionConverter.userIdByteLen;
-    private static final int ownerIDByteLen = CoinTransactionConverter.userIdByteLen;
+    private static final int storageIdByteLen = TokenTransactionConverter.USER_ID_BYTE_LEN;
+    private static final int ownerIDByteLen = TokenTransactionConverter.USER_ID_BYTE_LEN;
     private static final int terminationTimeByteLen = Long.BYTES;
     private static final int rewardByteLen = Double.BYTES;
 

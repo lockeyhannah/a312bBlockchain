@@ -1,10 +1,10 @@
 package blockchain.ledger_file;
 
 import blockchain.block.Block;
-import blockchain.block.data_points.CoinTransaction;
+import blockchain.block.data_points.InsufficientFundsException;
+import blockchain.block.data_points.TokenTransaction;
 import blockchain.block.mining.BlockBuilder;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
@@ -15,17 +15,20 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ChainAnalyzerTest {
 
-    static String filePath = "chain_validation.dat";
-    static String minerID = "1";
-    static int blockCount = 10;
+    private static ChainAnalyzer chainAnalyzer;
+    private static String filePath = "chain_validation.dat";
+    private static String minerID = "1";
+    static int blockCount = 5;
 
     @BeforeAll
     private static void setup() {
-        LedgerWriterReaderTest.saveRandomBlocks(Paths.get(filePath), blockCount, minerID);
+        Path path = Paths.get(filePath);
+        LedgerWriterReaderTest.saveRandomBlocks(path, blockCount, minerID);
+        chainAnalyzer = new ChainAnalyzer(new LedgerReader(path));
     }
 
     @Test // Tests that a valid block passes the validation
-    public void blockValidationTest() throws FileNotFoundException {
+    public void blockValidationTest() {
         Path path = Paths.get(filePath);
         LedgerReader reader = new LedgerReader(path);
         Block block = reader.readBlock(4);
@@ -37,7 +40,7 @@ class ChainAnalyzerTest {
     public void chainValidationTest() {
         Path path = Paths.get(filePath);
         LedgerReader reader = new LedgerReader(path);
-        assertTrue(ChainAnalyzer.isChainValid(reader));
+        assertTrue(chainAnalyzer.isChainValid());
     }
 
     @Test // Test that a manipulated does not pass the validation method
@@ -49,7 +52,7 @@ class ChainAnalyzerTest {
         assertTrue(ChainAnalyzer.isBlockValid(block, ledgerReader));
 
         // Add an extra transaction
-        block.getData().addData(new CoinTransaction("0", "1", 50.0));
+        block.getData().addData(new TokenTransaction("0", "1", 50.0));
 
         // Assert that the block is now invalid
         assertFalse(ChainAnalyzer.isBlockValid(block, ledgerReader));
@@ -58,8 +61,67 @@ class ChainAnalyzerTest {
 
     @Test // Tests that the miner receives the correct rewards
     public void miningRewardTest(){
-        LedgerReader ledgerReader = new LedgerReader(Paths.get(filePath));
-        assertEquals(ChainAnalyzer.getUserBalance(ledgerReader, minerID), blockCount * BlockBuilder.miningReward);
+        assertEquals(chainAnalyzer.getUserBalance(minerID), blockCount * BlockBuilder.miningReward);
+    }
+
+
+    @Test // Tests that a coin transfer results in the correct account balance changes
+    void transferBalanceTest(){
+        LedgerWriterReaderTest.saveRandomBlocks(Paths.get(filePath), blockCount, minerID);
+        BlockBuilder blockBuilder = new BlockBuilder(new LedgerReader(Paths.get(filePath)));
+        String userTwoID = "2";
+
+        // Transfer all the money available from the user one
+        double transferAmount = BlockBuilder.miningReward * blockCount;
+        TokenTransaction transaction = new TokenTransaction(minerID, userTwoID, transferAmount);
+
+        try {
+            // Add transaction to block
+            blockBuilder.addData(transaction);
+        } catch (InsufficientFundsException e) {
+            // Fail if an exception is thrown
+            fail("User with sufficient funds could not complete transaction");
+        }
+
+        // Mine the block and write it to the ledger
+        new LedgerWriter(Paths.get(filePath)).writeBlock(blockBuilder.build("Unrelated miner"));
+
+        ChainAnalyzer chainAnalyzer = new ChainAnalyzer(new LedgerReader(Paths.get(filePath)));
+
+        // Check that the balance is 0 for the paying user
+        assertEquals(0.0, chainAnalyzer.getUserBalance(minerID));
+        // Check that the balance is correct for the receiving user
+        assertEquals(transferAmount, chainAnalyzer.getUserBalance(userTwoID));
+    }
+
+
+    @Test // Tests that a contract results in the correct account balance changes
+    void contractBalanceTest(){
+        LedgerWriterReaderTest.saveRandomBlocks(Paths.get(filePath), blockCount, minerID);
+        BlockBuilder blockBuilder = new BlockBuilder(new LedgerReader(Paths.get(filePath)));
+        String userTwoID = "2";
+
+        // Transfer all the money available from the user one
+        double transferAmount = BlockBuilder.miningReward * blockCount;
+        TokenTransaction transaction = new TokenTransaction(minerID, userTwoID, transferAmount);
+
+        try {
+            // Add transaction to block
+            blockBuilder.addData(transaction);
+        } catch (InsufficientFundsException e) {
+            // Fail if an exception is thrown
+            fail("User with sufficient funds could not complete transaction");
+        }
+
+        // Mine the block and write it to the ledger
+        new LedgerWriter(Paths.get(filePath)).writeBlock(blockBuilder.build("Unrelated miner"));
+
+        ChainAnalyzer chainAnalyzer = new ChainAnalyzer(new LedgerReader(Paths.get(filePath)));
+
+        // Check that the balance is 0 for the paying user
+        assertEquals(0.0, chainAnalyzer.getUserBalance(minerID));
+        // Check that the balance is correct for the receiving user
+        assertEquals(transferAmount, chainAnalyzer.getUserBalance(userTwoID));
     }
 
 }

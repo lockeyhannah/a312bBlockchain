@@ -2,7 +2,7 @@ package blockchain.ledger_file;
 
 import blockchain.block.Block;
 import blockchain.block.Data;
-import blockchain.block.data_points.CoinTransaction;
+import blockchain.block.data_points.TokenTransaction;
 import blockchain.block.data_points.DataPoint;
 import blockchain.block.data_points.StorageContract;
 import blockchain.block.mining.Hasher;
@@ -13,9 +13,15 @@ import java.util.Arrays;
 
 public class ChainAnalyzer {
 
+    private LedgerReader reader;
+
+    public ChainAnalyzer (LedgerReader reader){
+        this.reader = reader;
+    }
+
     /* Looks through the entire chain and sums up all
        transactions made to and from the given user */
-    public static double getUserBalance(LedgerReader reader, String userID) {
+    public double getUserBalance(String userID) {
         double userBalance = 0;
         long totalBlocks = reader.getBlockCount();
 
@@ -34,59 +40,35 @@ public class ChainAnalyzer {
         ArrayList<DataPoint> dataPoints = data.getDataPoints();
 
         for (DataPoint dp : dataPoints) {
-            balanceChange += getBalanceChange(dp, userID);
+            balanceChange += dp.getBalanceChange(userID);
         }
 
         return balanceChange;
     }
 
-    // Returns the balance change for a user in the given data point
-    public static double getBalanceChange(DataPoint dataPoint, String userID){
-        double balanceChange = 0;
+    // Returns a list of all data points containing the given id
+    public ArrayList<DataPoint> getDataPoints(String id){
+        ArrayList<DataPoint> matchingDataPoints = new ArrayList<>();
 
-        if (dataPoint instanceof CoinTransaction)
-            balanceChange += getBalanceChange((CoinTransaction) dataPoint, userID);
+        long totalBlocks = reader.getBlockCount();
 
-        else if (dataPoint instanceof StorageContract)
-            balanceChange += getBalanceChange((StorageContract) dataPoint, userID);
+        // Check all blocks starting from block 0
+        for (int i = 0; i < totalBlocks; i++) {
+            ArrayList<DataPoint> dataPoints = reader.readBlock(i).getData().getDataPoints();
 
-        return balanceChange;
-    }
+            // Check each DataPoint in the block and add it if it contain the id
+            for(DataPoint dp : dataPoints){
+                if(dp.containsIdentifier(id))
+                    matchingDataPoints.add(dp);
+            }
 
-    // Returns the balance change for a user if he is involved in the given transaction
-    private static double getBalanceChange(CoinTransaction coinTransaction, String userID) {
-        // Return positive transfer amount if the user is the recipient of coins
-        if (coinTransaction.getRecipientID().equals(userID))
-            return coinTransaction.getTokens();
-
-        // Subtract transfer amount if the user is the giver
-        if (coinTransaction.getGiverID().equals(userID))
-            return -(coinTransaction.getTokens());
-
-        // Return 0 if the user was not part of this transaction
-        return 0;
-    }
-
-    private static double getBalanceChange(StorageContract storageContract, String userID) {
-        double balanceChange = 0;
-
-        // Subtract payments if the user paid for storage
-        if(storageContract.getFileOwnerID().equals(userID))
-            balanceChange = -storageContract.getReward();
-
-        // Add payments if the user is the storage unit and the contract has been fulfilled
-        // In this implementation the contract fulfillment means that the storage period has expired
-        else if(storageContract.getStorageUnitID().equals(userID)){
-            if(storageContract.getContractTerminationTime() < System.currentTimeMillis())
-                balanceChange = storageContract.getReward();
         }
-
-        return balanceChange;
+        return matchingDataPoints;
     }
 
 
     // Checks if all blocks in the chain are valid
-    public static boolean isChainValid(LedgerReader reader) {
+    public boolean isChainValid() {
         long totalBlocks = reader.getBlockCount();
 
         // Check all blocks starting from block 0
@@ -97,6 +79,7 @@ public class ChainAnalyzer {
         }
         return true;
     }
+
 
     // Checks if a given block is valid
     public static boolean isBlockValid(Block block, LedgerReader reader) {

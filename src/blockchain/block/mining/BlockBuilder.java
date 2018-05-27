@@ -8,7 +8,6 @@ import blockchain.ledger_file.ChainAnalyzer;
 import blockchain.ledger_file.LedgerReader;
 
 import java.math.BigInteger;
-import java.util.Date;
 /*
  * Builder for the block class
  * When built a header is generated and the block is mined according to its difficulty
@@ -24,10 +23,12 @@ public class BlockBuilder {
     private Header previousHeader;
     private long blockNumber;
     private LedgerReader ledgerReader;
+    private ChainAnalyzer chainAnalyzer;
 
     // Initiates the builder, potentially based on a previous header
     public BlockBuilder(LedgerReader ledgerReader) {
         this.ledgerReader = ledgerReader;
+        this.chainAnalyzer = new ChainAnalyzer(ledgerReader);
         this.previousHeader = findPreviousHeader();
 
         if (previousHeader != null)
@@ -74,22 +75,22 @@ public class BlockBuilder {
         double availableFunds = 0;
 
         // Check that the user doesn't spend more coins than he has
-        if (dp instanceof CoinTransaction) {
+        if (dp instanceof TokenTransaction) {
             // If the DataPoint is a transaction then check that the giver has enough tokens to pay
-            CoinTransaction transaction = (CoinTransaction) dp;
-            requiredFunds = ChainAnalyzer.getBalanceChange(transaction, transaction.getGiverID());
+            TokenTransaction transaction = (TokenTransaction) dp;
+            requiredFunds = -transaction.getBalanceChange(transaction.getGiverID());
 
             // Find the users total funds
-            availableFunds = ChainAnalyzer.getUserBalance(ledgerReader, transaction.getGiverID());
+            availableFunds = chainAnalyzer.getUserBalance(transaction.getGiverID());
             // Add the balance changes from the data in the current block
             availableFunds += ChainAnalyzer.getBalanceChange(data, transaction.getGiverID());
         } else if (dp instanceof StorageContract) {
             // If the DataPoint is a StorageContract then check that the file owner has enough tokens to pay
             StorageContract storageContract = (StorageContract) dp;
-            requiredFunds = ChainAnalyzer.getBalanceChange(storageContract, storageContract.getFileOwnerID());
+            requiredFunds = -storageContract.getBalanceChange(storageContract.getFileOwnerID());
 
             // Find the users total funds
-            availableFunds = ChainAnalyzer.getUserBalance(ledgerReader, storageContract.getFileOwnerID());
+            availableFunds = chainAnalyzer.getUserBalance(storageContract.getFileOwnerID());
             // Add the balance changes from the data in the current block
             availableFunds += ChainAnalyzer.getBalanceChange(data, storageContract.getFileOwnerID());
         }
@@ -107,7 +108,7 @@ public class BlockBuilder {
     // Builds the block, generating the header and mining the block
     public Block build(String ownerID) {
         // Add reward for mining the block
-        data.addData(new CoinTransaction("0", ownerID, miningReward));
+        data.addData(new TokenTransaction("0", ownerID, miningReward));
 
         generateHeader();
         return BlockMiner.mineBlock(header, data);
