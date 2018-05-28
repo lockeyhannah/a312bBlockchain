@@ -1,4 +1,4 @@
-package util_tests;
+package blockchain.util_tests;
 
 import blockchain.utility.ByteUtils;
 import org.junit.jupiter.api.Test;

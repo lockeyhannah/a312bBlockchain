@@ -37,9 +37,8 @@ public class ChainAnalyzer {
         double balanceChange = 0;
         ArrayList<DataPoint> dataPoints = data.getDataPoints();
 
-        for (DataPoint dp : dataPoints) {
+        for (DataPoint dp : dataPoints)
             balanceChange += dp.getBalanceChange(userID);
-        }
 
         return balanceChange;
     }
