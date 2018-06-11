@@ -62,7 +62,7 @@ public class BlockBuilder {
             difficulty = previousHeader.getDifficultyTarget(); // todo Add difficulty calculation
         } else {
             // Otherwise set standard values
-            difficulty = BigInteger.TWO.pow(238).toByteArray();
+            difficulty = BigInteger.TWO.pow(232).toByteArray();
             prevHeaderHash = new byte[32];
         }
 
@@ -102,6 +102,10 @@ public class BlockBuilder {
         // Add data point to the block and return a unique identifier for this data point
         int dataPointNumber = data.addData(dp);
         return new DataPointUID(blockNumber, dataPointNumber);
+    }
+
+    public Data getCurrentData(){
+        return data;
     }
 
 

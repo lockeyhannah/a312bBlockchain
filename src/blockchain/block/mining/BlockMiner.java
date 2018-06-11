@@ -32,12 +32,21 @@ public class BlockMiner {
             hash = Hasher.applySHA(header.getBytes());
             hashInteger = new BigInteger(1, hash);
 
+            // Print progress every 100000 tries
+            if(nonce.mod(new BigInteger("100000")) == BigInteger.ZERO){
+                System.out.println("Mining Block. Current Nonce : " + nonce.toString());
+            }
+
             // Pick new timestamp and reset nonce if nonce value is above max
             if (nonce.compareTo(nonceMax) > 0) {
                 header.setTimeStamp(System.currentTimeMillis());
                 nonce = BigInteger.ONE;
             }
         }
+
+        System.out.println("Block mined. Nonce : " + nonce.toString());
+        System.out.println("Resulting hash : 0x" + Hasher.bytesToHexString(hash));
+        System.out.println();
 
         return new Block(header, data);
     }

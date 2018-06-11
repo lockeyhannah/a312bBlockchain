@@ -56,8 +56,12 @@ public class Data implements Serializable {
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        for (DataPoint dp : dataPoints)
+        for (DataPoint dp : dataPoints){
             sb.append(dp.getFormattedDataString());
+            sb.append("\n");
+        }
+
+        sb.deleteCharAt(sb.length() - 1);
 
         return sb.toString();
     }

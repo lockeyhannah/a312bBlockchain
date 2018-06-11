@@ -6,6 +6,8 @@ package blockchain.block;
  */
 
 
+import blockchain.utility.StringUtil;
+
 public class Block {
 
     // Represents the current version of the block chain
@@ -29,6 +31,8 @@ public class Block {
 
     // Prints out all block information including all data points
     public String toString() {
-        return header.toString() + data.toString();
+        return StringUtil.line(88) + "Header:\n" + StringUtil.line(88) + header.toString()
+                + StringUtil.line(88) + "Data:\n" + StringUtil.line(88) + data.toString()
+                + StringUtil.line(88);
     }
 }

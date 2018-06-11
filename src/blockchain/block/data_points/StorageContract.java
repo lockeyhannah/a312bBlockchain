@@ -7,6 +7,7 @@ package blockchain.block.data_points;
 import blockchain.utility.ByteUtils;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class StorageContract implements DataPoint {
 
@@ -40,11 +41,8 @@ public class StorageContract implements DataPoint {
 
     // Returns a formatted string containing contract information
     public String getFormattedDataString() {
-        return "File ID : " + fileId + "\n" +
-                "File owner ID : " + fileOwnerID + "\n" +
-                "Storage Unit IP address : " + storageUnitID + "\n" +
-                "Date for termination of contract : " + contractTerminationTime + "\n" +
-                "Reward for chunk : " + reward + "\n\n";
+        return String.format("Storage Contract\nFile Owner : %-10s | Storage unit : %-10s | Payment : %2.4f\n" +
+                "File id : %-13s | Expiration : %s\n", fileOwnerID, storageUnitID, reward, fileId, new Date(contractTerminationTime).toString());
     }
 
     public long getContractTerminationTime() {

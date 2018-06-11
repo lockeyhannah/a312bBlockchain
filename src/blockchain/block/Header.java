@@ -78,13 +78,10 @@ public class Header {
 
     @Override
     public String toString() {
-        return ("Block ID : " + getBlockId()) + "\n" +
-                "Block header hash : " + Hasher.bytesToHexString(Hasher.applySHA(getBytes())) + "\n" +
-                "Previous header hash : " + Hasher.bytesToHexString(getPrevHash()) + "\n" +
-                "Hash of block data : " + Hasher.bytesToHexString(getDataHash()) + "\n" +
-                "Nonce : " + Hasher.bytesToHexString(getNonce()) + "\n" +
-                "Target : " + new BigInteger(getTarget()).toString() + "\n" +
-                "TimeStamp : " + getTimeStamp() + "\n";
+        return String.format("Block ID : %d\nPrevious header hash : %s\nCurrent header hash  : %s\nHash target value    : %64s\n",
+                getBlockId(), Hasher.bytesToHexString(getPrevHash()),
+                Hasher.bytesToHexString(Hasher.applySHA(getBytes())),
+                Hasher.bytesToHexString(getDifficultyTarget()));
     }
 
     @Override

@@ -1,5 +1,6 @@
 package blockchain.ledger_file.convertion;
 
+import java.io.UncheckedIOException;
 import java.lang.reflect.ParameterizedType;
 
 public abstract class Converter<T> {
@@ -20,9 +21,12 @@ public abstract class Converter<T> {
 
     protected abstract short getOBJECT_TYPE_UID();
 
-    public boolean canConvert(Object o) { //todo add comment
+    // Tests if the given object o is an instance of T
+    public boolean canConvert(Object o) {
+        // Initializes an instance of T
         Class<T> type = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
         return type.isInstance(o);
+
     }
 
     public abstract int getByteSize();

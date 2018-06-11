@@ -22,9 +22,12 @@ public class TokenTransaction implements DataPoint {
 
     @Override
     public String getFormattedDataString() {
+        return String.format("Token Transaction\nGiver : %-10s | Recipient : %-10s | Tokens : %2.4f\n", giverID, recipientID, tokens);
+
+        /*
         return "Giver ID : " + giverID
                 + "\nRecipient ID : " + recipientID
-                + "\nCredit moved : " + tokens + "\n";
+                + "\nCredit moved : " + tokens + "\n";*/
     }
 
     @Override // Returns the bytes used for hashing
