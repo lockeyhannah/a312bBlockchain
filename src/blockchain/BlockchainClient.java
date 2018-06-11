@@ -79,6 +79,10 @@ public class BlockchainClient {
             System.out.println(ledgerReader.readBlock(l).toString() + "\n");
         }
 
+        if(blockCount == 0){
+            System.out.println("The ledger is empty");
+        }
+
     }
 
 }

@@ -6,6 +6,7 @@ import blockchain.block.data_points.DataPoint;
 import blockchain.block.mining.Hasher;
 
 import java.math.BigInteger;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -89,8 +90,11 @@ public class ChainAnalyzer {
 
         // Check that hash of data matches the dataHash value in the header
         byte[] dataHash = Hasher.applySHA(block.getData().getDataBytes());
-        if (Arrays.compare(dataHash, block.getHeader().getDataHash()) != 0)
+        if (Arrays.compare(dataHash, block.getHeader().getDataHash()) != 0){
+            System.out.println("Block " + block.getHeader().getBlockId() + " is invalid. Data hash does not match data.");
             return false;
+        }
+
 
         // If this is the first block don't check validity relative to previous block
         if (block.getHeader().getBlockId() == 0)

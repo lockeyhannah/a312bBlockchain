@@ -34,6 +34,7 @@ public class BlockchainDemo {
         System.out.println("3. Get user balance");
         System.out.println("4. Mine current block");
         System.out.println("5. Print chain");
+        System.out.println("6. Check chain validity");
         System.out.println("0. Exit\n\n");
 
         int readNum = scanner.nextInt();
@@ -58,6 +59,13 @@ public class BlockchainDemo {
                 break;
             case (5):
                 chainClient.printBlockChain();
+                break;
+            case (6):
+                if(chainClient.isChainValid()){
+                    System.out.println("Chain is valid");
+                }else{
+                    System.out.println("Chain is invalid");
+                }
                 break;
             default:
                 System.out.println("Invalid input. Please Try again");
@@ -121,7 +129,7 @@ public class BlockchainDemo {
     }
 
     private boolean continuePrompt(){
-        System.out.println("Do you wish to continue? (y/n) : ");
+        System.out.println("\nDo you wish to continue? (y/n) : ");
         String input = scanner.next();
 
         if(input.toLowerCase().contains("y") || input.toLowerCase().contains("yes"))

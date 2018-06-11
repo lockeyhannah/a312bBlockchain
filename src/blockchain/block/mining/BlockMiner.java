@@ -45,7 +45,8 @@ public class BlockMiner {
         }
 
         System.out.println("Block mined. Nonce : " + nonce.toString());
-        System.out.println("Resulting hash : 0x" + Hasher.bytesToHexString(hash));
+        System.out.println("Resulting hash : " + Hasher.bytesToHexString(hash));
+        System.out.println(String.format("Target value   : %64s", Hasher.bytesToHexString(target.toByteArray())));
         System.out.println();
 
         return new Block(header, data);

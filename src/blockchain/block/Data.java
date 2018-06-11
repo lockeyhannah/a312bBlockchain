@@ -10,7 +10,7 @@ import blockchain.utility.ByteUtils;
 import java.io.*;
 import java.util.ArrayList;
 
-public class Data implements Serializable {
+public class Data {
 
     private final ArrayList<DataPoint> dataPoints;
     private int dataPointCount;

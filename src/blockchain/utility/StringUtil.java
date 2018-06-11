@@ -1,6 +1,6 @@
 package blockchain.utility;
 
-public class StringUtil {
+public abstract class StringUtil {
 
     public static String line(int len){
         StringBuilder sb = new StringBuilder();

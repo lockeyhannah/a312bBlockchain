@@ -62,7 +62,7 @@ public class BlockBuilder {
             difficulty = previousHeader.getDifficultyTarget(); // todo Add difficulty calculation
         } else {
             // Otherwise set standard values
-            difficulty = BigInteger.TWO.pow(232).toByteArray();
+            difficulty = BigInteger.TWO.pow(235).toByteArray();
             prevHeaderHash = new byte[32];
         }
 
